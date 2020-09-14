@@ -1,13 +1,52 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+.grid-layout {
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    grid-template-areas: 'header' 'main' 'footer';
+    grid-template-rows: 4rem 1fr 3rem;
+}
+
+a {
+    text-decoration: none;
+    color: #efefef;
+}
+
+a:hover {
+    color: #ffbb00;
+}
+
+.header {
+    width: 100vw;
+    grid-area: header;
+    background-color: #203040;
+    color: #efefef;
+    display: grid;
+    align-content: center;
+}
+
+.main {
+    width: 100vw;
+    grid-area: main;
+}
+
+.footer {
+    width: 100vw;
+    grid-area: footer;
+    background-color: #203040;
+    color: #efefef;
+    display: grid;
+    justify-content: center;
+    align-content: center;
 }
