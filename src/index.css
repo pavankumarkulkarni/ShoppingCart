@@ -53,6 +53,15 @@ a:hover {
     flex-wrap: wrap;
 }
 
+.main-content {
+    flex: 4;
+    padding: 1rem;
+}
+
+.side-bar {
+    flex: 1
+}
+
 .footer {
     grid-area: footer;
     background-color: #203040;
@@ -69,10 +78,6 @@ a:hover {
     flex-wrap: wrap;
     flex-direction: row;
     justify-items: stretch;
-}
-
-.side-bar {
-    flex: 1
 }
 
 .product {
@@ -113,4 +118,26 @@ a:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+
+/* Filter bar styling */
+
+.filter-bar {
+    padding: 1rem 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid lightgray;
+}
+
+.filter-bar div {
+    display: inline-block;
+}
+
+select {
+    font-family: 'Montserrat', sans-serif, Helvetica, Arial, sans-serif;
+    font-size: 1rem;
+    outline: none;
+    padding: 0 1rem;
 }
