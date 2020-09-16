@@ -1,13 +1,13 @@
 import React from "react";
 
-export default function Product({ image, title, price, id }) {
+export default function Product({ product, addToCart }) {
   return (
     <div className="product">
-      <img src={image} alt="{title}" />
-      <p>{title}</p>
+      <img src={product.image} alt="{title}" />
+      <p>{product.title}</p>
       <div className="product-price">
-        <span>${price.toFixed(1)}</span>
-        <button>Add to Cart</button>
+        <span>${product.price.toFixed(1)}</span>
+        <button onClick={(e) => addToCart(product)}>Add to Cart</button>
       </div>
     </div>
   );
