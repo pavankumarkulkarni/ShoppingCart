@@ -54,12 +54,12 @@ a:hover {
 }
 
 .main-content {
-    flex: 4;
+    flex: 3;
     padding: 1rem;
 }
 
 .side-bar {
-    flex: 1
+    flex: 1;
 }
 
 .footer {
@@ -97,16 +97,16 @@ a:hover {
     margin: 0.75rem 0;
 }
 
-.product button {
+button {
     font-family: 'Montserrat';
-    padding: 0.75rem;
+    padding: 0.25rem 0.75rem;
     background-color: #ffbb00;
     font-size: 1.2rem;
     cursor: pointer;
     border: 1px solid #202020;
 }
 
-.product button:hover {
+button:hover {
     filter: brightness(110%)
 }
 
@@ -127,7 +127,7 @@ a:hover {
     padding: 1rem 0;
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     border-bottom: 1px solid lightgray;
 }
 
@@ -140,4 +140,48 @@ select {
     font-size: 1rem;
     outline: none;
     padding: 0 1rem;
+}
+
+
+/* Cart component */
+
+.cart {
+    margin: 1rem;
+}
+
+.cart-header {
+    padding: 1rem;
+    font-size: 1rem;
+    border-bottom: 1px solid lightgray;
+}
+
+.cart-card {
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.cart-card img {
+    width: 5rem;
+    margin-right: 2rem;
+}
+
+.cart-card p {
+    padding-bottom: 1rem;
+}
+
+.cart-card span {
+    margin-right: 2rem;
+    font-size: 1.4rem;
+}
+
+.cart-total {
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.cart-total span {
+    font-size: 1.8rem;
+    margin-right: 2rem;
 }

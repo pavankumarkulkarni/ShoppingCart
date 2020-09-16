@@ -3,18 +3,19 @@ import React, { Component } from "react";
 import data from "./Components/data/data";
 import Products from "./Components/Products/Products";
 import Filterbar from "./Components/Filterbar/Filterbar";
+import Cart from "./Components/Cart/Cart";
 
 class App extends Component {
   state = {
     products: data.products,
     size: "",
     sort: "latest",
+    cartItems: [],
   };
   filterBy = (event) => {
     // Get value from UI and filter
     const size = event.target.value;
     this.setState({ size: size }, this.filterProducts);
-    // this.filterProducts(size);
   };
 
   filterProducts = () => {
@@ -51,6 +52,28 @@ class App extends Component {
     const sort = event.target.value;
     this.setState({ sort: sort }, this.filterProducts);
   };
+
+  addToCart = (product) => {
+    let cartItems = this.state.cartItems.slice();
+    let inCart = false;
+    cartItems.forEach((item, index) => {
+      if (item._id === product._id) {
+        cartItems[index].count = item.count + 1;
+        inCart = true;
+      }
+    });
+    if (!inCart) {
+      cartItems.push({ ...product, count: 1 });
+    }
+    this.setState({ cartItems: cartItems });
+  };
+
+  removeFromCart = (product) => {
+    let cartItems = this.state.cartItems.slice();
+    this.setState({
+      cartItems: cartItems.filter((item) => item._id !== product._id),
+    });
+  };
   render() {
     return (
       <div className="grid-layout">
@@ -69,10 +92,18 @@ class App extends Component {
               />
             </div>
             <div className="products">
-              <Products products={this.state.products} />
+              <Products
+                products={this.state.products}
+                addToCart={this.addToCart}
+              />
             </div>
           </div>
-          <div className="side-bar">sidebar</div>
+          <div className="side-bar">
+            <Cart
+              cartItems={this.state.cartItems}
+              removeFromCart={this.removeFromCart}
+            />
+          </div>
         </div>
 
         <div className="footer">All rights reserved &copy;</div>
