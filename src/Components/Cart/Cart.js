@@ -1,4 +1,5 @@
 import React from "react";
+import CustomerDetails from "../CustomerDetails/CustomerDetails";
 
 export default function Cart({ cartItems, removeFromCart }) {
   const itemsCount =
@@ -37,6 +38,7 @@ export default function Cart({ cartItems, removeFromCart }) {
           <button>Proceed</button>
         </div>
       ) : null}
+      <CustomerDetails />
     </div>
   );
 }

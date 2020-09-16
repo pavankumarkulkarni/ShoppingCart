@@ -185,3 +185,24 @@ select {
     font-size: 1.8rem;
     margin-right: 2rem;
 }
+
+.customer-details {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.customer-details label {
+    color: gray;
+    margin-top: 1rem;
+    font-size: 0.8rem;
+}
+
+.customer-details input {
+    padding: 0.5rem 1rem;
+    font-family: 'Montserrat', sans-serif, Helvetica, Arial, sans-serif;
+}
+
+.customer-details button {
+    margin-top: 1rem;
+}
