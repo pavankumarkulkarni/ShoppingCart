@@ -10,7 +10,10 @@ class App extends Component {
     products: data.products,
     size: "",
     sort: "latest",
-    cartItems: [],
+    cartItems: sessionStorage.getItem("cartItems")
+      ? JSON.parse(sessionStorage.getItem("cartItems"))
+      : [],
+    customer: {},
   };
   filterBy = (event) => {
     // Get value from UI and filter
@@ -65,13 +68,39 @@ class App extends Component {
     if (!inCart) {
       cartItems.push({ ...product, count: 1 });
     }
+    sessionStorage.setItem("cartItems", JSON.stringify(cartItems));
     this.setState({ cartItems: cartItems });
   };
 
   removeFromCart = (product) => {
     let cartItems = this.state.cartItems.slice();
+    const updatedCartItems = cartItems.filter(
+      (item) => item._id !== product._id
+    );
     this.setState({
-      cartItems: cartItems.filter((item) => item._id !== product._id),
+      cartItems: updatedCartItems,
+    });
+    sessionStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
+  };
+
+  sendCustDetails = (customer) => {
+    this.setState(
+      {
+        customer: customer,
+      },
+      this.sendOrder
+    );
+  };
+
+  sendOrder = () => {
+    alert(`Order submitted for ${this.state.customer.name}`);
+
+    this.setState({
+      products: data.products,
+      size: "",
+      sort: "latest",
+      cartItems: [],
+      customer: {},
     });
   };
   render() {
@@ -102,6 +131,7 @@ class App extends Component {
             <Cart
               cartItems={this.state.cartItems}
               removeFromCart={this.removeFromCart}
+              sendCustDetails={this.sendCustDetails}
             />
           </div>
         </div>
