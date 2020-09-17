@@ -110,6 +110,12 @@ button:hover {
     filter: brightness(110%)
 }
 
+button.secondaryBtn {
+    background-color: #a0a0a0;
+    font-size: 1rem;
+    color: #fff;
+}
+
 .product span {
     font-size: 1.2rem;
 }
@@ -186,21 +192,36 @@ select {
     margin-right: 2rem;
 }
 
+
+/* Customer Details form */
+
 .customer-details {
+    margin-top: 1rem;
     width: 100%;
     display: flex;
     flex-direction: column;
 }
 
+.customer-details p {
+    font-weight: bold;
+}
+
 .customer-details label {
-    color: gray;
     margin-top: 1rem;
+    font-size: 1.2rem;
+}
+
+.customer-details p.label-hint {
     font-size: 0.8rem;
+    color: gray;
+    padding-left: 2rem;
 }
 
 .customer-details input {
     padding: 0.5rem 1rem;
     font-family: 'Montserrat', sans-serif, Helvetica, Arial, sans-serif;
+    border: 0.1px solid black;
+    border-radius: 5px;
 }
 
 .customer-details button {
