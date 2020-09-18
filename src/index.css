@@ -227,3 +227,83 @@ select {
 .customer-details button {
     margin-top: 1rem;
 }
+
+
+/* Product Modal */
+
+.overlay {
+    background-color: rgba(100, 100, 100, 0.9);
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.productModal {
+    display: flex;
+    position: fixed;
+    top: 5rem;
+    left: 5rem;
+    /* align-items: center; */
+    border: 0.1rem solid gray;
+    padding: 1rem 2rem;
+    height: 80vh;
+    width: 80vw;
+    justify-content: space-around;
+    z-index: 999;
+    background-color: #fff;
+    overflow: auto;
+}
+
+.modal-image {
+    flex: 1;
+    display: grid;
+    place-content: center;
+}
+
+.modal-image img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.modal-desc {
+    flex: 1;
+    display: grid;
+    place-content: center;
+}
+
+.modal-desc h3 {
+    margin-bottom: 2rem;
+}
+
+.btnClose {
+    background-color: #fff;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}
+
+.productModal p {
+    margin-bottom: 2rem;
+}
+
+.BtnSize {
+    background-color: #efefef;
+    margin-right: 1rem;
+    font-size: 0.8rem;
+}
+
+.modalPrice {
+    margin-top: 2rem;
+    display: flex;
+    /* justify-content: space-evenly; */
+    align-items: center;
+}
+
+.modalPrice span {
+    font-size: 2rem;
+    margin-right: 4rem;
+}

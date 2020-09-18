@@ -22,7 +22,6 @@ export default class Cart extends Component {
   };
 
   handleRemoveItems = (item) => {
-    console.log(`here:${this.itemsCount()}`);
     if (this.props.cartItems.length === 1) {
       this.setState({ showForm: false });
     }
