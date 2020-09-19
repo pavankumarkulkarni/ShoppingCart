@@ -1,6 +1,8 @@
 {
     "name": "capstone_project",
+    "proxy": "http://localhost:5000",
     "version": "0.1.0",
+    "secure": false,
     "private": true,
     "dependencies": {
         "@testing-library/jest-dom": "^4.2.4",
@@ -16,7 +18,7 @@
         "shortid": "^2.2.15"
     },
     "scripts": {
-        "server": "nodemon server.js",
+        "server": "nodemon server.js ",
         "start": "react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test",

@@ -1,13 +1,13 @@
 // Feature 1
 import React, { Component } from "react";
-import data from "./Components/data/data";
+// import data from "./Components/data/data";
 import Products from "./Components/Products/Products";
 import Filterbar from "./Components/Filterbar/Filterbar";
 import Cart from "./Components/Cart/Cart";
 
 class App extends Component {
   state = {
-    products: data.products,
+    products: [], //data.products,
     size: "",
     sort: "latest",
     cartItems: sessionStorage.getItem("cartItems")
@@ -15,40 +15,55 @@ class App extends Component {
       : [],
     customer: {},
   };
+
+  getData = async () => {
+    let res = await fetch("/api/products");
+    let data = await res.json();
+
+    return data;
+  };
+  componentDidMount = async () => {
+    let data = await this.getData();
+
+    this.setState({ products: data });
+  };
+
   filterBy = (event) => {
     // Get value from UI and filter
     const size = event.target.value;
     this.setState({ size: size }, this.filterProducts);
   };
 
-  filterProducts = () => {
-    let tempProducts = data.products.slice();
-    let filteredProducts;
-    const size = this.state.size;
-    if (size !== "") {
-      filteredProducts = tempProducts.filter(
-        (product) => product.availableSizes.indexOf(size) > -1
-      );
-    } else {
-      filteredProducts = tempProducts;
-    }
+  filterProducts = async () => {
+    let tempProducts = await this.getData();
+    if (tempProducts) {
+      let filteredProducts;
+      const size = this.state.size;
+      if (size !== "") {
+        filteredProducts = tempProducts.filter(
+          (product) => product.availableSizes.indexOf(size) > -1
+        );
+      } else {
+        filteredProducts = tempProducts;
+      }
 
-    // Sort based on state value
-    const sort = this.state.sort;
-    if (sort === "latest") {
-      filteredProducts.sort((a, b) => {
-        return a._id < b._id ? 1 : -1;
+      // Sort based on state value
+      const sort = this.state.sort;
+      if (sort === "latest") {
+        filteredProducts.sort((a, b) => {
+          return a._id < b._id ? 1 : -1;
+        });
+      } else if (sort === "highest") {
+        filteredProducts.sort((a, b) => b.price - a.price);
+      } else if (sort === "lowest") {
+        filteredProducts.sort((a, b) => a.price - b.price);
+      }
+
+      this.setState({
+        size: size,
+        products: filteredProducts,
       });
-    } else if (sort === "highest") {
-      filteredProducts.sort((a, b) => b.price - a.price);
-    } else if (sort === "lowest") {
-      filteredProducts.sort((a, b) => a.price - b.price);
     }
-
-    this.setState({
-      size: size,
-      products: filteredProducts,
-    });
   };
 
   sortBy = (event) => {
@@ -92,16 +107,18 @@ class App extends Component {
     );
   };
 
-  sendOrder = () => {
+  sendOrder = async () => {
     alert(`Order submitted for ${this.state.customer.name}`);
-
-    this.setState({
-      products: data.products,
-      size: "",
-      sort: "latest",
-      cartItems: [],
-      customer: {},
-    });
+    let data = await this.getData();
+    if (data) {
+      this.setState({
+        products: data,
+        size: "",
+        sort: "latest",
+        cartItems: [],
+        customer: {},
+      });
+    }
   };
   render() {
     return (

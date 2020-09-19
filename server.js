@@ -4,13 +4,26 @@ const mongoose = require("mongoose");
 const shortid = require("shortid");
 
 const app = express();
-app.use(bodyParser);
+// app.use(bodyParser);
+app.use(bodyParser.json());
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+);
 
-mongoose.connect("mongodb://localhost/shopping-cart-db", {
-  useNewUrlParser: true,
-  useCreateIndex: true,
-  useUnifiedTopology: true,
-});
+mongoose
+  .connect("mongodb://localhost/shopping-cart-db", {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true,
+  })
+  .then((res) => {
+    console.log("connected to db");
+  })
+  .catch((err) => {
+    console.error(`DB error ${err}`);
+  });
 
 const Product = mongoose.model(
   "Products",
@@ -25,19 +38,31 @@ const Product = mongoose.model(
 );
 
 app.get("/api/products", async (req, res) => {
-  const products = await Product.find({});
-  res.send(products);
+  try {
+    const products = await Product.find({});
+    res.send(products);
+  } catch (err) {
+    console.log("Error in get");
+  }
 });
 
-app.post("api/products", async (req, res) => {
-  const newProduct = new Product(req.body);
-  const savedProduct = await newProduct.save();
-  res.send(savedProduct);
+app.post("/api/products", async (req, res) => {
+  try {
+    const newProduct = new Product(req.body);
+    const savedProduct = await newProduct.save();
+    res.send(savedProduct);
+  } catch (err) {
+    console.log("Error in get");
+  }
 });
 
-app.delete("api/products:id", async (req, res) => {
-  const deletedProduct = await Product.findByIdAndDelete(req.params.id);
-  res.send(deletedProduct);
+app.delete("/api/products/:id", async (req, res) => {
+  try {
+    const deletedProduct = await Product.findByIdAndDelete(req.params.id);
+    res.send(deletedProduct);
+  } catch (err) {
+    console.log("Error in get");
+  }
 });
 
 const port = process.env.PORT || 5000;
