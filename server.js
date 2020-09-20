@@ -65,5 +65,40 @@ app.delete("/api/products/:id", async (req, res) => {
   }
 });
 
+const Order = mongoose.model(
+  "Orders",
+  new mongoose.Schema({
+    _id: { type: String, default: shortid.generate },
+    totalPrice: Number,
+    name: String,
+    email: String,
+    address: String,
+    cartItems: [
+      {
+        _id: String,
+        title: String,
+        count: Number,
+        price: Number,
+      },
+    ],
+  })
+);
+
+app.get("/api/orders", async (req, res) => {
+  const orders = await Order.find({});
+  res.send(orders);
+});
+
+app.post("/api/orders", async (req, res) => {
+  const order = await new Order(req.body);
+  const orderSaved = await order.save();
+  res.send(orderSaved);
+});
+
+app.delete("/api/orders/:id", async (req, res) => {
+  const orderDeleted = await Order.findByIdAndDelete(req.params.id);
+  res.send(orderDeleted);
+});
+
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`server at 'http://localhost:${port}`));

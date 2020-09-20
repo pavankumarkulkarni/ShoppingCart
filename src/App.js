@@ -14,17 +14,24 @@ class App extends Component {
       ? JSON.parse(sessionStorage.getItem("cartItems"))
       : [],
     customer: {},
+    totalPrice: 0,
   };
 
+  getOrders = async () => {
+    let o = await fetch("/api/orders");
+    let d = await o.json();
+    return d;
+  };
   getData = async () => {
     let res = await fetch("/api/products");
     let data = await res.json();
-
     return data;
   };
   componentDidMount = async () => {
     let data = await this.getData();
-
+    console.log(data);
+    let ord = await this.getOrders();
+    console.log(ord);
     this.setState({ products: data });
   };
 
@@ -98,17 +105,45 @@ class App extends Component {
     sessionStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
   };
 
-  sendCustDetails = (customer) => {
+  sendCustDetails = (customer, totalPrice) => {
     this.setState(
       {
         customer: customer,
+        totalPrice: totalPrice,
       },
       this.sendOrder
     );
   };
 
   sendOrder = async () => {
-    alert(`Order submitted for ${this.state.customer.name}`);
+    const order = {
+      name: this.state.customer.name,
+      email: this.state.customer.email,
+      address: this.state.customer.address,
+      totalPrice: this.state.totalPrice,
+      cartItems: this.state.cartItems,
+    };
+    const temp1 = await this.getData();
+    console.log(temp1);
+    const temp = await this.getOrders();
+    console.log(temp);
+
+    fetch("/api/orders", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(order),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(`order submitted. ${data}`);
+        // alert(`Order submitted for ${data.name}`);
+      })
+      .catch((err) => {
+        console.log(`Error in creating order.${err}`);
+      });
+    // alert(`Order submitted for ${this.state.customer.name}`);
     let data = await this.getData();
     if (data) {
       this.setState({

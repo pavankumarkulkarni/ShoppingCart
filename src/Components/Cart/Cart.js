@@ -30,7 +30,7 @@ export default class Cart extends Component {
 
   handleCustDetails = (customer) => {
     this.setState({ showForm: false });
-    this.props.sendCustDetails(customer);
+    this.props.sendCustDetails(customer, this.totalPrice().toFixed(2));
   };
   render() {
     return (
