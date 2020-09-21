@@ -5,6 +5,7 @@ import Products from "./Components/Products/Products";
 import Filterbar from "./Components/Filterbar/Filterbar";
 import Cart from "./Components/Cart/Cart";
 import OrderDetails from "./Components/OrderDetails/OrderDetails";
+import AdminModal from "./Components/AdminModal/AdminModal";
 
 class App extends Component {
   state = {
@@ -18,6 +19,8 @@ class App extends Component {
     totalPrice: 0,
     orderForm: false,
     order: {},
+    adminModal: false,
+    orderList: [],
   };
 
   getOrders = async () => {
@@ -164,11 +167,29 @@ class App extends Component {
     this.setState({ orderForm: false });
   };
 
+  // fetch orderlist
+  getOrderList = async () => {
+    const orderListRes = await fetch("/api/orders");
+    const orderList = await orderListRes.json();
+    return orderList;
+  };
+  closeAdminModal = () => {
+    this.setState({ adminModal: false });
+  };
+
+  openAdminModal = async () => {
+    const orderList = await this.getOrderList();
+    this.setState({ adminModal: true, orderList: orderList });
+  };
+
   render() {
     return (
       <div className="grid-layout">
         <div className="header">
           <a href="/">Shopping Cart</a>
+          <button className="headerBtn" onClick={this.openAdminModal}>
+            Admin
+          </button>
         </div>
         <div className="main">
           <div className="main-content">
@@ -198,6 +219,12 @@ class App extends Component {
         </div>
         {this.state.orderForm && (
           <OrderDetails order={this.state.order} closeModal={this.closeModal} />
+        )}
+        {this.state.adminModal && (
+          <AdminModal
+            closeModal={this.closeAdminModal}
+            orderList={this.state.orderList}
+          />
         )}
 
         <div className="footer">All rights reserved &copy;</div>

@@ -245,7 +245,7 @@ select {
 
 .productModal,
 .Modal {
-    display: flex;
+    /* display: flex; */
     position: fixed;
     top: 5rem;
     left: 5rem;
@@ -318,7 +318,7 @@ select {
     line-height: 1.5rem;
 }
 
-.orderModal .headline {
+.modal-headline {
     font-size: 2rem;
     margin-bottom: 1rem;
     color: #ffbb00;
@@ -343,4 +343,35 @@ select {
 .orderModal button {
     width: 100%;
     margin-top: 2rem;
+}
+
+
+/* Admin Modal */
+
+.headerBtn {
+    padding: none;
+    background-color: transparent;
+    border: 0.1rem solid #efefef;
+    color: #efefef;
+    font-size: 1rem;
+    outline: none;
+}
+
+.headerBtn:hover {
+    color: #ffbb00;
+    border: 0.1rem solid #ffbb00;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.orderListTable {
+    font-size: 0.8rem;
+}
+
+.orderListTable td {
+    padding: 0.5rem
 }
