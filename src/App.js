@@ -160,6 +160,10 @@ class App extends Component {
       });
     }
   };
+  closeModal = () => {
+    this.setState({ orderForm: false });
+  };
+
   render() {
     return (
       <div className="grid-layout">
@@ -192,7 +196,9 @@ class App extends Component {
             />
           </div>
         </div>
-        {this.state.orderForm && <OrderDetails order={this.state.order} />}
+        {this.state.orderForm && (
+          <OrderDetails order={this.state.order} closeModal={this.closeModal} />
+        )}
 
         <div className="footer">All rights reserved &copy;</div>
       </div>

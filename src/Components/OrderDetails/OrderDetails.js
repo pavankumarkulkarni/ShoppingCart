@@ -4,24 +4,27 @@ import { WithModal } from "../HOC/Modal";
 function Details(props) {
   const items = props.order.cartItems.map((item) => {
     return (
-      <ul key={item._id}>
-        <li> Dress: {item.title}</li>
-        <li>
+      <tr key={item._id}>
+        <td>{item.title}</td>
+        <td>
           {" "}
-          {item.count} x {item.price}
-        </li>
-      </ul>
+          {item.count} x ${item.price}
+        </td>
+      </tr>
     );
   });
   return (
-    <div>
+    <div className="orderModal">
+      <h3 className="headline">Order Details</h3>
       <h4>Order ID: {props.order._id}</h4>
+      <h4 className="subsection">Customer</h4>
       <p>Name: {props.order.name}</p>
       <p>Email: {props.order.email}</p>
       <p>Address: {props.order.address}</p>
-      {items}
-      <h4>Total price: ${props.order.totalPrice}</h4>
-      <button>Close</button>
+      <h4 className="subsection">Order</h4>
+      <table className="subsection">{items}</table>
+      <h4 className="total">Total price: ${props.order.totalPrice}</h4>
+      <button onClick={props.closeModal}>Close</button>
     </div>
   );
 }
