@@ -4,6 +4,7 @@ import React, { Component } from "react";
 import Products from "./Components/Products/Products";
 import Filterbar from "./Components/Filterbar/Filterbar";
 import Cart from "./Components/Cart/Cart";
+import OrderDetails from "./Components/OrderDetails/OrderDetails";
 
 class App extends Component {
   state = {
@@ -14,17 +15,26 @@ class App extends Component {
       ? JSON.parse(sessionStorage.getItem("cartItems"))
       : [],
     customer: {},
+    totalPrice: 0,
+    orderForm: false,
+    order: {},
   };
 
+  getOrders = async () => {
+    let o = await fetch("/api/orders");
+    let d = await o.json();
+    return d;
+  };
   getData = async () => {
     let res = await fetch("/api/products");
     let data = await res.json();
-
     return data;
   };
   componentDidMount = async () => {
     let data = await this.getData();
-
+    // console.log(data);
+    // let ord = await this.getOrders();
+    // console.log(ord);
     this.setState({ products: data });
   };
 
@@ -98,17 +108,47 @@ class App extends Component {
     sessionStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
   };
 
-  sendCustDetails = (customer) => {
+  sendCustDetails = (customer, totalPrice) => {
     this.setState(
       {
         customer: customer,
+        totalPrice: totalPrice,
       },
       this.sendOrder
     );
   };
 
+  prepareOrder = async () => {
+    const order = {
+      name: this.state.customer.name,
+      email: this.state.customer.email,
+      address: this.state.customer.address,
+      totalPrice: this.state.totalPrice,
+      cartItems: this.state.cartItems,
+    };
+
+    const res = await fetch("/api/orders", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(order),
+    });
+    const data = await res.json();
+    return data;
+  };
+
   sendOrder = async () => {
-    alert(`Order submitted for ${this.state.customer.name}`);
+    const order = await this.prepareOrder();
+    if (order) {
+      this.setState({ orderForm: true, order: order });
+      console.log(order);
+    }
+    // console.log(`order submitted. ${data}`);
+    // this.setOrder(data);
+    // alert(`Order submitted for ${data.name}`);
+
+    // alert(`Order submitted for ${this.state.customer.name}`);
     let data = await this.getData();
     if (data) {
       this.setState({
@@ -120,6 +160,10 @@ class App extends Component {
       });
     }
   };
+  closeModal = () => {
+    this.setState({ orderForm: false });
+  };
+
   render() {
     return (
       <div className="grid-layout">
@@ -152,6 +196,9 @@ class App extends Component {
             />
           </div>
         </div>
+        {this.state.orderForm && (
+          <OrderDetails order={this.state.order} closeModal={this.closeModal} />
+        )}
 
         <div className="footer">All rights reserved &copy;</div>
       </div>

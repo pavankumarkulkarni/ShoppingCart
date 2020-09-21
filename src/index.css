@@ -243,7 +243,8 @@ select {
     width: 100%;
 }
 
-.productModal {
+.productModal,
+.Modal {
     display: flex;
     position: fixed;
     top: 5rem;
@@ -307,4 +308,39 @@ select {
 .modalPrice span {
     font-size: 2rem;
     margin-right: 4rem;
+}
+
+
+/* Order Modal  */
+
+.orderModal {
+    margin-top: 2rem;
+    line-height: 1.5rem;
+}
+
+.orderModal .headline {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #ffbb00;
+}
+
+.orderModal .subsection {
+    padding: 0.5rem;
+    border-bottom: 0.1rem solid gray;
+    margin-bottom: 1rem;
+}
+
+.orderModal td {
+    padding-right: 2rem;
+}
+
+.orderModal .total {
+    text-align: right;
+    padding-right: 2rem;
+    font-size: 1.2rem;
+}
+
+.orderModal button {
+    width: 100%;
+    margin-top: 2rem;
 }
