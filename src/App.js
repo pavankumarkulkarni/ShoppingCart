@@ -4,6 +4,7 @@ import React, { Component } from "react";
 import Products from "./Components/Products/Products";
 import Filterbar from "./Components/Filterbar/Filterbar";
 import Cart from "./Components/Cart/Cart";
+import OrderDetails from "./Components/OrderDetails/OrderDetails";
 
 class App extends Component {
   state = {
@@ -15,6 +16,8 @@ class App extends Component {
       : [],
     customer: {},
     totalPrice: 0,
+    orderForm: false,
+    order: {},
   };
 
   getOrders = async () => {
@@ -29,9 +32,9 @@ class App extends Component {
   };
   componentDidMount = async () => {
     let data = await this.getData();
-    console.log(data);
-    let ord = await this.getOrders();
-    console.log(ord);
+    // console.log(data);
+    // let ord = await this.getOrders();
+    // console.log(ord);
     this.setState({ products: data });
   };
 
@@ -115,7 +118,7 @@ class App extends Component {
     );
   };
 
-  sendOrder = async () => {
+  prepareOrder = async () => {
     const order = {
       name: this.state.customer.name,
       email: this.state.customer.email,
@@ -123,26 +126,28 @@ class App extends Component {
       totalPrice: this.state.totalPrice,
       cartItems: this.state.cartItems,
     };
-    const temp1 = await this.getData();
-    console.log(temp1);
-    const temp = await this.getOrders();
-    console.log(temp);
 
-    fetch("/api/orders", {
+    const res = await fetch("/api/orders", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(order),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(`order submitted. ${data}`);
-        // alert(`Order submitted for ${data.name}`);
-      })
-      .catch((err) => {
-        console.log(`Error in creating order.${err}`);
-      });
+    });
+    const data = await res.json();
+    return data;
+  };
+
+  sendOrder = async () => {
+    const order = await this.prepareOrder();
+    if (order) {
+      this.setState({ orderForm: true, order: order });
+      console.log(order);
+    }
+    // console.log(`order submitted. ${data}`);
+    // this.setOrder(data);
+    // alert(`Order submitted for ${data.name}`);
+
     // alert(`Order submitted for ${this.state.customer.name}`);
     let data = await this.getData();
     if (data) {
@@ -187,6 +192,7 @@ class App extends Component {
             />
           </div>
         </div>
+        {this.state.orderForm && <OrderDetails order={this.state.order} />}
 
         <div className="footer">All rights reserved &copy;</div>
       </div>

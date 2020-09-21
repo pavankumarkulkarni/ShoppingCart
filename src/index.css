@@ -243,7 +243,8 @@ select {
     width: 100%;
 }
 
-.productModal {
+.productModal,
+.Modal {
     display: flex;
     position: fixed;
     top: 5rem;
