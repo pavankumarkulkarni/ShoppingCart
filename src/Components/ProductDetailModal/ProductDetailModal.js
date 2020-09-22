@@ -3,7 +3,7 @@ import { WithModal } from "../HOC/Modal";
 
 function ProductDetail({ product, closeModal, addToCart }) {
   return (
-    <>
+    <div className="productModal">
       <div className="modal-image">
         <img src={product.image} alt={product.title} />
       </div>
@@ -22,7 +22,7 @@ function ProductDetail({ product, closeModal, addToCart }) {
           <button onClick={(e) => addToCart(product)}>Add to Cart</button>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

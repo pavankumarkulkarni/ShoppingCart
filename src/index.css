@@ -3,7 +3,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    /* border: 1px solid #f00 !important; */
 }
 
 html,
@@ -73,19 +72,21 @@ a:hover {
 }
 
 .products {
+    margin: 0 auto;
     flex: 4;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
     justify-items: stretch;
+    justify-content: center;
 }
 
 .product {
-    /* border: 1px solid green; */
     width: 22rem;
     height: 30rem;
     display: inline-block;
     margin: 0.5rem;
+    text-align: center;
 }
 
 .product img {
@@ -243,13 +244,19 @@ select {
     width: 100%;
 }
 
-.productModal,
+.productModal {
+    display: flex;
+    align-items: center;
+    padding: 1rem 2rem;
+    justify-content: space-around;
+    background-color: #fff;
+    overflow: auto;
+}
+
 .Modal {
-    /* display: flex; */
     position: fixed;
     top: 5rem;
     left: 5rem;
-    /* align-items: center; */
     border: 0.1rem solid gray;
     padding: 1rem 2rem;
     height: 80vh;
@@ -301,7 +308,6 @@ select {
 .modalPrice {
     margin-top: 2rem;
     display: flex;
-    /* justify-content: space-evenly; */
     align-items: center;
 }
 
@@ -314,7 +320,8 @@ select {
 /* Order Modal  */
 
 .orderModal {
-    margin-top: 2rem;
+    width: 50%;
+    margin: 2rem auto;
     line-height: 1.5rem;
 }
 
@@ -322,9 +329,10 @@ select {
     font-size: 2rem;
     margin-bottom: 1rem;
     color: #ffbb00;
+    text-align: center;
 }
 
-.orderModal .subsection {
+.subsection {
     padding: 0.5rem;
     border-bottom: 0.1rem solid gray;
     margin-bottom: 1rem;
@@ -370,8 +378,21 @@ select {
 
 .orderListTable {
     font-size: 0.8rem;
+    margin: 0 auto;
 }
 
 .orderListTable td {
     padding: 0.5rem
+}
+
+.orderList {
+    margin: 1rem 2rem;
+}
+
+table.orderListTable {
+    border-collapse: collapse;
+}
+
+table.orderListTable tr {
+    border-bottom: 0.1rem solid #ffbb00;
 }

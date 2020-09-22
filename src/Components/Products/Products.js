@@ -32,7 +32,7 @@ export default class Products extends React.Component {
     ));
 
     return (
-      <div>
+      <>
         {product}
         {this.state.showModal ? (
           <ProductDetailModal
@@ -41,7 +41,7 @@ export default class Products extends React.Component {
             addToCart={this.addToCartAndClose}
           />
         ) : null}
-      </div>
+      </>
     );
   }
 }

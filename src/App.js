@@ -145,7 +145,7 @@ class App extends Component {
     const order = await this.prepareOrder();
     if (order) {
       this.setState({ orderForm: true, order: order });
-      console.log(order);
+      // console.log(order);
     }
     // console.log(`order submitted. ${data}`);
     // this.setOrder(data);
@@ -180,6 +180,20 @@ class App extends Component {
   openAdminModal = async () => {
     const orderList = await this.getOrderList();
     this.setState({ adminModal: true, orderList: orderList });
+  };
+
+  deleteOrder = async (id) => {
+    fetch(`/api/orders/${id}`, { method: "DELETE" })
+      .then((res) => res.json())
+      .then((data) => {
+        alert(`${id} Order deleted!`);
+      })
+      .catch((err) => {
+        alert(`Error in deleting order ${err}`);
+      });
+    const orderList = await this.getOrderList();
+    this.setState({ orderList: orderList });
+    this.openAdminModal();
   };
 
   render() {
@@ -224,6 +238,7 @@ class App extends Component {
           <AdminModal
             closeModal={this.closeAdminModal}
             orderList={this.state.orderList}
+            deleteOrder={this.deleteOrder}
           />
         )}
 
