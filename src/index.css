@@ -193,8 +193,11 @@ button.secondaryBtn {
     margin-right: 4rem;
 }
 
-
-/* Admin Modal */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
 .headerBtn {
     padding: none;
@@ -208,31 +211,4 @@ button.secondaryBtn {
 .headerBtn:hover {
     color: #ffbb00;
     border: 0.1rem solid #ffbb00;
-}
-
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.orderListTable {
-    font-size: 0.8rem;
-    margin: 0 auto;
-}
-
-.orderListTable td {
-    padding: 0.5rem
-}
-
-.orderList {
-    margin: 1rem 2rem;
-}
-
-table.orderListTable {
-    border-collapse: collapse;
-}
-
-table.orderListTable tr {
-    border-bottom: 0.1rem solid #ffbb00;
 }
