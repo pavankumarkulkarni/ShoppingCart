@@ -11,8 +11,8 @@ app.use(
     extended: true,
   })
 );
-const MONGO_CLOUD_URI =
-  "mongodb+srv://ra13pa:ra13pa@cluster0.hath2.mongodb.net/<dbname>?retryWrites=true&w=majority";
+const MONGO_CLOUD_URI = null;
+// "mongodb+srv://ra13pa:ra13pa@cluster0.hath2.mongodb.net/<dbname>?retryWrites=true&w=majority";
 mongoose
   .connect(MONGO_CLOUD_URI || "mongodb://localhost/shopping-cart-db", {
     useNewUrlParser: true,

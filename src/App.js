@@ -29,9 +29,14 @@ class App extends Component {
     return d;
   };
   getData = async () => {
-    let res = await fetch("/api/products");
-    let data = await res.json();
-    return data;
+    try {
+      let res = await fetch("/api/products");
+      let data = await res.json();
+      return data;
+    } catch (error) {
+      console.log(`Error in getting products data ${error}`);
+      return;
+    }
   };
   componentDidMount = async () => {
     let data = await this.getData();
