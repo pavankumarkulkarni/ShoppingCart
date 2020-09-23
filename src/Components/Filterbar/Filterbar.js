@@ -4,8 +4,8 @@ import style from "./Filterbar.module.css";
 export default function Filterbar({ count, size, sort, filterBy, sortBy }) {
   return (
     <>
-      <div className="result-count">Product count : {count}</div>
-      <div className="product-sort">
+      <div>Product count : {count}</div>
+      <div>
         Sort By :{" "}
         <select
           className={style.filterselect}
@@ -18,7 +18,7 @@ export default function Filterbar({ count, size, sort, filterBy, sortBy }) {
           <option value="highest">Highest</option>
         </select>
       </div>
-      <div className="product-filter">
+      <div>
         Filter By :{" "}
         <select
           className={style.filterselect}
