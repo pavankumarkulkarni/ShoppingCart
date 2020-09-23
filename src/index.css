@@ -233,36 +233,11 @@ select {
 
 /* Product Modal */
 
-.overlay {
-    background-color: rgba(100, 100, 100, 0.9);
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    height: 100%;
-    width: 100%;
-}
-
 .productModal {
     display: flex;
     align-items: center;
     padding: 1rem 2rem;
     justify-content: space-around;
-    background-color: #fff;
-    overflow: auto;
-}
-
-.Modal {
-    position: fixed;
-    top: 5rem;
-    left: 5rem;
-    border: 0.1rem solid gray;
-    padding: 1rem 2rem;
-    height: 80vh;
-    width: 80vw;
-    justify-content: space-around;
-    z-index: 999;
     background-color: #fff;
     overflow: auto;
 }
