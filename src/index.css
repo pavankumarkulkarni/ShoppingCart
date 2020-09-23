@@ -139,47 +139,6 @@ button.secondaryBtn {
     border-bottom: 1px solid lightgray;
 }
 
-.cart {
-    margin: 1rem;
-}
-
-.cart-header {
-    padding: 1rem;
-    font-size: 1rem;
-    border-bottom: 1px solid lightgray;
-}
-
-.cart-card {
-    padding: 1rem;
-    display: flex;
-    align-items: center;
-}
-
-.cart-card img {
-    width: 5rem;
-    margin-right: 2rem;
-}
-
-.cart-card p {
-    padding-bottom: 1rem;
-}
-
-.cart-card span {
-    margin-right: 2rem;
-    font-size: 1.4rem;
-}
-
-.cart-total {
-    display: flex;
-    align-items: center;
-    margin-top: 1rem;
-}
-
-.cart-total span {
-    font-size: 1.8rem;
-    margin-right: 2rem;
-}
-
 
 /* Product Modal */
 

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import CustomerDetails from "../CustomerDetails/CustomerDetails";
+import style from "./Cart.module.css";
 
 export default class Cart extends Component {
   constructor(props) {
@@ -34,15 +35,15 @@ export default class Cart extends Component {
   };
   render() {
     return (
-      <div className="cart">
-        <div className="cart-header">
+      <div className={style.cart}>
+        <div className={style.cartheader}>
           {this.props.cartItems.length === 0
             ? "Cart is empty"
             : `You have ${this.itemsCount()} items in cart.`}
         </div>
         {this.props.cartItems.map((item) => {
           return (
-            <div className="cart-card" key={item._id}>
+            <div className={style.cartcard} key={item._id}>
               <div>
                 <img src={item.image} alt={item.title} />
               </div>
@@ -52,7 +53,7 @@ export default class Cart extends Component {
                   ${item.price} x {item.count}
                 </span>
                 <button
-                  className="secondaryBtn"
+                  className={style.secondaryBtn}
                   onClick={(e) => this.handleRemoveItems(item)}
                 >
                   Remove
@@ -62,7 +63,7 @@ export default class Cart extends Component {
           );
         })}
         {this.itemsCount() > 0 ? (
-          <div className="cart-total">
+          <div className={style.carttotal}>
             <span>Total : ${this.totalPrice().toFixed(2)} </span>
             <button onClick={(e) => this.setState({ showForm: true })}>
               Proceed
