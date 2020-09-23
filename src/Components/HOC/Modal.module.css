@@ -22,3 +22,10 @@
     background-color: #fff;
     overflow: auto;
 }
+
+.closebutton {
+    background-color: #fff;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}

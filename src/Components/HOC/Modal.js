@@ -3,7 +3,6 @@ import style from "./Modal.module.css";
 
 export function WithModal(component) {
   const Component = component;
-  // const overlay = {}
   return function (props) {
     const { closeModal } = props;
     const handleClick = (e) => {
@@ -15,7 +14,7 @@ export function WithModal(component) {
       <div className={style.overlay} onClick={handleClick}>
         <div className={style.modal}>
           <Component {...props} />
-          <button className="btnClose" onClick={closeModal}>
+          <button className={style.closebutton} onClick={closeModal}>
             X
           </button>
         </div>
