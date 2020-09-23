@@ -139,14 +139,6 @@ button.secondaryBtn {
     border-bottom: 1px solid lightgray;
 }
 
-
-/* .filter-bar div {
-    display: inline-block;
-} */
-
-
-/* Cart component */
-
 .cart {
     margin: 1rem;
 }
@@ -186,42 +178,6 @@ button.secondaryBtn {
 .cart-total span {
     font-size: 1.8rem;
     margin-right: 2rem;
-}
-
-
-/* Customer Details form */
-
-.customer-details {
-    margin-top: 1rem;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
-.customer-details p {
-    font-weight: bold;
-}
-
-.customer-details label {
-    margin-top: 1rem;
-    font-size: 1.2rem;
-}
-
-.customer-details p.label-hint {
-    font-size: 0.8rem;
-    color: gray;
-    padding-left: 2rem;
-}
-
-.customer-details input {
-    padding: 0.5rem 1rem;
-    font-family: 'Montserrat', sans-serif, Helvetica, Arial, sans-serif;
-    border: 0.1px solid black;
-    border-radius: 5px;
-}
-
-.customer-details button {
-    margin-top: 1rem;
 }
 
 
@@ -276,43 +232,6 @@ button.secondaryBtn {
 .modalPrice span {
     font-size: 2rem;
     margin-right: 4rem;
-}
-
-
-/* Order Modal  */
-
-.orderModal {
-    width: 50%;
-    margin: 2rem auto;
-    line-height: 1.5rem;
-}
-
-.modal-headline {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-    color: #ffbb00;
-    text-align: center;
-}
-
-.subsection {
-    padding: 0.5rem;
-    border-bottom: 0.1rem solid gray;
-    margin-bottom: 1rem;
-}
-
-.orderModal td {
-    padding-right: 2rem;
-}
-
-.orderModal .total {
-    text-align: right;
-    padding-right: 2rem;
-    font-size: 1.2rem;
-}
-
-.orderModal button {
-    width: 100%;
-    margin-top: 2rem;
 }
 
 

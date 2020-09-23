@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import style from "./CustomerDetails.module.css";
 
 export default class CustomerDetails extends Component {
   state = {
@@ -19,10 +20,10 @@ export default class CustomerDetails extends Component {
   };
   render() {
     return (
-      <form className="customer-details" onSubmit={this.orderSubmit}>
+      <form className={style.customerdetails} onSubmit={this.orderSubmit}>
         <p>Customer Details</p>
         <label htmlFor="name"> Name : </label>
-        <p className="label-hint">John Doe</p>
+        <p className={style.labelhint}>John Doe</p>
         <input
           type="text"
           name="name"
@@ -31,7 +32,7 @@ export default class CustomerDetails extends Component {
           onChange={this.handleChange}
         />
         <label htmlFor="name"> email : </label>
-        <p className="label-hint">John.Doe@gmail.com</p>
+        <p className={style.labelhint}>John.Doe@gmail.com</p>
         <input
           type="email"
           name="email"
@@ -40,7 +41,7 @@ export default class CustomerDetails extends Component {
           onChange={this.handleChange}
         />
         <label htmlFor="name"> Address : </label>
-        <p className="label-hint">123 main st some city my state 12345</p>
+        <p className={style.labelhint}>123 main st some city my state 12345</p>
         <input
           type="text"
           name="address"
