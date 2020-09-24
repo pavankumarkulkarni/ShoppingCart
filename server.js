@@ -11,10 +11,10 @@ app.use(
     extended: true,
   })
 );
-const MONGO_CLOUD_URI =
-  "mongodb+srv://ra13pa:ra13pa@cluster0.hath2.mongodb.net/<dbname>?retryWrites=true&w=majority";
+// const MONGO_CLOUD_URI =
+//   "mongodb+srv://ra13pa:ra13pa@cluster0.hath2.mongodb.net/<dbname>?retryWrites=true&w=majority";
 mongoose
-  .connect(MONGO_CLOUD_URI || "mongodb://localhost/shopping-cart-db", {
+  .connect(process.env.MONGODB_URI || "mongodb://localhost/shopping-cart-db", {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true,
@@ -157,15 +157,15 @@ const Order = mongoose.model(
   })
 );
 
-app.get("/api/orders", async (req, res) => {
-  const orders = await Order.find({});
-  res.send(orders);
-});
-
 app.post("/api/orders", async (req, res) => {
   const order = await new Order(req.body);
   const orderSaved = await order.save();
   res.send(orderSaved);
+});
+
+app.get("/api/orders", async (req, res) => {
+  const orders = await Order.find({});
+  res.send(orders);
 });
 
 app.delete("/api/orders/:id", async (req, res) => {
@@ -174,4 +174,8 @@ app.delete("/api/orders/:id", async (req, res) => {
 });
 
 const port = process.env.PORT || 5000;
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("build"));
+}
 app.listen(port, () => console.log(`server at 'http://localhost:${port}`));
