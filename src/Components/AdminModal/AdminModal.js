@@ -1,5 +1,6 @@
 import React from "react";
 import { WithModal } from "../HOC/Modal";
+import style from "./AdminModal.module.css";
 
 function Admin({ orderList, deleteOrder }) {
   const orderlist = orderList.map((order) => {
@@ -37,7 +38,7 @@ function Admin({ orderList, deleteOrder }) {
         </td>
         <td valign="bottom">
           <button
-            className="secondaryBtn"
+            className={style.secondaryBtn}
             onClick={(e) => deleteOrder(order._id)}
           >
             delete
@@ -47,10 +48,10 @@ function Admin({ orderList, deleteOrder }) {
     );
   });
   return (
-    <div className="orderList">
-      <h3 className="modal-headline">Order List</h3>
+    <div className={style.orderList}>
+      <h3 className={style.modalheadline}>Order List</h3>
 
-      <table className="orderListTable">
+      <table className={style.orderListTable}>
         <caption>
           Order List table order id, customer details, order details and option
           to delete order.

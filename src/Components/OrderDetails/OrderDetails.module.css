@@ -1,0 +1,29 @@
+/* Order Modal  */
+
+.orderModal {
+    width: 50%;
+    margin: 2rem auto;
+    line-height: 1.5rem;
+}
+
+.modalheadline {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #ffbb00;
+    text-align: center;
+}
+
+.subsection {
+    padding: 0.5rem;
+    border-bottom: 0.1rem solid gray;
+    margin-bottom: 1rem;
+}
+
+.orderModal td {
+    padding-right: 2rem;
+}
+
+.orderModal button {
+    width: 100%;
+    margin-top: 2rem;
+}

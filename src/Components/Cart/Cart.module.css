@@ -1,0 +1,46 @@
+.cart {
+    margin: 1rem;
+}
+
+.cartheader {
+    padding: 1rem;
+    font-size: 1rem;
+    border-bottom: 1px solid lightgray;
+}
+
+.cartcard {
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.cartcard img {
+    width: 5rem;
+    margin-right: 2rem;
+}
+
+.cartcard p {
+    padding-bottom: 1rem;
+}
+
+.cartcard span {
+    margin-right: 2rem;
+    font-size: 1.4rem;
+}
+
+.carttotal {
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.carttotal span {
+    font-size: 1.8rem;
+    margin-right: 2rem;
+}
+
+.secondaryBtn {
+    background-color: #a0a0a0;
+    font-size: 1rem;
+    color: #fff;
+}

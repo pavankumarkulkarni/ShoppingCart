@@ -1,5 +1,6 @@
 import React from "react";
 import { WithModal } from "../HOC/Modal";
+import style from "./OrderDetails.module.css";
 
 function Details(props) {
   const items = props.order.cartItems.map((item) => {
@@ -13,14 +14,14 @@ function Details(props) {
     );
   });
   return (
-    <div className="orderModal">
-      <h3 className="modal-headline">Order Details</h3>
+    <div className={style.orderModal}>
+      <h3 className={style.modalheadline}>Order Details</h3>
       <h4>Order ID: {props.order._id}</h4>
-      <h4 className="subsection">Customer</h4>
+      <h4 className={style.subsection}>Customer</h4>
       <p>Name: {props.order.name}</p>
       <p>Email: {props.order.email}</p>
       <p>Address: {props.order.address}</p>
-      <h4 className="subsection">Order</h4>
+      <h4 className={style.subsection}>Order</h4>
       <table>
         <tbody>
           {items}
