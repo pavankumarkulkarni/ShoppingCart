@@ -1,23 +1,24 @@
 import React from "react";
 import { WithModal } from "../HOC/Modal";
+import style from "./ProductDetailModal.module.css";
 
 function ProductDetail({ product, closeModal, addToCart }) {
   return (
-    <div className="productModal">
-      <div className="modal-image">
+    <div className={style.productModal}>
+      <div className={style.modalimage}>
         <img src={product.image} alt={product.title} />
       </div>
-      <div className="modal-desc">
+      <div className={style.modaldesc}>
         <h3>{product.title}</h3>
         <p>{product.description}</p>
         <div className="modalSizes">
           {product.availableSizes.map((size) => (
-            <button className="BtnSize" key={size}>
+            <button className={style.BtnSize} key={size}>
               {size}
             </button>
           ))}
         </div>
-        <div className="modalPrice">
+        <div className={style.modalPrice}>
           <span>${product.price}</span>
           <button onClick={(e) => addToCart(product)}>Add to Cart</button>
         </div>

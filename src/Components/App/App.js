@@ -1,11 +1,11 @@
 // Feature 1
 import React, { Component } from "react";
-// import data from "./Components/data/data";
-import Products from "./Components/Products/Products";
-import Filterbar from "./Components/Filterbar/Filterbar";
-import Cart from "./Components/Cart/Cart";
-import OrderDetails from "./Components/OrderDetails/OrderDetails";
-import AdminModal from "./Components/AdminModal/AdminModal";
+import Products from "../Products/Products";
+import Filterbar from "../Filterbar/Filterbar";
+import Cart from "../Cart/Cart";
+import OrderDetails from "../OrderDetails/OrderDetails";
+import AdminModal from "../AdminModal/AdminModal";
+import style from "./App.module.css";
 
 class App extends Component {
   state = {
@@ -203,16 +203,16 @@ class App extends Component {
 
   render() {
     return (
-      <div className="grid-layout">
-        <div className="header">
+      <div className={style.gridlayout}>
+        <div className={style.header}>
           <a href="/">Shopping Cart</a>
-          <button className="headerBtn" onClick={this.openAdminModal}>
+          <button className={style.headerBtn} onClick={this.openAdminModal}>
             Admin
           </button>
         </div>
-        <div className="main">
-          <div className="main-content">
-            <div className="filter-bar">
+        <div className={style.main}>
+          <div className={style.maincontent}>
+            <div className={style.filterbar}>
               <Filterbar
                 count={this.state.products.length}
                 sort={this.state.sort}
@@ -221,14 +221,14 @@ class App extends Component {
                 sortBy={this.sortBy}
               />
             </div>
-            <div className="products">
+            <div className={style.products}>
               <Products
                 products={this.state.products}
                 addToCart={this.addToCart}
               />
             </div>
           </div>
-          <div className="side-bar">
+          <div className={style.sidebar}>
             <Cart
               cartItems={this.state.cartItems}
               removeFromCart={this.removeFromCart}
@@ -247,7 +247,7 @@ class App extends Component {
           />
         )}
 
-        <div className="footer">All rights reserved &copy;</div>
+        <div className={style.footer}>All rights reserved &copy;</div>
       </div>
     );
   }
