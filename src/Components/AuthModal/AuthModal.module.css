@@ -1,0 +1,52 @@
+.auth {
+    width: 30%;
+    margin: 5rem auto;
+    padding: 2rem;
+    color: #fff
+}
+
+.authform {
+    padding-top: 2rem;
+}
+
+.authform input {
+    width: 100%;
+    display: block;
+    padding: 0.5rem;
+    margin: 1rem 0;
+    outline: none;
+}
+
+.signin {
+    width: 50%;
+    background-color: #501b1d;
+    outline: none;
+    color: #fff;
+    font-weight: bold;
+    padding: 0.5rem;
+    border: none;
+}
+
+.enter {
+    margin-top: 1rem;
+    background-color: #501b1d;
+    color: #fff
+}
+
+.signup {
+    width: 50%;
+    background-color: #553d67;
+    outline: none;
+    color: #fff;
+    font-weight: bold;
+    padding: 0.5rem;
+    border: none;
+}
+
+.join {
+    display: block;
+    margin-top: 1rem;
+    background-color: #553d67;
+    color: #fff;
+    margin-left: auto;
+}

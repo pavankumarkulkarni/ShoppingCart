@@ -1,0 +1,43 @@
+.header {
+    width: 100%;
+    padding: 1rem;
+    grid-area: header;
+    background-color: rgba(10, 10, 10, 0.8);
+    color: #efefef;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.headerBtn,
+.loginBtn {
+    padding: none;
+    background-color: transparent;
+    border: 0.1rem solid #efefef;
+    color: #efefef;
+    font-size: 1rem;
+    outline: none;
+}
+
+.loginBtn {
+    border: none;
+    margin-right: 1rem;
+}
+
+.headerBtn:hover,
+.loginBtn:hover {
+    color: #ffbb00;
+    border: 0.1rem solid #ffbb00;
+}
+
+.loginBtn:hover {
+    border: none;
+}
+
+.icons {
+    display: flex;
+    align-items: center;
+}
