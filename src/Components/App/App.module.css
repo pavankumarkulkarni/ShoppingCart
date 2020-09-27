@@ -5,39 +5,6 @@
     grid-template-rows: 4rem 1fr 3rem;
 }
 
-.header {
-    width: 100%;
-    padding: 1.5rem 1rem;
-    grid-area: header;
-    background-color: rgba(10, 10, 10, 0.8);
-    color: #efefef;
-    display: grid;
-    align-content: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-}
-
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.headerBtn {
-    padding: none;
-    background-color: transparent;
-    border: 0.1rem solid #efefef;
-    color: #efefef;
-    font-size: 1rem;
-    outline: none;
-}
-
-.headerBtn:hover {
-    color: #ffbb00;
-    border: 0.1rem solid #ffbb00;
-}
-
 .main {
     grid-area: main;
     display: flex;

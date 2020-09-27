@@ -5,6 +5,8 @@ import Filterbar from "../Filterbar/Filterbar";
 import Cart from "../Cart/Cart";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import AdminModal from "../AdminModal/AdminModal";
+import AuthModal from "../AuthModal/AuthModal";
+import Header from "../Header/Header";
 import style from "./App.module.css";
 
 class App extends Component {
@@ -21,8 +23,14 @@ class App extends Component {
     order: {},
     adminModal: false,
     orderList: [],
+    authModal: false,
+    login: false,
+    userEmail: "",
   };
 
+  setUser = (email) => {
+    this.setState({ userEmail: email });
+  };
   getOrders = async () => {
     let o = await fetch("/api/orders");
     let d = await o.json();
@@ -40,9 +48,6 @@ class App extends Component {
   };
   componentDidMount = async () => {
     let data = await this.getData();
-    // console.log(data);
-    // let ord = await this.getOrders();
-    // console.log(ord);
     this.setState({ products: data });
   };
 
@@ -150,13 +155,8 @@ class App extends Component {
     const order = await this.prepareOrder();
     if (order) {
       this.setState({ orderForm: true, order: order });
-      // console.log(order);
     }
-    // console.log(`order submitted. ${data}`);
-    // this.setOrder(data);
-    // alert(`Order submitted for ${data.name}`);
 
-    // alert(`Order submitted for ${this.state.customer.name}`);
     let data = await this.getData();
     if (data) {
       this.setState({
@@ -201,15 +201,27 @@ class App extends Component {
     this.openAdminModal();
   };
 
+  openAuthModal = () => {
+    this.setState({ authModal: true });
+  };
+
+  closeAuthModal = () => {
+    this.setState({ authModal: false });
+  };
+
+  setLogin = (state) => {
+    this.setState({ login: state });
+  };
+
   render() {
     return (
       <div className={style.gridlayout}>
-        <div className={style.header}>
-          <a href="/">Shopping Cart</a>
-          <button className={style.headerBtn} onClick={this.openAdminModal}>
-            Admin
-          </button>
-        </div>
+        <Header
+          openAdminModal={this.openAdminModal}
+          openAuthModal={this.openAuthModal}
+          setLogin={this.setLogin}
+          login={this.state.login}
+        />
         <div className={style.main}>
           <div className={style.maincontent}>
             <div className={style.filterbar}>
@@ -244,6 +256,13 @@ class App extends Component {
             closeModal={this.closeAdminModal}
             orderList={this.state.orderList}
             deleteOrder={this.deleteOrder}
+          />
+        )}
+        {this.state.authModal && (
+          <AuthModal
+            closeModal={this.closeAuthModal}
+            setLogin={this.setLogin}
+            setUser={this.setUser}
           />
         )}
 
