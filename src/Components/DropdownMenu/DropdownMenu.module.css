@@ -1,0 +1,23 @@
+.dropdownmenu {
+    position: absolute;
+    display: none;
+    background-color: rgba(10, 10, 10, 0.8);
+    padding: 1rem;
+    line-height: 1.2rem;
+}
+
+.menu:hover .dropdownmenu {
+    display: flex;
+    flex-direction: column;
+}
+
+.dropdownmenu button {
+    background-color: transparent;
+    color: #efefef;
+    border: none;
+    outline: none;
+}
+
+.dropdownmenu button:hover {
+    color: #ffbb00;
+}

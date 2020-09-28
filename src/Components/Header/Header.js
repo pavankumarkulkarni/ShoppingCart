@@ -1,5 +1,6 @@
 import React from "react";
 import style from "./Header.module.css";
+import DropdownMenu from "../DropdownMenu/DropdownMenu";
 
 export default function Header({
   openAdminModal,
@@ -11,16 +12,26 @@ export default function Header({
     const auth2 = window.gapi.auth2.getAuthInstance();
     auth2.signOut().then(() => {
       console.log("Google User logged out!");
+      alert("Google User logged out!");
       setLogin(false);
     });
   };
+  const title = <i className="fas fa-user-circle fa-2x"></i>;
+  const account_items = [
+    <button>Profile</button>,
+    <button onClick={signOut}>Logout</button>,
+  ];
   return (
     <div className={style.header}>
       <a href="/">Shopping Cart</a>
       <div className={style.icons}>
         {login ? (
-          <button className={style.loginBtn} onClick={signOut}>
-            <i className="fas fa-user-circle fa-2x"></i>
+          <button className={style.loginBtn}>
+            <DropdownMenu
+              title={title}
+              items={account_items}
+              signOut={signOut}
+            />
           </button>
         ) : (
           <button className={style.loginBtn} onClick={openAuthModal}>
