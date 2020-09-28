@@ -38,6 +38,9 @@ export default function Header({
             <i className="fas fa-user-secret fa-2x"></i>
           </button>
         )}
+        <button className={style.loginBtn}>
+          <i className="fas fa-shopping-cart fa-2x"></i>
+        </button>
 
         <button className={style.headerBtn} onClick={openAdminModal}>
           Admin
