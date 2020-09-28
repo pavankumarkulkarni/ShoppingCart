@@ -16,6 +16,7 @@
     color: #efefef;
     border: none;
     outline: none;
+    display: block;
 }
 
 .dropdownmenu button:hover {
