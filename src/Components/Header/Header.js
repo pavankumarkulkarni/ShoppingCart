@@ -14,7 +14,7 @@ export default function Header({
   const signOut = () => {
     const auth2 = window.gapi.auth2.getAuthInstance();
     auth2.signOut().then(() => {
-      console.log("Google User logged out!");
+      // console.log("Google User logged out!");
       alert("Google User logged out!");
       setLogin(false);
     });

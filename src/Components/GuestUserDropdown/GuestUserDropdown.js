@@ -14,6 +14,7 @@ function GuestUser(props) {
   return (
     <div>
       <GoogleSignin setLogin={googleLogin} />
+      <hr />
       <button
         onClick={(e) => {
           props.openAuthModal();

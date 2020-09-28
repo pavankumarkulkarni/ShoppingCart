@@ -7,6 +7,7 @@ function LoggedInUser(props) {
   return (
     <div>
       <button>Profile</button>
+      <hr />
       <button onClick={props.signOut}>Logout</button>
     </div>
   );
