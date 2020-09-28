@@ -221,6 +221,7 @@ class App extends Component {
           openAuthModal={this.openAuthModal}
           setLogin={this.setLogin}
           login={this.state.login}
+          setUser={this.setUser}
         />
         <div className={style.main}>
           <div className={style.maincontent}>

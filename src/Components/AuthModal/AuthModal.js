@@ -28,11 +28,11 @@ class Auth extends Component {
 
   signIn = (e) => {
     this.setState({ signUp: false, email: "", password: "", repassword: "" });
-    console.log("Sign In");
+    // console.log("Sign In");
   };
   signUp = (e) => {
     this.setState({ signUp: true, email: "", password: "", repassword: "" });
-    console.log("Sign Up");
+    // console.log("Sign Up");
   };
   handleChange = (e) => {
     const name = e.target.name;
