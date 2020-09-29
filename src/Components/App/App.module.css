@@ -36,7 +36,7 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    justify-items: stretch;
+    justify-items: space-evenly;
     justify-content: center;
 }
 

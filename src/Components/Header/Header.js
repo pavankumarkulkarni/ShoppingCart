@@ -56,9 +56,13 @@ export default function Header({
             removeFromCart={removeFromCart}
             sendCustDetails={sendCustDetails}
           />
-          {cartSize > 0 ? (
-            <span className={style.cartTotal}>{cartSize}</span>
-          ) : null}
+
+          <span
+            className={style.cartTotal}
+            style={{ display: cartSize === 0 ? "none" : "grid" }}
+          >
+            {cartSize}
+          </span>
         </div>
 
         <button className={style.headerBtn} onClick={openAdminModal}>

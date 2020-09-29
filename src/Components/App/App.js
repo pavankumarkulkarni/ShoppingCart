@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import Products from "../Products/Products";
 import Filterbar from "../Filterbar/Filterbar";
-import Cart from "../Cart/Cart";
+// import Cart from "../Cart/Cart";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import AdminModal from "../AdminModal/AdminModal";
 import AuthModal from "../AuthModal/AuthModal";
