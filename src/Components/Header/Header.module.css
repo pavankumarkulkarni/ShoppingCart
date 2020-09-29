@@ -42,3 +42,35 @@
     display: flex;
     align-items: center;
 }
+
+.cartarea {
+    display: flex;
+    align-items: center;
+    margin-right: 1rem;
+    cursor: pointer;
+    justify-content: center;
+}
+
+.cartarea:hover {
+    color: #ffbb00;
+}
+
+.cartTotal {
+    display: grid;
+    place-items: center;
+    height: 1.5rem;
+    width: 1.5rem;
+    border: 0.1rem solid #efefef;
+    border-radius: 50%;
+    font-size: 0.7rem;
+    background-color: #ffbb00;
+    position: absolute;
+    color: black;
+    font-weight: bold;
+}
+
+.cartarea:hover .cartTotal {
+    background-color: rgba(10, 10, 10, 0.8);
+    color: white;
+    font-weight: bold;
+}

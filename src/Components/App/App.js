@@ -222,6 +222,9 @@ class App extends Component {
           setLogin={this.setLogin}
           login={this.state.login}
           setUser={this.setUser}
+          cartItems={this.state.cartItems}
+          removeFromCart={this.removeFromCart}
+          sendCustDetails={this.sendCustDetails}
         />
         <div className={style.main}>
           <div className={style.maincontent}>
@@ -241,13 +244,13 @@ class App extends Component {
               />
             </div>
           </div>
-          <div className={style.sidebar}>
+          {/* <div className={style.sidebar}>
             <Cart
               cartItems={this.state.cartItems}
               removeFromCart={this.removeFromCart}
               sendCustDetails={this.sendCustDetails}
             />
-          </div>
+          </div> */}
         </div>
         {this.state.orderForm && (
           <OrderDetails order={this.state.order} closeModal={this.closeModal} />

@@ -3,6 +3,7 @@ import style from "./Header.module.css";
 // import DropdownMenu from "../HOC/DropdownMenu";
 import LoggedInUserDropdown from "../LoggedInUser/LoggedInUser";
 import GuestUserDropdown from "../GuestUserDropdown/GuestUserDropdown";
+import CartPopup from "../CartPopup/CartPopup";
 
 export default function Header({
   openAdminModal,
@@ -10,6 +11,9 @@ export default function Header({
   setLogin,
   login,
   setUser,
+  cartItems,
+  removeFromCart,
+  sendCustDetails,
 }) {
   const signOut = () => {
     const auth2 = window.gapi.auth2.getAuthInstance();
@@ -21,6 +25,10 @@ export default function Header({
   };
   const LoggedInIcon = <i className="fas fa-user-circle fa-2x"></i>;
   const guestIcon = <i className="fas fa-user-secret fa-2x"></i>;
+  const cartIcon = <i className="fas fa-shopping-cart fa-2x"></i>;
+
+  const cartSize =
+    cartItems.length === 0 ? 0 : cartItems.reduce((a, b) => a + b.count, 0);
 
   return (
     <div className={style.header}>
@@ -41,9 +49,17 @@ export default function Header({
             />
           </div>
         )}
-        <button className={style.loginBtn}>
-          <i className="fas fa-shopping-cart fa-2x"></i>
-        </button>
+        <div className={style.cartarea}>
+          <CartPopup
+            title={cartIcon}
+            cartItems={cartItems}
+            removeFromCart={removeFromCart}
+            sendCustDetails={sendCustDetails}
+          />
+          {cartSize > 0 ? (
+            <span className={style.cartTotal}>{cartSize}</span>
+          ) : null}
+        </div>
 
         <button className={style.headerBtn} onClick={openAdminModal}>
           Admin

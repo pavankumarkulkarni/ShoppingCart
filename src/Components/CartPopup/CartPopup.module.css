@@ -1,0 +1,64 @@
+.cart {
+    margin: 1rem;
+    /* min-width: 50rem; */
+    /* overflow: scroll; */
+}
+
+.cartheader {
+    padding: 1rem;
+    font-size: 1rem;
+    border-bottom: 1px solid lightgray;
+}
+
+.cartcard {
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.cartcard img {
+    width: 5rem;
+    margin-right: 1rem;
+}
+
+.cartcard p {
+    padding-bottom: 1rem;
+}
+
+.cartcard span {
+    /* margin-right: 1rem; */
+    font-size: 1.4rem;
+}
+
+.carttotal {
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.carttotal span {
+    font-size: 1.8rem;
+    margin-right: 2rem;
+}
+
+.cart .cartcard .secondaryBtn {
+    background-color: #efefef;
+    font-size: 1rem;
+    color: #222;
+    display: inline;
+    margin-left: 2rem;
+}
+
+.cart .carttotal button {
+    font-family: 'Montserrat';
+    padding: 0.25rem 0.75rem;
+    background-color: #ffbb00;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border: 1px solid #202020;
+    color: #222;
+}
+
+.cart .carttotal button:hover {
+    filter: brightness(110%)
+}

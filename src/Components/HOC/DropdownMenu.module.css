@@ -4,11 +4,16 @@
     background-color: rgba(10, 10, 10, 0.8);
     padding: 1rem;
     line-height: 1.2rem;
+    right: 0.5rem;
+    min-width: 15rem;
+    /* overflow: scroll; */
 }
 
 .menu:hover .dropdownmenu {
     display: flex;
     flex-direction: column;
+    max-height: 80vh;
+    overflow: auto;
 }
 
 .dropdownmenu button {
