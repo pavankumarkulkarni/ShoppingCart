@@ -227,10 +227,27 @@ class App extends Component {
           removeFromCart={this.removeFromCart}
           sendCustDetails={this.sendCustDetails}
         />
-        <Switch>
-          <Route path="/" exact>
-            <div className={style.main}>
-              <div className={style.maincontent}>
+        {this.state.orderForm && (
+          <OrderDetails order={this.state.order} closeModal={this.closeModal} />
+        )}
+        {this.state.adminModal && (
+          <AdminModal
+            closeModal={this.closeAdminModal}
+            orderList={this.state.orderList}
+            deleteOrder={this.deleteOrder}
+          />
+        )}
+        {this.state.authModal && (
+          <AuthModal
+            closeModal={this.closeAuthModal}
+            setLogin={this.setLogin}
+            setUser={this.setUser}
+          />
+        )}
+        <div className={style.main}>
+          <div className={style.maincontent}>
+            <Switch>
+              <Route path="/" exact>
                 <div className={style.filterbar}>
                   <Filterbar
                     count={this.state.products.length}
@@ -246,40 +263,13 @@ class App extends Component {
                     addToCart={this.addToCart}
                   />
                 </div>
-              </div>
-              {/* <div className={style.sidebar}>
-            <Cart
-              cartItems={this.state.cartItems}
-              removeFromCart={this.removeFromCart}
-              sendCustDetails={this.sendCustDetails}
-            />
-          </div> */}
-            </div>
-            {this.state.orderForm && (
-              <OrderDetails
-                order={this.state.order}
-                closeModal={this.closeModal}
-              />
-            )}
-            {this.state.adminModal && (
-              <AdminModal
-                closeModal={this.closeAdminModal}
-                orderList={this.state.orderList}
-                deleteOrder={this.deleteOrder}
-              />
-            )}
-            {this.state.authModal && (
-              <AuthModal
-                closeModal={this.closeAuthModal}
-                setLogin={this.setLogin}
-                setUser={this.setUser}
-              />
-            )}
-          </Route>
-          <Route path="/profile">
-            <Profile />
-          </Route>
-        </Switch>
+              </Route>
+              <Route path="/profile">
+                <Profile />
+              </Route>
+            </Switch>
+          </div>
+        </div>
         <div className={style.footer}>All rights reserved &copy;</div>
       </div>
     );

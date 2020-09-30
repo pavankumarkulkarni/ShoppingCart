@@ -22,7 +22,8 @@
     padding-left: 2rem;
 }
 
-.customerdetails input {
+.customerdetails input,
+.customerdetails select {
     padding: 0.5rem 1rem;
     font-family: 'Montserrat', sans-serif, Helvetica, Arial, sans-serif;
     border: 0.1px solid black;
