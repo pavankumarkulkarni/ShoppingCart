@@ -19,14 +19,24 @@ export default class GoogleSignin extends React.Component {
   // />
   // }
 
-  onSuccess = (googleUser) => {
+  onSuccess = async (googleUser) => {
     // alert("Google sign in success !");
     const profile = googleUser.getBasicProfile();
+    const uname = profile.getName();
+    const uemail = profile.getEmail();
     this.props.setLogin(profile.getName());
-    console.log(profile);
-    console.log(profile.getName());
-    console.log(profile.getImageUrl());
-    console.log(profile.getEmail());
+    // console.log(profile);
+    // console.log(profile.getName());
+    // console.log(profile.getImageUrl());
+    // console.log(profile.getEmail());
+    const user = await fetch(`/api/users/${uemail}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email: uemail, name: uname }),
+    });
+    console.log(user);
   };
 
   render() {
