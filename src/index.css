@@ -33,10 +33,12 @@ button {
     font-size: 1.2rem;
     cursor: pointer;
     border: 1px solid #202020;
+    transition: all 0.2s;
 }
 
 button:hover {
-    filter: brightness(110%)
+    filter: brightness(110%);
+    box-shadow: 2px 2px 2px gray;
 }
 
 button.secondaryBtn {

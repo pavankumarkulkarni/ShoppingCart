@@ -8,7 +8,8 @@ import AdminModal from "../AdminModal/AdminModal";
 import AuthModal from "../AuthModal/AuthModal";
 import Header from "../Header/Header";
 import style from "./App.module.css";
-
+import { Route, Switch } from "react-router-dom";
+import Profile from "../Profile/Profile";
 class App extends Component {
   state = {
     products: [], //data.products,
@@ -226,32 +227,6 @@ class App extends Component {
           removeFromCart={this.removeFromCart}
           sendCustDetails={this.sendCustDetails}
         />
-        <div className={style.main}>
-          <div className={style.maincontent}>
-            <div className={style.filterbar}>
-              <Filterbar
-                count={this.state.products.length}
-                sort={this.state.sort}
-                size={this.state.size}
-                filterBy={this.filterBy}
-                sortBy={this.sortBy}
-              />
-            </div>
-            <div className={style.products}>
-              <Products
-                products={this.state.products}
-                addToCart={this.addToCart}
-              />
-            </div>
-          </div>
-          {/* <div className={style.sidebar}>
-            <Cart
-              cartItems={this.state.cartItems}
-              removeFromCart={this.removeFromCart}
-              sendCustDetails={this.sendCustDetails}
-            />
-          </div> */}
-        </div>
         {this.state.orderForm && (
           <OrderDetails order={this.state.order} closeModal={this.closeModal} />
         )}
@@ -269,7 +244,32 @@ class App extends Component {
             setUser={this.setUser}
           />
         )}
-
+        <div className={style.main}>
+          <div className={style.maincontent}>
+            <Switch>
+              <Route path="/" exact>
+                <div className={style.filterbar}>
+                  <Filterbar
+                    count={this.state.products.length}
+                    sort={this.state.sort}
+                    size={this.state.size}
+                    filterBy={this.filterBy}
+                    sortBy={this.sortBy}
+                  />
+                </div>
+                <div className={style.products}>
+                  <Products
+                    products={this.state.products}
+                    addToCart={this.addToCart}
+                  />
+                </div>
+              </Route>
+              <Route path="/profile">
+                <Profile />
+              </Route>
+            </Switch>
+          </div>
+        </div>
         <div className={style.footer}>All rights reserved &copy;</div>
       </div>
     );

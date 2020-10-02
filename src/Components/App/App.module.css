@@ -1,5 +1,5 @@
 .gridlayout {
-    height: 100vh;
+    /* height: 100vh; */
     display: grid;
     grid-template-areas: 'header' 'main' 'footer';
     grid-template-rows: 4rem 1fr 3rem;
@@ -28,6 +28,10 @@
     justify-content: center;
     align-content: center;
     background-color: rgba(10, 10, 10, 0.8);
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 0.5rem;
 }
 
 .products {
@@ -38,6 +42,19 @@
     flex-direction: row;
     justify-items: space-evenly;
     justify-content: center;
+    position: relative;
+    left: -100%;
+    animation: leftIn 1s 0.5s forwards;
+}
+
+@keyframes leftIn {
+    from {
+        left: -100%;
+    }
+    to {
+        left: 0%;
+        position: static;
+    }
 }
 
 .filterbar {

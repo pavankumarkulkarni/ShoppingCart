@@ -4,8 +4,9 @@ import style from "./Header.module.css";
 import LoggedInUserDropdown from "../LoggedInUser/LoggedInUser";
 import GuestUserDropdown from "../GuestUserDropdown/GuestUserDropdown";
 import CartPopup from "../CartPopup/CartPopup";
+import { withRouter } from "react-router";
 
-export default function Header({
+function Header({
   openAdminModal,
   openAuthModal,
   setLogin,
@@ -14,6 +15,7 @@ export default function Header({
   cartItems,
   removeFromCart,
   sendCustDetails,
+  history,
 }) {
   const signOut = () => {
     const auth2 = window.gapi.auth2.getAuthInstance();
@@ -21,6 +23,7 @@ export default function Header({
       // console.log("Google User logged out!");
       alert("Google User logged out!");
       setLogin(false);
+      history.push("/");
     });
   };
   const LoggedInIcon = <i className="fas fa-user-circle fa-2x"></i>;
@@ -72,3 +75,5 @@ export default function Header({
     </div>
   );
 }
+
+export default withRouter(Header);

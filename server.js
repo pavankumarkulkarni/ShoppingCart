@@ -100,5 +100,26 @@ app.delete("/api/orders/:id", async (req, res) => {
   res.send(orderDeleted);
 });
 
+const User = mongoose.model(
+  "Users",
+  new mongoose.Schema({
+    _id: { type: String, default: shortid.generate },
+    name: String,
+    email: String,
+  })
+);
+
+app.post("/api/users", async (req, res) => {
+  const user = await new User(req.body);
+  const userSaved = await user.save();
+  res.send(userSaved);
+});
+
+app.get("/api/users/:email", async (req, res) => {
+  console.log(req.params.email);
+  const user = await User.find({ email: req.params.email });
+  res.send(user);
+});
+
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`server at 'http://localhost:${port}`));

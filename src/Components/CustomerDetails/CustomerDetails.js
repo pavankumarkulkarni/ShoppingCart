@@ -6,11 +6,23 @@ export default class CustomerDetails extends Component {
     name: "",
     email: "",
     address: "",
+    phone: "",
+    card: "",
+    expiry: "",
+    cvv: "",
   };
   orderSubmit = (e) => {
     e.preventDefault();
     let customer = this.state;
-    this.setState({ name: "", email: "", address: "" });
+    this.setState({
+      name: "",
+      email: "",
+      address: "",
+      phone: "",
+      card: "",
+      expiry: "",
+      cvv: "",
+    });
     this.props.sendCustDetails(customer);
   };
   handleChange = (e) => {
@@ -49,6 +61,51 @@ export default class CustomerDetails extends Component {
           value={this.state.address}
           onChange={this.handleChange}
         />
+        <label htmlFor="name"> Phone : </label>
+        <p className={style.labelhint}>1234567890</p>
+        <input
+          type="number"
+          name="phone"
+          required
+          value={this.state.phone}
+          onChange={this.handleChange}
+        />
+        {/* <hr /> */}
+        <p>Card Details</p>
+        <label htmlFor="name"> Card : </label>
+        <p className={style.labelhint}>1234 1234 1234 1234</p>
+        <input
+          type="number"
+          name="card"
+          required
+          value={this.state.card}
+          onChange={this.handleChange}
+        />
+        <label htmlFor="name"> Expiry (mmyy): </label>
+        <p className={style.labelhint}>0922</p>
+        <input
+          type="number"
+          name="expiry"
+          required
+          value={this.state.expiry}
+          onChange={this.handleChange}
+        />
+        <label htmlFor="name"> CVV: </label>
+        <p className={style.labelhint}>123</p>
+        <input
+          type="number"
+          name="cvv"
+          required
+          value={this.state.cvv}
+          onChange={this.handleChange}
+        />
+        <label htmlFor="shipping"> Preferred shipping</label>
+        <select name="shipping">
+          <option value="Priority shipping" checked>
+            Priority Shipping
+          </option>
+          <option value="Normal shipping">Normal Shipping</option>
+        </select>
         <button type="submit">Submit</button>
       </form>
     );

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { WithModal } from "../HOC/Modal";
 import style from "./AuthModal.module.css";
-import GoogleSignin from "../GoogleSignin/GoogleSignin";
+// import GoogleSignin from "../GoogleSignin/GoogleSignin";
 
 class Auth extends Component {
   constructor(props) {
@@ -110,9 +110,9 @@ class Auth extends Component {
             </button>
           )}
         </form>
-        {!this.state.signUp ? (
+        {/* {!this.state.signUp ? (
           <GoogleSignin setLogin={this.googleLogin} />
-        ) : null}
+        ) : null} */}
       </div>
     );
   }
