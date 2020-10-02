@@ -4,39 +4,28 @@ import React from "react";
 import GoogleLogin from "react-google-login";
 
 export default class GoogleSignin extends React.Component {
-  // componentDidMount() {
-  //   // window.gapi.signin2.render(GOOGLE_BUTTON_ID, {
-  //   //   width: 200,
-  //   //   height: 50,
-  //   //   onsuccess: this.onSuccess,
-  //   // });
-  //   <GoogleLogin
-  //   clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
-  //   buttonText="Login"
-  //   onSuccess={responseGoogle}
-  //   onFailure={responseGoogle}
-  //   cookiePolicy={'single_host_origin'}
-  // />
-  // }
-
   onSuccess = async (googleUser) => {
     // alert("Google sign in success !");
     const profile = googleUser.getBasicProfile();
     const uname = profile.getName();
     const uemail = profile.getEmail();
     this.props.setLogin(profile.getName());
-    // console.log(profile);
-    // console.log(profile.getName());
-    // console.log(profile.getImageUrl());
-    // console.log(profile.getEmail());
-    const user = await fetch(`/api/users/${uemail}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email: uemail, name: uname }),
-    });
-    console.log(user);
+    let user, userdata;
+    user = await fetch(`/api/users/${uemail}`);
+    userdata = await user.json();
+    if (userdata.length > 0) {
+      alert(`Welcome back ${uname}`);
+    } else {
+      user = await fetch(`/api/users`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: uemail, name: uname }),
+      });
+      userdata = await user.json();
+      alert(`Thanks for joining us ${uname}`);
+    }
   };
 
   render() {

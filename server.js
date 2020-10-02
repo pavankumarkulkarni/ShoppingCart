@@ -116,7 +116,8 @@ app.post("/api/users", async (req, res) => {
 });
 
 app.get("/api/users/:email", async (req, res) => {
-  const user = await User.find({ email: req.param.mail });
+  console.log(req.params.email);
+  const user = await User.find({ email: req.params.email });
   res.send(user);
 });
 

@@ -20,6 +20,11 @@
     width: 100%;
     max-height: 80%;
     cursor: pointer;
+    transition: 0.5s all;
+}
+
+.product img:hover {
+    transform: scale(1.04);
 }
 
 .product p {
