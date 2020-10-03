@@ -1,0 +1,42 @@
+.header {
+    height: 15rem;
+    text-align: center;
+    /* background-color: #ffbb00; */
+    background: linear-gradient(to right, rgba(255, 187, 0, 1), rgba(255, 187, 0, 0.8));
+    clip-path: polygon(0 0, 100% 0, 100% 50%, 50% 100%, 0 50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #123;
+    position: relative;
+    top: -100vh;
+    animation: dropdown 0.25s 0.5s forwards;
+}
+
+@keyframes dropdown {
+    from {
+        top: -100vh;
+    }
+    to {
+        top: 0;
+        position: static;
+    }
+}
+
+.main {
+    max-width: 50rem;
+    margin: 1rem auto;
+    text-align: center;
+    animation: leftin 0.25s ease-in-out 1s 1 normal forwards;
+    left: -100vw;
+    position: relative;
+}
+
+@keyframes leftin {
+    from {
+        left: -100vw
+    }
+    to {
+        left: 0
+    }
+}

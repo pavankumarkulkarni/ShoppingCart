@@ -71,6 +71,9 @@ function Header({
         <button className={style.headerBtn} onClick={openAdminModal}>
           Admin
         </button>
+        <a href="/aboutus" className={style.aboutus}>
+          About Us
+        </a>
       </div>
     </div>
   );
