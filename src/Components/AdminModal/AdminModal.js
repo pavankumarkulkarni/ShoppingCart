@@ -8,9 +8,9 @@ function Admin({ orderList, deleteOrder }) {
       <tr key={order._id}>
         <td valign="top">{order._id}</td>
         <td valign="top">
-          {order.name}
-          {order.email}
-          {order.address}
+          <p>{order.name}</p>
+          <p>{order.email}</p>
+          <p>{order.address}</p>
         </td>
         <td style={{ padding: "0" }}>
           <table align="right">
@@ -41,7 +41,7 @@ function Admin({ orderList, deleteOrder }) {
             className={style.secondaryBtn}
             onClick={(e) => deleteOrder(order._id)}
           >
-            delete
+            del
           </button>
         </td>
       </tr>

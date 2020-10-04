@@ -43,3 +43,9 @@
     top: 1rem;
     right: 1rem;
 }
+
+@media screen and (max-width:600px) {
+    .modal {
+        padding: 0.5rem
+    }
+}
