@@ -31,3 +31,81 @@ table.orderListTable {
 table.orderListTable tr {
     border-bottom: 0.1rem solid #ffbb00;
 }
+
+.orderListTable>tbody>tr:nth-of-type(even) {
+    background-color: #efefef;
+}
+
+@media screen and (max-width:1100px) {
+    .orderListTable caption {
+        display: none;
+    }
+    table.orderListTable tr {
+        border-bottom: none;
+    }
+    .orderListTable thead tr {
+        position: absolute;
+        top: -9999px;
+        /* left: -9999px */
+    }
+    .orderListTable>tbody>tr>td {
+        border-bottom: 1px dashed lightgray;
+        padding: 0;
+        margin: 0;
+    }
+    .orderListTable>tbody>tr>td:nth-child(4),
+    .orderListTable>tbody>tr>td:nth-child(3) {
+        border-bottom: none
+    }
+    .orderListTable>table,
+    .orderListTable>thead,
+    .orderListTable>tbody,
+    .orderListTable>tbody>tr,
+    .orderListTable>tbody>tr>td {
+        display: block;
+    }
+    .orderListTable>tbody>tr>td {
+        padding: 1rem 0;
+    }
+    .orderListTable>tbody>tr>td:nth-last-of-type(1) {
+        padding-bottom: 0;
+    }
+    .orderListTable>tbody>tr>td>table>tbody>tr:nth-of-type(1)>td {
+        padding-top: 0;
+    }
+    .orderListTable>tbody>tr>td::before {
+        font-weight: bold;
+        padding-right: 1rem;
+        width: 20rem;
+    }
+    .orderListTable>tbody>tr>td:nth-of-type(1)::before {
+        content: 'ORDER ID :';
+        font-weight: bold;
+    }
+    .orderListTable>tbody>tr>td:nth-of-type(2)::before {
+        content: 'CUSTOMER :';
+        display: inline;
+    }
+    .orderListTable>tbody>tr>td:nth-of-type(3)::before {
+        content: 'ITEMS :';
+        display: block;
+    }
+    .secondaryBtn {
+        display: block;
+        width: 100%;
+        text-transform: uppercase;
+    }
+    .secondaryBtn::after {
+        content: 'ETE ORDER';
+    }
+}
+
+@media screen and (max-width:650px) {
+    .orderListTable {
+        margin: 0;
+        padding: 0
+    }
+    .orderListTable>tbody>tr>td>table>tbody>tr>td:nth-of-type(2) {
+        display: none;
+    }
+}

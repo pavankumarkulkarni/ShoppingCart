@@ -10,6 +10,7 @@
     /* min-width: 15rem; */
     /* overflow: scroll; */
     transition: all 0.2s;
+    z-index: 999;
 }
 
 .menu:hover .dropdownmenu {
@@ -23,6 +24,8 @@
     right: 0.5rem;
     min-width: 15rem;
     overflow: auto;
+    box-shadow: 2px 2px 2px #ffbb00;
+    border-radius: 5px;
 }
 
 .dropdownmenu button {

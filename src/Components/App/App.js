@@ -2,7 +2,6 @@
 import React, { Component } from "react";
 import Products from "../Products/Products";
 import Filterbar from "../Filterbar/Filterbar";
-// import Cart from "../Cart/Cart";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import AdminModal from "../AdminModal/AdminModal";
 import AuthModal from "../AuthModal/AuthModal";
@@ -10,6 +9,7 @@ import Header from "../Header/Header";
 import style from "./App.module.css";
 import { Route, Switch } from "react-router-dom";
 import Profile from "../Profile/Profile";
+import AboutUs from "../AboutUs/AboutUs.js";
 class App extends Component {
   state = {
     products: [], //data.products,
@@ -266,6 +266,9 @@ class App extends Component {
               </Route>
               <Route path="/profile">
                 <Profile />
+              </Route>
+              <Route path="/aboutus">
+                <AboutUs />
               </Route>
             </Switch>
           </div>
