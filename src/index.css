@@ -46,3 +46,15 @@ button.secondaryBtn {
     font-size: 1rem;
     color: #fff;
 }
+
+.btnAsLink {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    outline: none;
+    color: inherit;
+}
+
+.btnAsLink:hover {
+    box-shadow: none;
+}
