@@ -46,17 +46,7 @@ export default function Profile({ currentUser }) {
             </div>
           ) : null}
         </div>
-        {showAddressForm ? (
-          <CustomerAddress addAddress={addAddress} />
-        ) : // <div>
-        //   <button
-        //     className='iconButton'
-        //     onClick={(e) => setShowAddressForm(true)}>
-        //     <i className='fas fa-plus-circle fa-2x'></i>
-        //   </button>
-        //   <p>Click to add new address</p>
-        // </div>
-        null}
+        {showAddressForm ? <CustomerAddress addAddress={addAddress} /> : null}
       </section>
     </div>
   );
