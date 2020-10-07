@@ -15,19 +15,19 @@ export default function AboutUs() {
           <li className={style.navitem}>Testimonials</li>
           <li className={style.navitem}>Contact Us</li>
           <li className={style.hasdropdown}>
-            <button className="btnAsLink">Theme</button>
+            <button className='btnAsLink'>Theme</button>
             <ul className={style.dropdown}>
               <li className={style.dropdownitem}>
-                <button className="btnAsLink">Dark</button>
+                <button className='btnAsLink'>Dark</button>
               </li>
               <li className={style.dropdownitem}>
-                <button className="btnAsLink">Light</button>
+                <button className='btnAsLink'>Light</button>
               </li>
               <li className={style.dropdownitem}>
-                <button className="btnAsLink">Red</button>
+                <button className='btnAsLink'>Red</button>
               </li>
               <li className={style.dropdownitem}>
-                <button className="btnAsLink">Green</button>
+                <button className='btnAsLink'>Green</button>
               </li>
             </ul>
           </li>

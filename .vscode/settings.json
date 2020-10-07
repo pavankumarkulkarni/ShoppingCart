@@ -1,0 +1,10 @@
+{
+  "emmet.includeLanguages": {
+    "javascripts": "javascriptreact",
+    "HTML":"javascriptreact"
+  },
+  "prettier.jsxBracketSameLine": true,
+  "prettier.jsxSingleQuote": true,
+  "emmet.showSuggestionsAsSnippets": true,
+  "emmet.extensionsPath": ""
+}

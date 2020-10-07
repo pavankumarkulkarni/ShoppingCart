@@ -16,6 +16,7 @@ function Header({
   removeFromCart,
   sendCustDetails,
   history,
+  setCurrentUser,
 }) {
   const signOut = () => {
     const auth2 = window.gapi.auth2.getAuthInstance();
@@ -26,16 +27,16 @@ function Header({
       history.push("/");
     });
   };
-  const LoggedInIcon = <i className="fas fa-user-circle fa-2x"></i>;
-  const guestIcon = <i className="fas fa-user-secret fa-2x"></i>;
-  const cartIcon = <i className="fas fa-shopping-cart fa-2x"></i>;
+  const LoggedInIcon = <i className='fas fa-user-circle fa-2x'></i>;
+  const guestIcon = <i className='fas fa-user-secret fa-2x'></i>;
+  const cartIcon = <i className='fas fa-shopping-cart fa-2x'></i>;
 
   const cartSize =
     cartItems.length === 0 ? 0 : cartItems.reduce((a, b) => a + b.count, 0);
 
   return (
     <div className={style.header}>
-      <a href="/">Shopping Cart</a>
+      <a href='/'>Shopping Cart</a>
       <div className={style.icons}>
         {login ? (
           <div className={style.loginBtn}>
@@ -49,6 +50,7 @@ function Header({
               setLogin={setLogin}
               setUser={setUser}
               openAuthModal={openAuthModal}
+              setCurrentUser={setCurrentUser}
             />
           </div>
         )}
@@ -62,8 +64,7 @@ function Header({
 
           <span
             className={style.cartTotal}
-            style={{ display: cartSize === 0 ? "none" : "grid" }}
-          >
+            style={{ display: cartSize === 0 ? "none" : "grid" }}>
             {cartSize}
           </span>
         </div>
@@ -71,7 +72,7 @@ function Header({
         <button className={style.headerBtn} onClick={openAdminModal}>
           Admin
         </button>
-        <a href="/aboutus" className={style.aboutus}>
+        <a href='/aboutus' className={style.aboutus}>
           About Us
         </a>
       </div>

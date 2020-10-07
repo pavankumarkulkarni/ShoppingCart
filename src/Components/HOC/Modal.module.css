@@ -14,7 +14,6 @@
 
 .modal {
     position: fixed;
-    /* top: 5rem; */
     top: -100%;
     left: 5rem;
     border: 0.1rem solid gray;

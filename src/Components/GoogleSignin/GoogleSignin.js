@@ -9,7 +9,7 @@ export default class GoogleSignin extends React.Component {
     const profile = googleUser.getBasicProfile();
     const uname = profile.getName();
     const uemail = profile.getEmail();
-    this.props.setLogin(profile.getName());
+
     let user, userdata;
     user = await fetch(`/api/users/${uemail}`);
     userdata = await user.json();
@@ -24,8 +24,11 @@ export default class GoogleSignin extends React.Component {
         body: JSON.stringify({ email: uemail, name: uname }),
       });
       userdata = await user.json();
+
       alert(`Thanks for joining us ${uname}`);
     }
+    console.log(userdata);
+    this.props.setLogin(profile.getName(), userdata);
   };
 
   render() {
@@ -36,8 +39,8 @@ export default class GoogleSignin extends React.Component {
             Login with Google
           </button>
         )}
-        clientId="55500008962-naome7c4ht95kve4c525vistnllf1195.apps.googleusercontent.com"
-        buttonText="Login"
+        clientId='55500008962-naome7c4ht95kve4c525vistnllf1195.apps.googleusercontent.com'
+        buttonText='Login'
         onSuccess={this.onSuccess}
         // onFailure={responseGoogle}
         cookiePolicy={"single_host_origin"}

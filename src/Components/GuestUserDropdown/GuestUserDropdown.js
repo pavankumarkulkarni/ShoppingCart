@@ -7,9 +7,10 @@ function GuestUser(props) {
   // const [passwd, setPasswd] = useState("");
   // const [repasswd, setRepasswd] = useState("");
   // const [signup, setSignup] = useState(false);
-  const googleLogin = (userEmail) => {
+  const googleLogin = (userEmail, user) => {
     props.setLogin(true);
     props.setUser(userEmail);
+    props.setCurrentUser(user);
   };
   return (
     <div>
@@ -18,8 +19,7 @@ function GuestUser(props) {
       <button
         onClick={(e) => {
           props.openAuthModal();
-        }}
-      >
+        }}>
         SignIn/SignUp
       </button>
     </div>

@@ -27,10 +27,16 @@ class App extends Component {
     authModal: false,
     login: false,
     userEmail: "",
+    userAccountId: "",
+    currentUser: "",
   };
 
-  setUser = (email) => {
-    this.setState({ userEmail: email });
+  setCurrentUser = (user) => {
+    this.setState({ currentUser: user[0] });
+  };
+
+  setUser = (email, id) => {
+    this.setState({ userEmail: email, userAccountId: id });
   };
   getOrders = async () => {
     let o = await fetch("/api/orders");
@@ -226,6 +232,7 @@ class App extends Component {
           cartItems={this.state.cartItems}
           removeFromCart={this.removeFromCart}
           sendCustDetails={this.sendCustDetails}
+          setCurrentUser={this.setCurrentUser}
         />
         {this.state.orderForm && (
           <OrderDetails order={this.state.order} closeModal={this.closeModal} />
@@ -247,7 +254,7 @@ class App extends Component {
         <div className={style.main}>
           <div className={style.maincontent}>
             <Switch>
-              <Route path="/" exact>
+              <Route path='/' exact>
                 <div className={style.filterbar}>
                   <Filterbar
                     count={this.state.products.length}
@@ -264,10 +271,10 @@ class App extends Component {
                   />
                 </div>
               </Route>
-              <Route path="/profile">
-                <Profile />
+              <Route path='/profile'>
+                <Profile currentUser={this.state.currentUser} />
               </Route>
-              <Route path="/aboutus">
+              <Route path='/aboutus'>
                 <AboutUs />
               </Route>
             </Switch>

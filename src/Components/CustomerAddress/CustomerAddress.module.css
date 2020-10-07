@@ -1,0 +1,15 @@
+.form>label,
+.form>input {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 0;
+    border-radius: 5px;
+}
+
+.form>input {
+    border: 1px solid gray;
+}
+
+.form>button {
+    margin-top: 1rem;
+}
