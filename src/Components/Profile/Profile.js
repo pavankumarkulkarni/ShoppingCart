@@ -3,16 +3,42 @@ import Address from "../Address/Address";
 import style from "./Profile.module.css";
 import CustomerAddress from "../CustomerAddress/CustomerAddress";
 
-export default function Profile({ currentUser }) {
+export default function Profile({
+  currentUser,
+  deleteAddress,
+  addAddress,
+  editAddressMain,
+}) {
   const [showAddressForm, setShowAddressForm] = useState(false);
-  const addAddress = (address) => {
-    console.log(address);
+  const [edtAddress, setedtAddress] = useState(null);
+  const sendAddress = (address) => {
+    addAddress(address, currentUser._id);
     setShowAddressForm(false);
   };
+  const editAddressinDB = (address) => {
+    console.log(address);
+    setShowAddressForm(false);
+    editAddressMain(address);
+  };
+  const delAddress = (addId) => {
+    deleteAddress(currentUser._id, addId);
+  };
 
+  const editAddress = (address) => {
+    setedtAddress(address);
+
+    setShowAddressForm(true);
+  };
   const savedAddresses = currentUser.address ? (
     currentUser.address.map((address) => {
-      return <Address address={address} key={address._id} />;
+      return (
+        <Address
+          address={address}
+          key={address._id}
+          delAddress={delAddress}
+          editAddress={editAddress}
+        />
+      );
     })
   ) : (
     <div>
@@ -24,19 +50,25 @@ export default function Profile({ currentUser }) {
   );
   return (
     <div className={style.profile}>
-      <h4>Account Profile Setup</h4>
-      <p>You can edit and save your account profiles here. </p>
-      <h5>Name: John Doe </h5>
-      <h5>Email: John@Doe.com </h5>
+      <header>
+        <h5>John Doe </h5>
+        <h5>John@Doe.com </h5>
+      </header>
+      <h4>
+        Account Profile Setup: <span>Edit your account profile here.</span>{" "}
+      </h4>
+
       <section>
-        <h4>Address :</h4>
-        <p>You can save up to 6 addresses.</p>
+        <h4>
+          Address : <span>You can save up to 6 addresses.</span>
+        </h4>
         <div className={style.addressSection}>
           {savedAddresses}
           {currentUser &&
+          currentUser.address &&
           currentUser.address.length < 6 &&
-          currentUser.address.length > 0 ? (
-            <div>
+          currentUser.address.length >= 0 ? (
+            <div className={style.addAddress}>
               <button
                 className='iconButton'
                 onClick={(e) => setShowAddressForm(true)}>
@@ -46,7 +78,13 @@ export default function Profile({ currentUser }) {
             </div>
           ) : null}
         </div>
-        {showAddressForm ? <CustomerAddress addAddress={addAddress} /> : null}
+        {showAddressForm ? (
+          <CustomerAddress
+            addAddress={sendAddress}
+            address={edtAddress}
+            editAddress={editAddressinDB}
+          />
+        ) : null}
       </section>
     </div>
   );

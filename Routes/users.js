@@ -26,14 +26,30 @@ router.patch("/:id/adresses", async (req, res) => {
   let address = accnt.address;
   address.push(req.body);
 
-  const updated_accnt = await model.User.updateOne(
+  await model.User.updateOne(
     { _id: req.params.id },
     {
       $set: { address: [...address] },
     }
   );
+  const updatedUser = await model.User.findById(req.params.id);
+  res.send(updatedUser);
+});
 
-  res.send(updated_accnt);
+router.delete("/:custid/addresses/:addid", async (req, res) => {
+  const user = await model.User.findById(req.params.custid);
+  const addresses = user.address;
+  const remainingAddresses = addresses.filter(
+    (address) => address._id !== req.params.addid
+  );
+  await model.User.updateOne(
+    { _id: req.params.custid },
+    {
+      $set: { address: [...remainingAddresses] },
+    }
+  );
+  const updatedUser = await model.User.findById(req.params.custid);
+  res.send(updatedUser);
 });
 
 module.exports = router;

@@ -1,7 +1,7 @@
 import React from "react";
 import style from "./Address.module.css";
 
-export default function Address({ address }) {
+export default function Address({ address, delAddress, editAddress }) {
   return (
     <div className={style.address}>
       <h5>Name : {address.addressName}</h5>
@@ -9,13 +9,21 @@ export default function Address({ address }) {
       <p>{address.city}</p>
       <p>{address.state}</p>
       <p>zip : {address.zip}</p>
-      <button className='iconButton'>
+      <button
+        className='iconButton'
+        onClick={(e) => {
+          editAddress(address);
+        }}>
         <i>
           <i className='fas fa-edit'></i>
         </i>
       </button>
-      <button className='iconButton'>
-        <i class='fas fa-trash-alt'></i>
+      <button
+        className='iconButton'
+        onClick={(e) => {
+          delAddress(address._id);
+        }}>
+        <i className='fas fa-trash-alt'></i>
       </button>
     </div>
   );

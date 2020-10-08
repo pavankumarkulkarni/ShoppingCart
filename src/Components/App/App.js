@@ -30,7 +30,29 @@ class App extends Component {
     userAccountId: "",
     currentUser: "",
   };
-
+  editAddressMain = (address) => {};
+  addAddress = (address, id) => {
+    fetch(`/api/users/${id}/adresses`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(address),
+    })
+      .then((res) => res.json())
+      .then((user) => {
+        this.setState({ currentUser: user });
+      });
+  };
+  deleteAddress = (clientId, addID) => {
+    fetch(`/api/users/${clientId}/addresses/${addID}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((user) => {
+        this.setState({ currentUser: user });
+      });
+  };
   setCurrentUser = (user) => {
     this.setState({ currentUser: user[0] });
   };
@@ -272,7 +294,12 @@ class App extends Component {
                 </div>
               </Route>
               <Route path='/profile'>
-                <Profile currentUser={this.state.currentUser} />
+                <Profile
+                  currentUser={this.state.currentUser}
+                  deleteAddress={this.deleteAddress}
+                  addAddress={this.addAddress}
+                  editAddressMain={this.editAddressMain}
+                />
               </Route>
               <Route path='/aboutus'>
                 <AboutUs />
