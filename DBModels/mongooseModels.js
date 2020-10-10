@@ -46,6 +46,7 @@ const User = mongoose.model(
         city: String,
         state: String,
         zip: String,
+        fav: String,
       },
     ],
   })

@@ -8,17 +8,18 @@ export default function Profile({
   deleteAddress,
   addAddress,
   editAddressMain,
+  setFavAddress,
 }) {
   const [showAddressForm, setShowAddressForm] = useState(false);
   const [edtAddress, setedtAddress] = useState(null);
   const sendAddress = (address) => {
-    addAddress(address, currentUser._id);
+    addAddress((address = { ...address, fav: "false" }), currentUser._id);
     setShowAddressForm(false);
   };
   const editAddressinDB = (address) => {
     // console.log(address);
     setShowAddressForm(false);
-    editAddressMain(currentUser._id, address);
+    editAddressMain(currentUser._id, (address = { ...address, fav: "false" }));
     setedtAddress(null);
   };
   const delAddress = (addId) => {
@@ -30,6 +31,10 @@ export default function Profile({
 
     setShowAddressForm(true);
   };
+
+  const setFavAdd = (id) => {
+    setFavAddress(currentUser._id, id);
+  };
   const savedAddresses = currentUser.address ? (
     currentUser.address.map((address) => {
       return (
@@ -38,6 +43,7 @@ export default function Profile({
           key={address._id}
           delAddress={delAddress}
           editAddress={editAddress}
+          setFavAddress={setFavAdd}
         />
       );
     })

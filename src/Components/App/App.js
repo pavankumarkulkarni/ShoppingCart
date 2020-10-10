@@ -30,6 +30,18 @@ class App extends Component {
     userAccountId: "",
     currentUser: "",
   };
+  setFavAddress = (id, addid) => {
+    fetch(`/api/users/${id}/addresses/${addid}/fav`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((user) => {
+        this.setState({ currentUser: user });
+      });
+  };
   editAddressMain = (id, address) => {
     fetch(`/api/users/${id}/addresses/${address._id}`, {
       method: "PATCH",
@@ -311,6 +323,7 @@ class App extends Component {
                   deleteAddress={this.deleteAddress}
                   addAddress={this.addAddress}
                   editAddressMain={this.editAddressMain}
+                  setFavAddress={this.setFavAddress}
                 />
               </Route>
               <Route path='/aboutus'>

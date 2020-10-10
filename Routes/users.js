@@ -77,4 +77,23 @@ router.delete("/:custid/addresses/:addid", async (req, res) => {
   res.send(updatedUser);
 });
 
+// Set one of the addresses as favorite
+router.patch("/:id/addresses/:addid/fav", async (req, res) => {
+  const user = await model.User.findById(req.params.id);
+  let addresses = user.address;
+
+  const updatedAdd = addresses.map((add) => {
+    add.fav = add._id === req.params.addid ? "true" : "false";
+    return add;
+  });
+
+  await model.User.updateOne(
+    { _id: req.params.id },
+    {
+      $set: { address: [...updatedAdd] },
+    }
+  );
+  const updatedUser = await model.User.findById(req.params.id);
+  res.send(updatedUser);
+});
 module.exports = router;
