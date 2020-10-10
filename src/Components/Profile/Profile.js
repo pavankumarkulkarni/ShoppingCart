@@ -16,9 +16,10 @@ export default function Profile({
     setShowAddressForm(false);
   };
   const editAddressinDB = (address) => {
-    console.log(address);
+    // console.log(address);
     setShowAddressForm(false);
-    editAddressMain(address);
+    editAddressMain(currentUser._id, address);
+    setedtAddress(null);
   };
   const delAddress = (addId) => {
     deleteAddress(currentUser._id, addId);

@@ -30,7 +30,19 @@ class App extends Component {
     userAccountId: "",
     currentUser: "",
   };
-  editAddressMain = (address) => {};
+  editAddressMain = (id, address) => {
+    fetch(`/api/users/${id}/addresses/${address._id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(address),
+    })
+      .then((res) => res.json())
+      .then((user) => {
+        this.setState({ currentUser: user });
+      });
+  };
   addAddress = (address, id) => {
     fetch(`/api/users/${id}/adresses`, {
       method: "PATCH",
