@@ -1,6 +1,12 @@
-.address {
+.address,
+.favAddress {
     padding: 1rem;
     border: 1px solid gray;
     border-radius: 5px;
     box-shadow: 2px 2px 2px gray;
+}
+
+.favAddress {
+    background-color: #ffbb70;
+    font-weight: bold;
 }

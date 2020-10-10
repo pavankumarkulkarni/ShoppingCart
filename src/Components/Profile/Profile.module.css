@@ -3,8 +3,28 @@
     margin: 0 auto;
 }
 
+.profile h4>span {
+    font-size: 1rem;
+    font-weight: normal;
+}
+
+.profile header {
+    display: flex;
+    justify-content: space-between;
+}
+
 .addressSection {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 1rem;
+}
+
+.addAddress button {
+    margin: 1rem auto;
+    display: block;
+    outline: none;
+}
+
+.addAddress p {
+    text-align: center;
 }

@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import style from "./CustomerAddress.module.css";
 
-export default function CustomerAddress({ addAddress }) {
-  const [input, setInput] = useState({});
+export default function CustomerAddress({
+  addAddress,
+  address = null,
+  editAddress,
+}) {
+  const [input, setInput] = useState(address);
   const sendAddress = (e) => {
     e.preventDefault();
-    addAddress(input);
+    address ? editAddress(input) : addAddress(input);
   };
 
   const handleChange = (e) => {
@@ -14,6 +18,7 @@ export default function CustomerAddress({ addAddress }) {
       [e.target.name]: e.target.value,
     });
   };
+  const btnText = address ? "Edit Address" : "Add Address";
   return (
     <div>
       <h4>CustomerAddress</h4>
@@ -25,18 +30,44 @@ export default function CustomerAddress({ addAddress }) {
         <label htmlFor='name'>Address name :</label>
         <input
           type='text'
-          name='addressname'
+          name='addressName'
           onChange={(e) => handleChange(e)}
+          required
+          value={input ? input.addressName : ""}
         />
         <label htmlFor='street'>Street :</label>
-        <input type='text' name='street' onChange={handleChange} required />
+        <input
+          type='text'
+          name='street'
+          onChange={handleChange}
+          required
+          value={input ? input.street : ""}
+        />
         <label htmlFor='city'>City : </label>
-        <input type='text' name='city' onChange={handleChange} required />
+        <input
+          type='text'
+          name='city'
+          onChange={handleChange}
+          required
+          value={input ? input.city : ""}
+        />
         <label htmlFor='state'>State :</label>
-        <input type='state' name='' onChange={handleChange} required />
+        <input
+          type='text'
+          name='state'
+          onChange={handleChange}
+          required
+          value={input ? input.state : ""}
+        />
         <label htmlFor='zip'>Zip :</label>
-        <input type='number' name='zip' onChange={handleChange} required />
-        <button>Add Address</button>
+        <input
+          type='number'
+          name='zip'
+          onChange={handleChange}
+          required
+          value={input ? input.zip : ""}
+        />
+        <button>{btnText}</button>
       </form>
     </div>
   );

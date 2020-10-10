@@ -27,7 +27,7 @@ export default class GoogleSignin extends React.Component {
 
       alert(`Thanks for joining us ${uname}`);
     }
-    console.log(userdata);
+    // console.log(userdata);
     this.props.setLogin(profile.getName(), userdata);
   };
 
