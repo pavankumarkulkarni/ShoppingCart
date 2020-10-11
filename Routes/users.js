@@ -19,7 +19,7 @@ router.get("/:email", async (req, res) => {
 // Retrieve addresses of user
 router.get("/:id/adresses", async (req, res) => {
   const accnt = await model.User.findById(req.params.id);
-  console.log(accnt);
+  // console.log(accnt);
   res.send(accnt.address);
 });
 
