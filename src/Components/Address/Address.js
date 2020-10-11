@@ -28,7 +28,7 @@ export default function Address({
         onClick={(e) => {
           setFavAddress(address._id);
         }}>
-        <i class='far fa-heart'></i>
+        <i className='far fa-heart'></i>
       </button>
       <button
         className='iconButton'

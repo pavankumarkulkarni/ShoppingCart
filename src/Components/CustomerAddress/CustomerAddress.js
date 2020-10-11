@@ -1,12 +1,17 @@
 import React, { useState } from "react";
 import style from "./CustomerAddress.module.css";
 
-export default function CustomerAddress({
-  addAddress,
-  address = null,
-  editAddress,
-}) {
-  const [input, setInput] = useState(address);
+export default function CustomerAddress({ addAddress, address, editAddress }) {
+  const [input, setInput] = useState(
+    address || {
+      addressName: "",
+      street: "",
+      city: "",
+      state: "",
+      zip: "",
+      fav: "false",
+    }
+  );
   const sendAddress = (e) => {
     e.preventDefault();
     address ? editAddress(input) : addAddress(input);
@@ -21,13 +26,13 @@ export default function CustomerAddress({
   const btnText = address ? "Edit Address" : "Add Address";
   return (
     <div>
-      <h4>CustomerAddress</h4>
+      {/* <h4>CustomerAddress</h4> */}
       <form
         className={style.form}
         onSubmit={(e) => {
           sendAddress(e);
         }}>
-        <label htmlFor='name'>Address name :</label>
+        <label htmlFor='addressName'>Address name :</label>
         <input
           type='text'
           name='addressName'
@@ -39,7 +44,7 @@ export default function CustomerAddress({
         <input
           type='text'
           name='street'
-          onChange={handleChange}
+          onChange={(e) => handleChange(e)}
           required
           value={input ? input.street : ""}
         />
@@ -47,7 +52,7 @@ export default function CustomerAddress({
         <input
           type='text'
           name='city'
-          onChange={handleChange}
+          onChange={(e) => handleChange(e)}
           required
           value={input ? input.city : ""}
         />
@@ -55,7 +60,7 @@ export default function CustomerAddress({
         <input
           type='text'
           name='state'
-          onChange={handleChange}
+          onChange={(e) => handleChange(e)}
           required
           value={input ? input.state : ""}
         />
@@ -63,7 +68,7 @@ export default function CustomerAddress({
         <input
           type='number'
           name='zip'
-          onChange={handleChange}
+          onChange={(e) => handleChange(e)}
           required
           value={input ? input.zip : ""}
         />

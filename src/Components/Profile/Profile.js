@@ -19,7 +19,7 @@ export default function Profile({
   const editAddressinDB = (address) => {
     // console.log(address);
     setShowAddressForm(false);
-    editAddressMain(currentUser._id, (address = { ...address, fav: "false" }));
+    editAddressMain(currentUser._id, (address = { ...address }));
     setedtAddress(null);
   };
   const delAddress = (addId) => {

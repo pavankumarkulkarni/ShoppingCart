@@ -11,20 +11,20 @@ router.post("/", async (req, res) => {
 
 // Retrieve user by email id
 router.get("/:email", async (req, res) => {
-  console.log(req.params.email);
+  // console.log(req.params.email);
   const user = await model.User.find({ email: req.params.email });
   res.send(user);
 });
 
 // Retrieve addresses of user
-router.get("/:id/adresses", async (req, res) => {
+router.get("/:id/addresses", async (req, res) => {
   const accnt = await model.User.findById(req.params.id);
   // console.log(accnt);
   res.send(accnt.address);
 });
 
 // Add addresses of user
-router.patch("/:id/adresses", async (req, res) => {
+router.patch("/:id/addresses", async (req, res) => {
   const accnt = await model.User.findById(req.params.id);
 
   let address = accnt.address;

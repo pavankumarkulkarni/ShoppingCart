@@ -56,7 +56,7 @@ class App extends Component {
       });
   };
   addAddress = (address, id) => {
-    fetch(`/api/users/${id}/adresses`, {
+    fetch(`/api/users/${id}/addresses`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
