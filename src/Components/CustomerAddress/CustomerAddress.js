@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import style from "./CustomerAddress.module.css";
 
-export default function CustomerAddress({ addAddress, address, editAddress }) {
+export default function CustomerAddress({
+  addAddress,
+  address,
+  editAddress,
+  cancelAddressChange,
+}) {
   const [input, setInput] = useState(
     address || {
       addressName: "",
@@ -22,6 +27,11 @@ export default function CustomerAddress({ addAddress, address, editAddress }) {
       ...input,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const handleCancel = (e) => {
+    e.preventDefault();
+    cancelAddressChange();
   };
   const btnText = address ? "Edit Address" : "Add Address";
   return (
@@ -72,7 +82,15 @@ export default function CustomerAddress({ addAddress, address, editAddress }) {
           required
           value={input ? input.zip : ""}
         />
-        <button>{btnText}</button>
+        <div className={style.btns}>
+          <button type='submit'>{btnText}</button>
+          <button
+            type='button'
+            onClick={(e) => handleCancel(e)}
+            className={style.cancel}>
+            Cancel
+          </button>
+        </div>
       </form>
     </div>
   );

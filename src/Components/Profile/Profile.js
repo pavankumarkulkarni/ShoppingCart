@@ -16,6 +16,9 @@ export default function Profile({
     addAddress((address = { ...address, fav: "false" }), currentUser._id);
     setShowAddressForm(false);
   };
+  const cancelAddressChange = () => {
+    setShowAddressForm(false);
+  };
   const editAddressinDB = (address) => {
     // console.log(address);
     setShowAddressForm(false);
@@ -44,6 +47,7 @@ export default function Profile({
           delAddress={delAddress}
           editAddress={editAddress}
           setFavAddress={setFavAdd}
+          uspsCheck={"pass"}
         />
       );
     })
@@ -90,6 +94,7 @@ export default function Profile({
             addAddress={sendAddress}
             address={edtAddress}
             editAddress={editAddressinDB}
+            cancelAddressChange={cancelAddressChange}
           />
         ) : null}
       </section>

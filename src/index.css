@@ -83,4 +83,35 @@ button.secondaryBtn {
 .iconButton {
     background-color: transparent;
     border: none;
+    outline: none;
+}
+
+.iconButton:hover {
+    box-shadow: none;
+}
+
+.fa-trash-alt {
+    color: gray;
+}
+
+.fa-exclamation {
+    color: red
+}
+
+.fa-check {
+    color: green;
+}
+
+.fas,
+.far {
+    transition: all 0.4s ease-in-out;
+}
+
+.fas:hover,
+.far:hover {
+    transform: scale(1.5);
+}
+
+.fas.fa-heart {
+    color: purple;
 }

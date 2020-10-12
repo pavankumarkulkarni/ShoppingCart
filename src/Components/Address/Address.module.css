@@ -10,3 +10,29 @@
     background-color: #ffbb70;
     font-weight: bold;
 }
+
+.icons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.usps {
+    margin-top: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.usps>span {
+    font-size: small;
+    font-weight: bold;
+}
+
+.checkBtn {
+    font-size: small;
+    font-weight: bold;
+    background-color: transparent;
+    border: none;
+    display: inline;
+    border-bottom: 3px solid black;
+    color: brown;
+}
