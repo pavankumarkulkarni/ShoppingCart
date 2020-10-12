@@ -9,4 +9,41 @@
 .favAddress {
     background-color: #ffbb70;
     font-weight: bold;
+    animation: bgcolor 0.4s 1 ease-in-out;
+}
+
+@keyframes bgcolor {
+    from {
+        background-color: white;
+    }
+    to {
+        background-color: #ffbb70;
+    }
+}
+
+.icons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.usps {
+    margin-top: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.usps>span {
+    font-size: small;
+    font-weight: bold;
+}
+
+.checkBtn {
+    font-size: small;
+    font-weight: bold;
+    background-color: transparent;
+    border: none;
+    display: inline;
+    border-bottom: 3px solid black;
+    color: brown;
 }

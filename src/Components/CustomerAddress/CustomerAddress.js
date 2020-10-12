@@ -3,10 +3,21 @@ import style from "./CustomerAddress.module.css";
 
 export default function CustomerAddress({
   addAddress,
-  address = null,
+  address,
   editAddress,
+  cancelAddressChange,
 }) {
-  const [input, setInput] = useState(address);
+  const [input, setInput] = useState(
+    address || {
+      addressName: "",
+      street: "",
+      city: "",
+      state: "",
+      zip: "",
+      fav: "false",
+      usps: "",
+    }
+  );
   const sendAddress = (e) => {
     e.preventDefault();
     address ? editAddress(input) : addAddress(input);
@@ -15,19 +26,25 @@ export default function CustomerAddress({
   const handleChange = (e) => {
     setInput({
       ...input,
+      usps: "",
       [e.target.name]: e.target.value,
     });
+  };
+
+  const handleCancel = (e) => {
+    e.preventDefault();
+    cancelAddressChange();
   };
   const btnText = address ? "Edit Address" : "Add Address";
   return (
     <div>
-      <h4>CustomerAddress</h4>
+      {/* <h4>CustomerAddress</h4> */}
       <form
         className={style.form}
         onSubmit={(e) => {
           sendAddress(e);
         }}>
-        <label htmlFor='name'>Address name :</label>
+        <label htmlFor='addressName'>Address name :</label>
         <input
           type='text'
           name='addressName'
@@ -39,7 +56,7 @@ export default function CustomerAddress({
         <input
           type='text'
           name='street'
-          onChange={handleChange}
+          onChange={(e) => handleChange(e)}
           required
           value={input ? input.street : ""}
         />
@@ -47,7 +64,7 @@ export default function CustomerAddress({
         <input
           type='text'
           name='city'
-          onChange={handleChange}
+          onChange={(e) => handleChange(e)}
           required
           value={input ? input.city : ""}
         />
@@ -55,7 +72,7 @@ export default function CustomerAddress({
         <input
           type='text'
           name='state'
-          onChange={handleChange}
+          onChange={(e) => handleChange(e)}
           required
           value={input ? input.state : ""}
         />
@@ -63,11 +80,19 @@ export default function CustomerAddress({
         <input
           type='number'
           name='zip'
-          onChange={handleChange}
+          onChange={(e) => handleChange(e)}
           required
           value={input ? input.zip : ""}
         />
-        <button>{btnText}</button>
+        <div className={style.btns}>
+          <button type='submit'>{btnText}</button>
+          <button
+            type='button'
+            onClick={(e) => handleCancel(e)}
+            className={style.cancel}>
+            Cancel
+          </button>
+        </div>
       </form>
     </div>
   );
