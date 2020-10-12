@@ -9,6 +9,16 @@
 .favAddress {
     background-color: #ffbb70;
     font-weight: bold;
+    animation: bgcolor 0.4s 1 ease-in-out;
+}
+
+@keyframes bgcolor {
+    from {
+        background-color: white;
+    }
+    to {
+        background-color: #ffbb70;
+    }
 }
 
 .icons {

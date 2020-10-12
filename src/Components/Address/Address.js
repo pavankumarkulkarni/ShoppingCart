@@ -1,5 +1,6 @@
 import React from "react";
 import style from "./Address.module.css";
+import {} from "dotenv/config";
 
 export default function Address({
   address,
@@ -21,7 +22,7 @@ export default function Address({
       "<Zip4></Zip4>" +
       "</Address>" +
       "</AddressValidateRequest>";
-    // console.log("validating Address");
+
     fetch(str)
       .then((res) => res.text())
       .then((data) => {
@@ -32,14 +33,18 @@ export default function Address({
         xmlDoc = parser.parseFromString(data, "text/xml");
 
         if (xmlDoc.getElementsByTagName("Description")[0]) {
-          console.log(
-            xmlDoc.getElementsByTagName("Description")[0].childNodes[0]
-              .nodeValue
-          );
+          // console.log(
+          //   xmlDoc.getElementsByTagName("Description")[0].childNodes[0]
+          //     .nodeValue
+          // );
           uspsCheck({ ...address, usps: "fail" });
+          alert(
+            "Address not found via USPS. Please edit the address and revalidate."
+          );
         } else {
           // console.log("Address Validated");
           uspsCheck({ ...address, usps: "pass" });
+          alert("Address was successfully validated via USPS !");
         }
       });
   };
