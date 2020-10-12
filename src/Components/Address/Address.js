@@ -8,14 +8,51 @@ export default function Address({
   setFavAddress,
   uspsCheck,
 }) {
-  const uspsBtn = uspsCheck ? (
-    uspsCheck === "pass" ? (
+  const uspsValidator = (e) => {
+    e.preventDefault();
+    const str =
+      'https://secure.shippingapis.com/ShippingAPI.dll?API=Verify&XML=<AddressValidateRequest USERID="940SELFD5341">' +
+      "<Address>" +
+      "<Address1> </Address1>" +
+      `<Address2>${address.street}</Address2>` +
+      `<City>${address.city}</City>` +
+      `<State>${address.state}</State>` +
+      `<Zip5>${address.zip}</Zip5>` +
+      "<Zip4></Zip4>" +
+      "</Address>" +
+      "</AddressValidateRequest>";
+    // console.log("validating Address");
+    fetch(str)
+      .then((res) => res.text())
+      .then((data) => {
+        // console.log(data);
+        let xmlDoc;
+
+        const parser = new DOMParser();
+        xmlDoc = parser.parseFromString(data, "text/xml");
+
+        if (xmlDoc.getElementsByTagName("Description")[0]) {
+          console.log(
+            xmlDoc.getElementsByTagName("Description")[0].childNodes[0]
+              .nodeValue
+          );
+          uspsCheck({ ...address, usps: "fail" });
+        } else {
+          // console.log("Address Validated");
+          uspsCheck({ ...address, usps: "pass" });
+        }
+      });
+  };
+  const uspsBtn = address.usps ? (
+    address.usps === "pass" ? (
       <i className='fas fa-check'></i>
-    ) : uspsCheck === "fail" ? (
-      <i class='fas fa-exclamation'></i>
+    ) : address.usps === "fail" ? (
+      <i className='fas fa-exclamation'></i>
     ) : null
   ) : (
-    <button className={style.checkBtn}>USPS</button>
+    <button className={style.checkBtn} onClick={(e) => uspsValidator(e)}>
+      via USPS
+    </button>
   );
   return (
     <div className={address.fav === "true" ? style.favAddress : style.address}>
@@ -54,7 +91,7 @@ export default function Address({
         </button>
       </div>
       <div className={style.usps}>
-        {uspsCheck ? (
+        {address.usps ? (
           <span>USPS verification - </span>
         ) : (
           <span>Verify address - </span>

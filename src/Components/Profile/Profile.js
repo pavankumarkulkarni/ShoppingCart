@@ -13,7 +13,10 @@ export default function Profile({
   const [showAddressForm, setShowAddressForm] = useState(false);
   const [edtAddress, setedtAddress] = useState(null);
   const sendAddress = (address) => {
-    addAddress((address = { ...address, fav: "false" }), currentUser._id);
+    addAddress(
+      (address = { ...address, fav: "false", usps: null }),
+      currentUser._id
+    );
     setShowAddressForm(false);
   };
   const cancelAddressChange = () => {
@@ -38,6 +41,10 @@ export default function Profile({
   const setFavAdd = (id) => {
     setFavAddress(currentUser._id, id);
   };
+
+  const uspsUpdate = (address) => {
+    editAddressMain(currentUser._id, address);
+  };
   const savedAddresses = currentUser.address ? (
     currentUser.address.map((address) => {
       return (
@@ -47,7 +54,7 @@ export default function Profile({
           delAddress={delAddress}
           editAddress={editAddress}
           setFavAddress={setFavAdd}
-          uspsCheck={"pass"}
+          uspsCheck={uspsUpdate}
         />
       );
     })

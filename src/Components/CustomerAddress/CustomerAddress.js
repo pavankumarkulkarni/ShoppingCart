@@ -15,6 +15,7 @@ export default function CustomerAddress({
       state: "",
       zip: "",
       fav: "false",
+      usps: "",
     }
   );
   const sendAddress = (e) => {
@@ -25,6 +26,7 @@ export default function CustomerAddress({
   const handleChange = (e) => {
     setInput({
       ...input,
+      usps: "",
       [e.target.name]: e.target.value,
     });
   };
