@@ -26,23 +26,17 @@ export default function Address({
     fetch(str)
       .then((res) => res.text())
       .then((data) => {
-        // console.log(data);
         let xmlDoc;
 
         const parser = new DOMParser();
         xmlDoc = parser.parseFromString(data, "text/xml");
 
         if (xmlDoc.getElementsByTagName("Description")[0]) {
-          // console.log(
-          //   xmlDoc.getElementsByTagName("Description")[0].childNodes[0]
-          //     .nodeValue
-          // );
           uspsCheck({ ...address, usps: "fail" });
           alert(
             "Address not found via USPS. Please edit the address and revalidate."
           );
         } else {
-          // console.log("Address Validated");
           uspsCheck({ ...address, usps: "pass" });
           alert("Address was successfully validated via USPS !");
         }
@@ -50,12 +44,24 @@ export default function Address({
   };
   const uspsBtn = address.usps ? (
     address.usps === "pass" ? (
-      <i className='fas fa-check'></i>
+      <button
+        className={`iconButton ${style.tooltip}`}
+        data-tooltiptext='Verified via United states postal.'>
+        <i className='fas fa-check'></i>
+      </button>
     ) : address.usps === "fail" ? (
-      <i className='fas fa-exclamation'></i>
+      <button
+        className={`iconButton ${style.tooltip}`}
+        data-tooltiptext='Address not found in USPS database. Edit and reverify'>
+        <i className='fas fa-exclamation'></i>
+      </button>
     ) : null
   ) : (
-    <button className={style.checkBtn} onClick={(e) => uspsValidator(e)}>
+    <button
+      className={`${style.checkBtn} ${style.tooltip}`}
+      data-tooltiptext='Check the accuracy of address via USPS'
+      onClick={(e) => uspsValidator(e)}>
+      {" "}
       via USPS
     </button>
   );
@@ -68,7 +74,8 @@ export default function Address({
       <p>zip : {address.zip}</p>
       <div className={style.icons}>
         <button
-          className='iconButton'
+          className={`iconButton ${style.tooltip}`}
+          data-tooltiptext='Click to edit the address.'
           onClick={(e) => {
             editAddress(address);
           }}>
@@ -76,24 +83,30 @@ export default function Address({
             <i className='fas fa-edit'></i>
           </i>
         </button>
-        <button
-          className='iconButton'
-          onClick={(e) => {
-            setFavAddress(address._id);
-          }}>
-          {address.fav === "true" ? (
-            <i className='fas fa-heart'></i>
-          ) : (
-            <i className='far fa-heart'></i>
-          )}
-        </button>
-        <button
-          className='iconButton'
-          onClick={(e) => {
-            delAddress(address._id);
-          }}>
-          <i className='fas fa-trash-alt'></i>
-        </button>
+        <div style={{ position: "relative" }}>
+          <button
+            className={`iconButton ${style.tooltip}`}
+            data-tooltiptext='Click to save as favorite address.'
+            onClick={(e) => {
+              setFavAddress(address._id);
+            }}>
+            {address.fav === "true" ? (
+              <i className='fas fa-heart'></i>
+            ) : (
+              <i className='far fa-heart'></i>
+            )}
+          </button>
+        </div>
+        <div style={{ position: "relative" }}>
+          <button
+            className={`iconButton ${style.tooltip}`}
+            data-tooltiptext='Click to delete the address.'
+            onClick={(e) => {
+              delAddress(address._id);
+            }}>
+            <i className='fas fa-trash-alt'></i>
+          </button>
+        </div>
       </div>
       <div className={style.usps}>
         {address.usps ? (
