@@ -84,6 +84,8 @@ button.secondaryBtn {
     background-color: transparent;
     border: none;
     outline: none;
+    padding: 0;
+    margin-top: 0.25rem;
 }
 
 .iconButton:hover {
@@ -107,10 +109,11 @@ button.secondaryBtn {
     transition: all 0.4s ease-in-out;
 }
 
-.fas:hover,
+
+/* .fas:hover,
 .far:hover {
     transform: scale(1.5);
-}
+} */
 
 .fas.fa-heart {
     color: purple;
