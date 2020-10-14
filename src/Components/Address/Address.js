@@ -83,30 +83,28 @@ export default function Address({
             <i className='fas fa-edit'></i>
           </i>
         </button>
-        <div style={{ position: "relative" }}>
-          <button
-            className={`iconButton ${style.tooltip}`}
-            data-tooltiptext='Click to save as favorite address.'
-            onClick={(e) => {
-              setFavAddress(address._id);
-            }}>
-            {address.fav === "true" ? (
-              <i className='fas fa-heart'></i>
-            ) : (
-              <i className='far fa-heart'></i>
-            )}
-          </button>
-        </div>
-        <div style={{ position: "relative" }}>
-          <button
-            className={`iconButton ${style.tooltip}`}
-            data-tooltiptext='Click to delete the address.'
-            onClick={(e) => {
-              delAddress(address._id);
-            }}>
-            <i className='fas fa-trash-alt'></i>
-          </button>
-        </div>
+
+        <button
+          className={`iconButton ${style.tooltip}`}
+          data-tooltiptext='Click to save as favorite address.'
+          onClick={(e) => {
+            setFavAddress(address._id);
+          }}>
+          {address.fav === "true" ? (
+            <i className='fas fa-heart'></i>
+          ) : (
+            <i className='far fa-heart'></i>
+          )}
+        </button>
+
+        <button
+          className={`iconButton ${style.tooltip}`}
+          data-tooltiptext='Click to delete the address.'
+          onClick={(e) => {
+            delAddress(address._id);
+          }}>
+          <i className='fas fa-trash-alt'></i>
+        </button>
       </div>
       <div className={style.usps}>
         {address.usps ? (
