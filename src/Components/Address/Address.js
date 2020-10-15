@@ -45,20 +45,20 @@ export default function Address({
   const uspsBtn = address.usps ? (
     address.usps === "pass" ? (
       <button
-        className={`iconButton ${style.tooltip}`}
+        className={`iconButton ${style.tooltip} ${style.tooltipBottom}`}
         data-tooltiptext='Verified via United states postal.'>
         <i className='fas fa-check'></i>
       </button>
     ) : address.usps === "fail" ? (
       <button
-        className={`iconButton ${style.tooltip}`}
+        className={`iconButton ${style.tooltip} ${style.tooltipBottom}`}
         data-tooltiptext='Address not found in USPS database. Edit and reverify'>
         <i className='fas fa-exclamation'></i>
       </button>
     ) : null
   ) : (
     <button
-      className={`${style.checkBtn} ${style.tooltip}`}
+      className={`${style.checkBtn} ${style.tooltip} ${style.tooltipBottom}`}
       data-tooltiptext='Check the accuracy of address via USPS'
       onClick={(e) => uspsValidator(e)}>
       {" "}
@@ -74,7 +74,7 @@ export default function Address({
       <p>zip : {address.zip}</p>
       <div className={style.icons}>
         <button
-          className={`iconButton ${style.tooltip}`}
+          className={`iconButton ${style.tooltip} ${style.tooltipRight}`}
           data-tooltiptext='Click to edit the address.'
           onClick={(e) => {
             editAddress(address);
@@ -85,7 +85,7 @@ export default function Address({
         </button>
 
         <button
-          className={`iconButton ${style.tooltip}`}
+          className={`iconButton ${style.tooltip} ${style.tooltipTop}`}
           data-tooltiptext='Click to save as favorite address.'
           onClick={(e) => {
             setFavAddress(address._id);
@@ -98,7 +98,7 @@ export default function Address({
         </button>
 
         <button
-          className={`iconButton ${style.tooltip}`}
+          className={`iconButton ${style.tooltip} ${style.tooltipLeft}`}
           data-tooltiptext='Click to delete the address.'
           onClick={(e) => {
             delAddress(address._id);

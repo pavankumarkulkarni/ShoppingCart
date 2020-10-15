@@ -61,26 +61,88 @@
     color: #ddd;
     width: max-content;
     position: absolute;
-    top: calc(-100% - 15px);
-    left: -100%;
     transform: scale(0);
-    transform-origin: left;
     transition: all 0.2s ease-in-out;
-}
-
-.tooltip:hover.tooltip::before,
-.tooltip:hover.tooltip::after {
-    transform: scale(1);
 }
 
 .tooltip::after {
     content: '';
     border: 10px solid transparent;
-    border-top: 10px solid #333;
     position: absolute;
-    top: -0.5rem;
-    left: 0;
     transform: scale(0);
-    transition: all 0.3s 0.2s ease-in;
+    transition: all 0.2s 0.2s ease-in;
+}
+
+.tooltip.tooltipTop::before {
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform-origin: left;
+}
+
+.tooltip.tooltipTop::after {
+    border-top-color: #333;
+    bottom: 100%;
+    border-bottom-width: 0;
+    left: 50%;
     transform-origin: top;
+}
+
+.tooltip.tooltipTop:hover.tooltip::before,
+.tooltip.tooltipTop:hover.tooltip::after {
+    transform: scale(1) translateX(-50%);
+}
+
+.tooltip.tooltipRight::before {
+    left: calc(100% + 10px);
+    top: 50%;
+}
+
+.tooltip.tooltipRight::after {
+    border-right-color: #333;
+    border-left-width: 0;
+    top: 50%;
+    transform-origin: right;
+}
+
+.tooltip.tooltipRight:hover.tooltip::before,
+.tooltip.tooltipRight:hover.tooltip::after {
+    transform: scale(1) translateY(-50%);
+}
+
+.tooltip.tooltipLeft::before {
+    right: calc(100% + 10px);
+    top: 50%;
+    transform-origin: right;
+}
+
+.tooltip.tooltipLeft::after {
+    border-left-color: #333;
+    border-right-width: 0;
+    top: 50%;
+    right: 100%;
+    transform-origin: right;
+}
+
+.tooltip.tooltipLeft:hover.tooltip::before,
+.tooltip.tooltipLeft:hover.tooltip::after {
+    transform: scale(1) translateY(-50%);
+}
+
+.tooltip.tooltipBottom::before {
+    top: calc(100% + 10px);
+    left: 50%;
+    transform-origin: top;
+}
+
+.tooltip.tooltipBottom::after {
+    border-bottom-color: #333;
+    top: 100%;
+    border-top-width: 0;
+    left: 50%;
+    transform-origin: bottom;
+}
+
+.tooltip.tooltipBottom:hover.tooltip::before,
+.tooltip.tooltipBottom:hover.tooltip::after {
+    transform: scale(1) translateX(-50%);
 }
