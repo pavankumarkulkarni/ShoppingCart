@@ -70,13 +70,13 @@
     border: 10px solid transparent;
     position: absolute;
     transform: scale(0);
-    transition: all 0.2s 0.2s ease-in;
+    transition: all 0.2s ease-in;
 }
 
 .tooltip.tooltipTop::before {
     bottom: calc(100% + 10px);
     left: 50%;
-    transform-origin: left;
+    transform-origin: left bottom;
 }
 
 .tooltip.tooltipTop::after {
@@ -84,7 +84,7 @@
     bottom: 100%;
     border-bottom-width: 0;
     left: 50%;
-    transform-origin: top;
+    transform-origin: top center;
 }
 
 .tooltip.tooltipTop:hover.tooltip::before,
@@ -95,13 +95,14 @@
 .tooltip.tooltipRight::before {
     left: calc(100% + 10px);
     top: 50%;
+    transform-origin: left top;
 }
 
 .tooltip.tooltipRight::after {
     border-right-color: #333;
     border-left-width: 0;
     top: 50%;
-    transform-origin: right;
+    transform-origin: right top;
 }
 
 .tooltip.tooltipRight:hover.tooltip::before,
@@ -112,7 +113,7 @@
 .tooltip.tooltipLeft::before {
     right: calc(100% + 10px);
     top: 50%;
-    transform-origin: right;
+    transform-origin: right top;
 }
 
 .tooltip.tooltipLeft::after {
@@ -120,7 +121,7 @@
     border-right-width: 0;
     top: 50%;
     right: 100%;
-    transform-origin: right;
+    transform-origin: left top;
 }
 
 .tooltip.tooltipLeft:hover.tooltip::before,
@@ -131,7 +132,7 @@
 .tooltip.tooltipBottom::before {
     top: calc(100% + 10px);
     left: 50%;
-    transform-origin: top;
+    transform-origin: left;
 }
 
 .tooltip.tooltipBottom::after {
