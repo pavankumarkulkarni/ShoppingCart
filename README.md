@@ -21,3 +21,7 @@ Login is implemented using Google login. The application identifies if a new use
 Logged in user can add up to 6 addresses. Reference name, address along with zipcode can be added. Each address can be verified using USPS postal API. Addres verification status is notified on the address card using appropriate icons.
 User can delete, edit addresses. 
 User can also save one of the address as favorites. Favorite address is color coded and also icon is updated.
+
+### Admin Module
+Clicking Admin button at the top header opens up Admin Module. It lists all active orders in MongoDB backend. Orders ID, Customer details and order details are listed in tabular format.
+Each row of the table contains details of an order. Rows are alternate colored with primary color border. Individual order can be deleted by clicking del button. Confirmation message is displayed to the user.
