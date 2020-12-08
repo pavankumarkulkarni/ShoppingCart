@@ -18,7 +18,7 @@ Shoppingcart icon at the top header is updated with the count of products added 
 Clicking on the shopping cart icon displays individual product quantity, price, subtotal for product and total price of the order. User can remove items from shopping cart by clicking remove icon. Clicking on Proceed button, expands the cart modal and fields for customer name, address and card details are displayed. These fields are mandatory and field checks are implemented. When clicked on Submit, order is sent to backend and order is saved in the backend MongoDB. Each order has unique identifier, along with customer details and products details and total price. As a confirmation to user, the order submitted is displayed in modal popup.
 
 ### Login
-Login is implemented using Google login. The application identifies if a new user is logged in or returning customer.
+Login is implemented using Google login. The application identifies if a new user is logged in or returning customer. react-google-login library is used.
 
 ### Profile page for logged in user.
 Logged in user can add up to 6 addresses. Reference name, address along with zipcode can be added. 
