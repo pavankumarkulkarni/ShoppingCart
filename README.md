@@ -37,5 +37,18 @@ Each row of the table contains details of an order. Rows are alternate colored w
 Table in the Admin module is wide. It is responsive to screen size. At 1100px break point, the table format changes with each order is split accross multiple rows to make table vertical. At 650px break point i.e. for mobile screens, the product details are removed to fit in most important content needed for Admin module.
 
 ## Technology
-React 16.3 is used for front end development. CSS module is used. Every module has a seperate CSS page. While rendering class names of HTML elements are auto generated.
+### react
+React 16.3 is used for front end development. Modal window and drop down menu are implemented in Higher Order Component pattern for reusability. 
 
+### css
+CSS module is used. Every module has a seperate CSS page. While rendering class names of HTML elements are auto generated. Animation, transition are also implemented.
+tooltips are implemented in CSS only.
+
+### MongoDB.
+For backend mongodb is used. MongoDB Cloud atlas account is created. Product details, order details and user details are stored in DB. All CRUD operations are performed in this application.
+
+### Express.
+Express app is used for the route and other middle wares it provides. Also it makes it easier to create schema, model using Express.
+
+### Node.js
+Node is used for run time environment for server side scripting.
