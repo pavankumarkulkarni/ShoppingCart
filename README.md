@@ -25,3 +25,5 @@ User can also save one of the address as favorites. Favorite address is color co
 ### Admin Module
 Clicking Admin button at the top header opens up Admin Module. It lists all active orders in MongoDB backend. Orders ID, Customer details and order details are listed in tabular format.
 Each row of the table contains details of an order. Rows are alternate colored with primary color border. Individual order can be deleted by clicking del button. Confirmation message is displayed to the user.
+
+Table in the Admin module is wide. It is responsive to screen size. At 1100px break point, the table format changes with each order is split accross multiple rows to make table vertical. At 650px break point i.e. for mobile screens, the product details are removed to fit in most important content needed for Admin module.
