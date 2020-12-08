@@ -21,13 +21,21 @@ Clicking on the shopping cart icon displays individual product quantity, price, 
 Login is implemented using Google login. The application identifies if a new user is logged in or returning customer.
 
 ### Profile page for logged in user.
-Logged in user can add up to 6 addresses. Reference name, address along with zipcode can be added. Each address can be verified using USPS postal API. Addres verification status is notified on the address card using appropriate icons.
-User can delete, edit addresses. Tooltip for all the icons are animated. Tooltips are implemented using CSS only.
-Address page field validation is implemented.
-User can also save one of the address as favorites. Favorite address is color coded and also icon is updated.
+Logged in user can add up to 6 addresses. Reference name, address along with zipcode can be added. 
+
+1. Verification via USPS. Each address can be verified using USPS postal API. Addres verification status is notified on the address card using appropriate icons.
+2. Delete address: Address can be deleted clicking trash icon on the address card.
+3. Edit Address: Clicking on the edit icon opens up edit section with the address pre-populated. User can edit and click on save. Editing an address also resets address verification status.
+4. Favorite address: User can make any single address favorite by clicking the fav icon. When clicked color of the address card changes in animated (delay) mode.
+5. Tooltip: Each icon has tooltip implemented. Tooltip is implemented using CSS only. Tooltip opens up in appropriate position.
+6. Add address: If there are less than 6 addresses, user can click + button to open new address section to add new address. If there are 6 addresses already + button is not disaplyed.
 
 ### Admin Module
 Clicking Admin button at the top header opens up Admin Module. It lists all active orders in MongoDB backend. Orders ID, Customer details and order details are listed in tabular format.
 Each row of the table contains details of an order. Rows are alternate colored with primary color border. Individual order can be deleted by clicking del button. Confirmation message is displayed to the user.
 
 Table in the Admin module is wide. It is responsive to screen size. At 1100px break point, the table format changes with each order is split accross multiple rows to make table vertical. At 650px break point i.e. for mobile screens, the product details are removed to fit in most important content needed for Admin module.
+
+## Technology
+React 16.3 is used for front end development. CSS module is used. Every module has a seperate CSS page. While rendering class names of HTML elements are auto generated.
+
