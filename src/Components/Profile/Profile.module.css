@@ -1,6 +1,11 @@
 .profile {
-    width: 30rem;
+    max-width: 60rem;
     margin: 0 auto;
+}
+
+.profileMain {
+    display: flex;
+    justify-content: space-between;
 }
 
 .profile h4>span {

@@ -42,6 +42,18 @@ class App extends Component {
         this.setState({ currentUser: user });
       });
   };
+  setFavCard = (id, cardid) => {
+    fetch(`/api/users/${id}/cards/${cardid}/fav`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((user) => {
+        this.setState({ currentUser: user });
+      });
+  };
   editAddressMain = (id, address) => {
     fetch(`/api/users/${id}/addresses/${address._id}`, {
       method: "PATCH",
@@ -49,6 +61,19 @@ class App extends Component {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(address),
+    })
+      .then((res) => res.json())
+      .then((user) => {
+        this.setState({ currentUser: user });
+      });
+  };
+  editCardMain = (id, card) => {
+    fetch(`/api/users/${id}/cards/${card._id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(card),
     })
       .then((res) => res.json())
       .then((user) => {
@@ -68,8 +93,31 @@ class App extends Component {
         this.setState({ currentUser: user });
       });
   };
+  addCard = (card, id) => {
+    // alert(card);
+    fetch(`/api/users/${id}/cards`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(card),
+    })
+      .then((res) => res.json())
+      .then((user) => {
+        this.setState({ currentUser: user });
+      });
+  };
   deleteAddress = (clientId, addID) => {
     fetch(`/api/users/${clientId}/addresses/${addID}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((user) => {
+        this.setState({ currentUser: user });
+      });
+  };
+  deleteCard = (clientId, addID) => {
+    fetch(`/api/users/${clientId}/cards/${addID}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -324,6 +372,10 @@ class App extends Component {
                   addAddress={this.addAddress}
                   editAddressMain={this.editAddressMain}
                   setFavAddress={this.setFavAddress}
+                  deleteCard={this.deleteCard}
+                  addCard={this.addCard}
+                  editCardMain={this.editCardMain}
+                  setFavCard={this.setFavCard}
                 />
               </Route>
               <Route path='/aboutus'>

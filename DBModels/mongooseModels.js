@@ -50,6 +50,16 @@ const User = mongoose.model(
         usps: String,
       },
     ],
+    card: [
+      {
+        _id: { type: String, default: shortid.generate },
+        cardName: String,
+        number: String,
+        expiry: String,
+        CVV: String,
+        fav: String,
+      },
+    ],
   })
 );
 
