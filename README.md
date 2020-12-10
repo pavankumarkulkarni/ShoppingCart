@@ -21,6 +21,7 @@ Clicking on the shopping cart icon displays individual product quantity, price, 
 Login is implemented using Google login. The application identifies if a new user is logged in or returning customer. react-google-login library is used.
 
 ### Profile page for logged in user.
+#### Address
 Logged in user can add up to 6 addresses. Reference name, address along with zipcode can be added. 
 
 1. Verification via USPS. Each address can be verified using USPS postal API. Addres verification status is notified on the address card using appropriate icons.
@@ -29,6 +30,10 @@ Logged in user can add up to 6 addresses. Reference name, address along with zip
 4. Favorite address: User can make any single address favorite by clicking the fav icon. When clicked color of the address card changes in animated (delay) mode.
 5. Tooltip: Each icon has tooltip implemented. Tooltip is implemented using CSS only. Tooltip opens up in appropriate position.
 6. Add address: If there are less than 6 addresses, user can click + button to open new address section to add new address. If there are 6 addresses already + button is not disaplyed.
+
+#### Cards
+Similar to addresses, user can save upto 6 cards.
+Except for verification it has same functionality of address.
 
 ### Admin Module
 Clicking Admin button at the top header opens up Admin Module. It lists all active orders in MongoDB backend. Orders ID, Customer details and order details are listed in tabular format.

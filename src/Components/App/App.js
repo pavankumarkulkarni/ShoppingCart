@@ -9,7 +9,9 @@ import Header from "../Header/Header";
 import style from "./App.module.css";
 import { Route, Switch } from "react-router-dom";
 import Profile from "../Profile/Profile";
-import AboutUs from "../AboutUs/AboutUs.js";
+import AboutUs from "../AboutUs/AboutUs";
+import CheckOut from "../CheckOut/CheckOut";
+
 class App extends Component {
   state = {
     products: [], //data.products,
@@ -222,7 +224,11 @@ class App extends Component {
     sessionStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
   };
 
-  sendCustDetails = (customer, totalPrice) => {
+  sendCustDetails = (customer) => {
+    const totalPrice =
+      this.state.cartItems.length === 0
+        ? 0
+        : this.state.cartItems.reduce((a, b) => a + b.price * b.count, 0);
     this.setState(
       {
         customer: customer,
@@ -380,6 +386,9 @@ class App extends Component {
               </Route>
               <Route path='/aboutus'>
                 <AboutUs />
+              </Route>
+              <Route path='/checkout'>
+                <CheckOut sendCustDetails={this.sendCustDetails} />
               </Route>
             </Switch>
           </div>

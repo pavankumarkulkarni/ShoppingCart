@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import CustomerDetails from "../CustomerDetails/CustomerDetails";
 import style from "./Cart.module.css";
+import { Link } from "react-router-dom";
 
 export default class Cart extends Component {
   constructor(props) {
@@ -54,8 +55,7 @@ export default class Cart extends Component {
                 </span>
                 <button
                   className={style.secondaryBtn}
-                  onClick={(e) => this.handleRemoveItems(item)}
-                >
+                  onClick={(e) => this.handleRemoveItems(item)}>
                   Remove
                 </button>
               </div>
@@ -65,8 +65,11 @@ export default class Cart extends Component {
         {this.itemsCount() > 0 ? (
           <div className={style.carttotal}>
             <span>Total : ${this.totalPrice().toFixed(2)} </span>
-            <button onClick={(e) => this.setState({ showForm: true })}>
+            {/* <button onClick={(e) => this.setState({ showForm: true })}>
               Proceed
+            </button> */}
+            <button>
+              <Link to='/checkout'>PROCEED</Link>
             </button>
           </div>
         ) : null}
