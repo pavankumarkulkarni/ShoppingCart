@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import CustomerDetails from "../CustomerDetails/CustomerDetails";
 import style from "./CartPopup.module.css";
 import DropdownMenu from "../HOC/DropdownMenu";
+import { Link } from "react-router-dom";
 
 class Cart extends Component {
   constructor(props) {
@@ -55,8 +56,7 @@ class Cart extends Component {
                 </span>
                 <button
                   className={style.secondaryBtn}
-                  onClick={(e) => this.handleRemoveItems(item)}
-                >
+                  onClick={(e) => this.handleRemoveItems(item)}>
                   Remove
                 </button>
               </div>
@@ -66,8 +66,11 @@ class Cart extends Component {
         {this.itemsCount() > 0 ? (
           <div className={style.carttotal}>
             <span>Total : ${this.totalPrice().toFixed(2)} </span>
-            <button onClick={(e) => this.setState({ showForm: true })}>
-              Proceed
+            {/* <button onClick={(e) => this.setState({ showForm: true })}>
+              PROCEED
+            </button> */}
+            <button>
+              <Link to='/checkout'>PROCEED</Link>
             </button>
           </div>
         ) : null}
