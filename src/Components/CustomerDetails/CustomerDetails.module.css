@@ -11,9 +11,13 @@
     font-weight: bold;
 }
 
+.customerdetails h3 {
+    margin: 0 auto;
+}
+
 .customerdetails label {
     margin-top: 1rem;
-    font-size: 1.2rem;
+    font-size: 1rem;
 }
 
 .customerdetails p.labelhint {
@@ -32,4 +36,14 @@
 
 .customerdetails button {
     margin-top: 1rem;
+}
+
+.select {
+    margin-top: 1rem;
+}
+
+.flexDisplay {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
 }

@@ -388,7 +388,10 @@ class App extends Component {
                 <AboutUs />
               </Route>
               <Route path='/checkout'>
-                <CheckOut sendCustDetails={this.sendCustDetails} />
+                <CheckOut
+                  sendCustDetails={this.sendCustDetails}
+                  currentUser={this.state.currentUser}
+                />
               </Route>
             </Switch>
           </div>
