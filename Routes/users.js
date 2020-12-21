@@ -1,6 +1,7 @@
 const model = require("../DBModels/mongooseModels");
 const express = require("express");
 const router = express.Router();
+const bcrypt = require("bcryptjs");
 
 // create user
 router.post("/", async (req, res) => {
@@ -177,4 +178,35 @@ router.patch("/:id/cards/:cardid/fav", async (req, res) => {
   res.send(updatedUser);
 });
 
+//Register user
+router.post("/register", async (req, res) => {
+  try {
+    const { email, password, passwordcheck } = req.body;
+    if (!email || !password || !passwordcheck) {
+      res
+        .status(400)
+        .json({ msg: "Missing fields needed for succesful registration" });
+    }
+    if (password !== passwordcheck) {
+      res.status(400).json({ msg: "Passwords don't match." });
+    }
+    if (password.length < 5) {
+      res.status(400).json({ msg: "Password should be atleast 5 characters." });
+    }
+    const existingUser = await model.User.findOne({ email: email });
+    if (existingUser) {
+      res.status(400).json({ msg: "This email id exists. Try loggin in." });
+    }
+    const salt = await bcrypt.genSalt();
+    const passwordHash = await bcrypt.hash(password, salt);
+    const newUser = new model.User({
+      email,
+      password: passwordHash,
+    });
+    const savedUser = await newUser.save();
+    res.status(200).json(savedUser);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 module.exports = router;
