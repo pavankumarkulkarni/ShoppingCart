@@ -234,11 +234,9 @@ router.post("/signin", async (req, res) => {
         .json({ msg: "No registrations with this email id." });
     }
     if (!user.passwordHash) {
-      return res
-        .status(400)
-        .json({
-          msg: "No registrations with this email id. Try Google login.",
-        });
+      return res.status(400).json({
+        msg: "No registrations with this email id. Try Google login.",
+      });
     }
 
     const isMatch = await bcrypt.compare(password, user.passwordHash);
@@ -255,6 +253,7 @@ router.post("/signin", async (req, res) => {
         address: user.address,
         card: user.card,
       },
+      msg: "Succesful Signin",
     });
   } catch (err) {
     return res.status(500).json({ err: err.message });

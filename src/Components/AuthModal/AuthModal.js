@@ -35,6 +35,23 @@ class Auth extends Component {
       if (res.status === 200) {
         this.props.closeModal();
       }
+    } else {
+      const res = await fetch("/api/users/signin", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: this.state.email,
+          password: this.state.password,
+        }),
+      });
+      const data = await res.json();
+      alert(data.msg);
+      if (res.status === 200) {
+        this.props.closeModal();
+        this.props.setLogin(true);
+      }
     }
   };
 
