@@ -38,6 +38,7 @@ const User = mongoose.model(
     _id: { type: String, default: shortid.generate },
     name: String,
     email: String,
+    passwordHash: String,
     address: [
       {
         _id: { type: String, default: shortid.generate },
