@@ -186,16 +186,20 @@ router.post("/register", async (req, res) => {
       res
         .status(400)
         .json({ msg: "Missing fields needed for succesful registration" });
+      return;
     }
     if (password !== passwordcheck) {
       res.status(400).json({ msg: "Passwords don't match." });
+      return;
     }
-    if (password.length < 5) {
-      res.status(400).json({ msg: "Password should be atleast 5 characters." });
+    if (password.length < 6) {
+      res.status(400).json({ msg: "Password should be atleast 6 characters." });
+      return;
     }
     const existingUser = await model.User.findOne({ email: email });
     if (existingUser) {
       res.status(400).json({ msg: "This email id exists. Try loggin in." });
+      return;
     }
     const salt = await bcrypt.genSalt();
     const passwordHash = await bcrypt.hash(password, salt);
@@ -203,10 +207,13 @@ router.post("/register", async (req, res) => {
       email,
       password: passwordHash,
     });
-    const savedUser = await newUser.save();
-    res.status(200).json(savedUser);
+    await newUser.save();
+    res.status(200).json({
+      msg: "Account created succesfully. SignIn with email and password",
+    });
   } catch (err) {
     res.status(500).json(err);
+    return;
   }
 });
 module.exports = router;
