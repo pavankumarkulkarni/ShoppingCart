@@ -2,7 +2,9 @@ const model = require("../DBModels/mongooseModels");
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
+const JWT = require("jsonwebtoken");
 
+require("dotenv/config");
 // create user
 router.post("/", async (req, res) => {
   const user = await new model.User(req.body);
@@ -205,15 +207,58 @@ router.post("/register", async (req, res) => {
     const passwordHash = await bcrypt.hash(password, salt);
     const newUser = new model.User({
       email,
-      password: passwordHash,
+      passwordHash: passwordHash,
     });
     await newUser.save();
     res.status(200).json({
       msg: "Account created succesfully. SignIn with email and password",
     });
   } catch (err) {
-    res.status(500).json(err);
+    res.status(500).json({ err: err.message });
     return;
   }
 });
+
+router.post("/signin", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    if (!email || !password) {
+      return res
+        .status(400)
+        .json({ msg: "Missing fields for succesful SignIn" });
+    }
+    const user = await model.User.findOne({ email: email });
+    if (!user) {
+      return res
+        .status(400)
+        .json({ msg: "No registrations with this email id." });
+    }
+    if (!user.passwordHash) {
+      return res
+        .status(400)
+        .json({
+          msg: "No registrations with this email id. Try Google login.",
+        });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.passwordHash);
+    if (!isMatch) {
+      return res.status(400).json({ msg: "Invalid credentials" });
+    }
+
+    const token = JWT.sign(user._id, process.env.JWT_SECRET);
+    return res.status(200).json({
+      token,
+      user: {
+        id: user._id,
+        email: user.email,
+        address: user.address,
+        card: user.card,
+      },
+    });
+  } catch (err) {
+    return res.status(500).json({ err: err.message });
+  }
+});
+
 module.exports = router;
