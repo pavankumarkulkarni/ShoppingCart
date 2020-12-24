@@ -317,6 +317,7 @@ class App extends Component {
   };
 
   setLogin = (state) => {
+    sessionStorage.setItem("loggedInUser", JSON.stringify(state));
     this.setState({ login: state });
   };
 

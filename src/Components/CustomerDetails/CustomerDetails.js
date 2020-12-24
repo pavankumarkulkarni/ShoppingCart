@@ -65,7 +65,7 @@ class CustomerDetails extends Component {
   };
   retrieveSavedAddresses = this.props.currentUser ? (
     <>
-      <lable htmlFor='addressDropdown'>Ship to saved address ... </lable>
+      <label htmlFor='addressDropdown'>Ship to saved address ... </label>
       <select
         onChange={this.updateAddress}
         name='addressDropdown'

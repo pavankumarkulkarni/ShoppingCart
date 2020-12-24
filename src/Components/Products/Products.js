@@ -21,7 +21,6 @@ export default class Products extends React.Component {
     this.props.addToCart(product);
   };
   render() {
-    console.log(this.props.products.len);
     const product =
       this.props.products.length > 0 ? (
         this.props.products.map((product) => (
