@@ -7,7 +7,7 @@ import AdminModal from "../AdminModal/AdminModal";
 import AuthModal from "../AuthModal/AuthModal";
 import Header from "../Header/Header";
 import style from "./App.module.css";
-import { Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Profile from "../Profile/Profile";
 import AboutUs from "../AboutUs/AboutUs";
 import CheckOut from "../CheckOut/CheckOut";
@@ -322,82 +322,87 @@ class App extends Component {
 
   render() {
     return (
-      <div className={style.gridlayout}>
-        <Header
-          openAdminModal={this.openAdminModal}
-          openAuthModal={this.openAuthModal}
-          setLogin={this.setLogin}
-          login={this.state.login}
-          setUser={this.setUser}
-          cartItems={this.state.cartItems}
-          removeFromCart={this.removeFromCart}
-          sendCustDetails={this.sendCustDetails}
-          setCurrentUser={this.setCurrentUser}
-        />
-        {this.state.orderForm && (
-          <OrderDetails order={this.state.order} closeModal={this.closeModal} />
-        )}
-        {this.state.adminModal && (
-          <AdminModal
-            closeModal={this.closeAdminModal}
-            orderList={this.state.orderList}
-            deleteOrder={this.deleteOrder}
-          />
-        )}
-        {this.state.authModal && (
-          <AuthModal
-            closeModal={this.closeAuthModal}
+      <Router>
+        <div className={style.gridlayout}>
+          <Header
+            openAdminModal={this.openAdminModal}
+            openAuthModal={this.openAuthModal}
             setLogin={this.setLogin}
+            login={this.state.login}
             setUser={this.setUser}
+            cartItems={this.state.cartItems}
+            removeFromCart={this.removeFromCart}
+            sendCustDetails={this.sendCustDetails}
+            setCurrentUser={this.setCurrentUser}
           />
-        )}
-        <div className={style.main}>
-          <div className={style.maincontent}>
-            <Switch>
-              <Route path='/' exact>
-                <div className={style.filterbar}>
-                  <Filterbar
-                    count={this.state.products.length}
-                    sort={this.state.sort}
-                    size={this.state.size}
-                    filterBy={this.filterBy}
-                    sortBy={this.sortBy}
+          {this.state.orderForm && (
+            <OrderDetails
+              order={this.state.order}
+              closeModal={this.closeModal}
+            />
+          )}
+          {this.state.adminModal && (
+            <AdminModal
+              closeModal={this.closeAdminModal}
+              orderList={this.state.orderList}
+              deleteOrder={this.deleteOrder}
+            />
+          )}
+          {this.state.authModal && (
+            <AuthModal
+              closeModal={this.closeAuthModal}
+              setLogin={this.setLogin}
+              setUser={this.setUser}
+            />
+          )}
+          <div className={style.main}>
+            <div className={style.maincontent}>
+              <Switch>
+                <Route path='/' exact>
+                  <div className={style.filterbar}>
+                    <Filterbar
+                      count={this.state.products.length}
+                      sort={this.state.sort}
+                      size={this.state.size}
+                      filterBy={this.filterBy}
+                      sortBy={this.sortBy}
+                    />
+                  </div>
+                  <div className={style.products}>
+                    <Products
+                      products={this.state.products}
+                      addToCart={this.addToCart}
+                    />
+                  </div>
+                </Route>
+                <Route path='/profile'>
+                  <Profile
+                    currentUser={this.state.currentUser}
+                    deleteAddress={this.deleteAddress}
+                    addAddress={this.addAddress}
+                    editAddressMain={this.editAddressMain}
+                    setFavAddress={this.setFavAddress}
+                    deleteCard={this.deleteCard}
+                    addCard={this.addCard}
+                    editCardMain={this.editCardMain}
+                    setFavCard={this.setFavCard}
                   />
-                </div>
-                <div className={style.products}>
-                  <Products
-                    products={this.state.products}
-                    addToCart={this.addToCart}
+                </Route>
+                <Route path='/aboutus'>
+                  <AboutUs />
+                </Route>
+                <Route path='/checkout'>
+                  <CheckOut
+                    sendCustDetails={this.sendCustDetails}
+                    currentUser={this.state.currentUser}
                   />
-                </div>
-              </Route>
-              <Route path='/profile'>
-                <Profile
-                  currentUser={this.state.currentUser}
-                  deleteAddress={this.deleteAddress}
-                  addAddress={this.addAddress}
-                  editAddressMain={this.editAddressMain}
-                  setFavAddress={this.setFavAddress}
-                  deleteCard={this.deleteCard}
-                  addCard={this.addCard}
-                  editCardMain={this.editCardMain}
-                  setFavCard={this.setFavCard}
-                />
-              </Route>
-              <Route path='/aboutus'>
-                <AboutUs />
-              </Route>
-              <Route path='/checkout'>
-                <CheckOut
-                  sendCustDetails={this.sendCustDetails}
-                  currentUser={this.state.currentUser}
-                />
-              </Route>
-            </Switch>
+                </Route>
+              </Switch>
+            </div>
           </div>
+          <div className={style.footer}>All rights reserved &copy;</div>
         </div>
-        <div className={style.footer}>All rights reserved &copy;</div>
-      </div>
+      </Router>
     );
   }
 }

@@ -43,6 +43,7 @@ class CustomerDetails extends Component {
       expiry: "",
       cvv: "",
     });
+    sessionStorage.setItem("cartItems", "");
     this.props.sendCustDetails(customer);
     this.props.history.push("/");
   };

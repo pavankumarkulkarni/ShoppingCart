@@ -1,6 +1,7 @@
 import React from "react";
 import Product from "../Product/Product";
 import ProductDetailModal from "../ProductDetailModal/ProductDetailModal";
+import NoProductsMessage from "./NoProductsMessage";
 
 export default class Products extends React.Component {
   state = {
@@ -20,16 +21,20 @@ export default class Products extends React.Component {
     this.props.addToCart(product);
   };
   render() {
-    const product = this.props.products.map((product) => (
-      // <>
-      <Product
-        key={product._id}
-        product={product}
-        addToCart={this.props.addToCart}
-        openModal={this.openModal}
-      />
-      // </>
-    ));
+    console.log(this.props.products.len);
+    const product =
+      this.props.products.length > 0 ? (
+        this.props.products.map((product) => (
+          <Product
+            key={product._id}
+            product={product}
+            addToCart={this.props.addToCart}
+            openModal={this.openModal}
+          />
+        ))
+      ) : (
+        <NoProductsMessage />
+      );
 
     return (
       <>

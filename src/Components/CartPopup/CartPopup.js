@@ -66,9 +66,6 @@ class Cart extends Component {
         {this.itemsCount() > 0 ? (
           <div className={style.carttotal}>
             <span>Total : ${this.totalPrice().toFixed(2)} </span>
-            {/* <button onClick={(e) => this.setState({ showForm: true })}>
-              PROCEED
-            </button> */}
             <button>
               <Link to='/checkout'>PROCEED</Link>
             </button>
