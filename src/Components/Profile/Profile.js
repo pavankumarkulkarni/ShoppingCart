@@ -26,6 +26,7 @@ export default function Profile({
       currentUser._id
     );
     setShowAddressForm(false);
+    console.log(currentUser);
   };
   const cancelAddressChange = () => {
     setShowAddressForm(false);
@@ -41,7 +42,6 @@ export default function Profile({
 
   const editAddress = (address) => {
     setedtAddress(address);
-
     setShowAddressForm(true);
   };
 

@@ -1,6 +1,5 @@
 import React from "react";
 import style from "./Header.module.css";
-// import DropdownMenu from "../HOC/DropdownMenu";
 import LoggedInUserDropdown from "../LoggedInUser/LoggedInUser";
 import GuestUserDropdown from "../GuestUserDropdown/GuestUserDropdown";
 import CartPopup from "../CartPopup/CartPopup";
