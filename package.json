@@ -21,7 +21,8 @@
         "react-google-login": "^5.1.21",
         "react-router-dom": "^5.2.0",
         "react-scripts": "3.4.3",
-        "shortid": "^2.2.15"
+        "shortid": "^2.2.15",
+        "xml2js": "^0.4.23"
     },
     "scripts": {
         "server": "nodemon server.js ",

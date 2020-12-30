@@ -101,6 +101,7 @@ export default function Profile({
       <p>Click to add new address</p>
     </div>
   );
+
   const savedCards = currentUser.card ? (
     currentUser.card.map((card) => {
       return (

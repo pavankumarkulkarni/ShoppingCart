@@ -90,13 +90,14 @@ class App extends Component {
       },
       body: JSON.stringify(address),
     })
-      .then((res) => res.json())
+      .then((res) => {
+        res.json();
+      })
       .then((user) => {
         this.setState({ currentUser: user });
       });
   };
   addCard = (card, id) => {
-    // alert(card);
     fetch(`/api/users/${id}/cards`, {
       method: "PATCH",
       headers: {

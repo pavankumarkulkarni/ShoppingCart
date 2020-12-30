@@ -11,31 +11,20 @@ export default function Address({
 }) {
   const uspsValidator = (e) => {
     e.preventDefault();
-    const str =
-      'https://secure.shippingapis.com/ShippingAPI.dll?API=Verify&XML=<AddressValidateRequest USERID="940SELFD5341">' +
-      "<Address>" +
-      "<Address1> </Address1>" +
-      `<Address2>${address.street}</Address2>` +
-      `<City>${address.city}</City>` +
-      `<State>${address.state}</State>` +
-      `<Zip5>${address.zip}</Zip5>` +
-      "<Zip4></Zip4>" +
-      "</Address>" +
-      "</AddressValidateRequest>";
-
-    fetch(str)
-      .then((res) => res.text())
+    fetch("/api/address/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(address),
+    })
+      .then((res) => {
+        return res.json();
+      })
       .then((data) => {
-        let xmlDoc;
-
-        const parser = new DOMParser();
-        xmlDoc = parser.parseFromString(data, "text/xml");
-
-        if (xmlDoc.getElementsByTagName("Description")[0]) {
+        if (data.error) {
           uspsCheck({ ...address, usps: "fail" });
-          alert(
-            "Address not found via USPS. Please edit the address and revalidate."
-          );
+          alert(data.error);
         } else {
           uspsCheck({ ...address, usps: "pass" });
           alert("Address was successfully validated via USPS !");

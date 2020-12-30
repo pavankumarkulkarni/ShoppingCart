@@ -3,10 +3,6 @@ import GoogleSignin from "../GoogleSignin/GoogleSignin";
 import DropdownMenu from "../HOC/DropdownMenu";
 
 function GuestUser(props) {
-  // const [email, setEmail] = useState("");
-  // const [passwd, setPasswd] = useState("");
-  // const [repasswd, setRepasswd] = useState("");
-  // const [signup, setSignup] = useState(false);
   const googleLogin = (userEmail, user) => {
     props.setLogin(true);
     props.setUser(userEmail);
