@@ -78,7 +78,8 @@ export default function CustomerAddress({
         />
         <label htmlFor='zip'>Zip :</label>
         <input
-          type='number'
+          pattern='[0-9]{5}'
+          title='zip should be 5 digit'
           name='zip'
           onChange={(e) => handleChange(e)}
           required

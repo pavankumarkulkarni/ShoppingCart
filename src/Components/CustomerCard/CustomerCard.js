@@ -42,9 +42,9 @@ export default function CustomerCard({
   return (
     <div>
       <form className={style.form} onSubmit={sendCard}>
-        <p>Card Details</p>
+        {/* <p>Card Details</p> */}
         <label htmlFor='name'> Card Name : </label>
-        {/* <p className={style.labelhint}>1234 1234 1234 1234</p> */}
+
         <input
           type='string'
           name='cardName'
@@ -55,29 +55,32 @@ export default function CustomerCard({
         <label htmlFor='number'> Number : </label>
         {/* <p className={style.labelhint}>1234 1234 1234 1234</p> */}
         <input
-          type='number'
           name='number'
           required
+          pattern='[0-9]{16}'
+          title='card should be 16 digit'
           value={cardNum}
           onChange={handleChange}
         />
         <label htmlFor='expiry'> Expiry (mmyy): </label>
         {/* <p className={style.labelhint}>0922</p> */}
         <input
-          type='number'
           name='expiry'
           required
+          pattern='[0-9]{4}'
+          title='expiry should be 4 digit'
           value={cardExp}
           onChange={handleChange}
         />
         <label htmlFor='cvv'> CVV: </label>
         {/* <p className={style.labelhint}>123</p> */}
         <input
-          type='number'
           name='cvv'
           required
+          pattern='[0-9]{3}'
           value={cardCVV}
           onChange={handleChange}
+          title='CVV should be 3 digit'
         />
         <div className={style.btns}>
           <button type='submit'>{btnText}</button>

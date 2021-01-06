@@ -5,7 +5,8 @@
 
 .profileMain {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+    margin-top: 1rem;
 }
 
 .profile h4>span {
@@ -21,7 +22,8 @@
 .addressSection {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-gap: 1rem;
+    grid-gap: 0.6rem;
+    margin-top: 0.6rem;
 }
 
 .addAddress button {
@@ -32,4 +34,11 @@
 
 .addAddress p {
     text-align: center;
+}
+
+@media screen and (max-width:768px) {
+    .profileMain {
+        display: grid;
+        grid-gap: 1rem;
+    }
 }
