@@ -102,7 +102,7 @@ export default function Profile({
           onClick={(e) => setShowAddressForm(true)}>
           <i className='fas fa-plus-circle fa-2x'></i>
         </button>
-        <p>Click to add new address</p>
+        <p>Add new address</p>
       </div>
     );
 
@@ -124,7 +124,7 @@ export default function Profile({
         <button className='iconButton' onClick={(e) => setShowCardForm(true)}>
           <i className='fas fa-plus-circle fa-2x'></i>
         </button>
-        <p>Click to add new Card</p>
+        <p>Add new Card</p>
       </div>
     );
   return (
@@ -133,13 +133,11 @@ export default function Profile({
         <h5>{loggedInUser && loggedInUser.displayName} </h5>
         <h5>{loggedInUser && loggedInUser.email}</h5>
       </header>
-      <h4>
-        Account Profile Setup: <span>Edit your account profile here.</span>{" "}
-      </h4>
+
       <main className={style.profileMain}>
         <div>
           <h4>
-            Address : <span>You can save up to 6 addresses.</span>
+            Address : <span>Save up to 6 addresses.</span>
           </h4>
           <div className={style.addressSection}>
             {savedAddresses}
@@ -153,7 +151,7 @@ export default function Profile({
                   onClick={(e) => setShowAddressForm(true)}>
                   <i className='fas fa-plus-circle fa-2x'></i>
                 </button>
-                <p>Click to add new address</p>
+                <p>Add new address</p>
               </div>
             ) : null}
           </div>
@@ -168,7 +166,7 @@ export default function Profile({
         </div>
         <div>
           <h4>
-            Card : <span>You can save up to 6 cards.</span>
+            Card : <span>Save up to 6 cards.</span>
           </h4>
           <div className={style.addressSection}>
             {savedCards}
@@ -182,7 +180,7 @@ export default function Profile({
                   onClick={(e) => setShowCardForm(true)}>
                   <i className='fas fa-plus-circle fa-2x'></i>
                 </button>
-                <p>Click to add new card</p>
+                <p>Add new card</p>
               </div>
             ) : null}
           </div>
