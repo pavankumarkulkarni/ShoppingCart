@@ -1,13 +1,12 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import Address from "../Address/Address";
 import Card from "../Card/Card";
 import CustomerCard from "../CustomerCard/CustomerCard";
 import style from "./Profile.module.css";
 import CustomerAddress from "../CustomerAddress/CustomerAddress";
-import UserContext from "../Context/UserContext";
 
 export default function Profile({
-  // currentUser,
+  currentUser,
   deleteAddress,
   addAddress,
   editAddressMain,
@@ -17,7 +16,6 @@ export default function Profile({
   editCardMain,
   setFavCard,
 }) {
-  const { loggedInUser } = useContext(UserContext);
   const [showAddressForm, setShowAddressForm] = useState(false);
   const [edtAddress, setedtAddress] = useState(null);
   const [showCardForm, setShowCardForm] = useState(false);
@@ -25,20 +23,21 @@ export default function Profile({
   const sendAddress = (address) => {
     addAddress(
       (address = { ...address, fav: "false", usps: null }),
-      loggedInUser.id
+      currentUser._id
     );
     setShowAddressForm(false);
+    console.log(currentUser);
   };
   const cancelAddressChange = () => {
     setShowAddressForm(false);
   };
   const editAddressinDB = (address) => {
     setShowAddressForm(false);
-    editAddressMain(loggedInUser.id, (address = { ...address }));
+    editAddressMain(currentUser._id, (address = { ...address }));
     setedtAddress(null);
   };
   const delAddress = (addId) => {
-    deleteAddress(loggedInUser.id, addId);
+    deleteAddress(currentUser._id, addId);
   };
 
   const editAddress = (address) => {
@@ -47,15 +46,15 @@ export default function Profile({
   };
 
   const setFavAdd = (id) => {
-    setFavAddress(loggedInUser.id, id);
+    setFavAddress(currentUser._id, id);
   };
 
   const uspsUpdate = (address) => {
-    editAddressMain(loggedInUser.id, address);
+    editAddressMain(currentUser._id, address);
   };
 
   const sendCard = (card) => {
-    addCard((card = { ...card, fav: "false" }), loggedInUser.id);
+    addCard((card = { ...card, fav: "false" }), currentUser._id);
     setShowCardForm(false);
   };
   const cancelCardChange = () => {
@@ -64,11 +63,11 @@ export default function Profile({
   const editCardinDB = (card) => {
     // console.log(address);
     setShowCardForm(false);
-    editCardMain(loggedInUser.id, (card = { ...card }));
+    editCardMain(currentUser._id, (card = { ...card }));
     setedtCard(null);
   };
   const delCard = (addId) => {
-    deleteCard(loggedInUser.id, addId);
+    deleteCard(currentUser._id, addId);
   };
 
   const editCard = (card) => {
@@ -78,60 +77,56 @@ export default function Profile({
   };
 
   const setFavCrd = (id) => {
-    setFavCard(loggedInUser.id, id);
+    setFavCard(currentUser._id, id);
   };
 
-  const savedAddresses =
-    loggedInUser && loggedInUser.address ? (
-      loggedInUser.address.map((address) => {
-        return (
-          <Address
-            address={address}
-            key={address._id}
-            delAddress={delAddress}
-            editAddress={editAddress}
-            setFavAddress={setFavAdd}
-            uspsCheck={uspsUpdate}
-          />
-        );
-      })
-    ) : (
-      <div>
-        <button
-          className='iconButton'
-          onClick={(e) => setShowAddressForm(true)}>
-          <i className='fas fa-plus-circle fa-2x'></i>
-        </button>
-        <p>Click to add new address</p>
-      </div>
-    );
+  const savedAddresses = currentUser.address ? (
+    currentUser.address.map((address) => {
+      return (
+        <Address
+          address={address}
+          key={address._id}
+          delAddress={delAddress}
+          editAddress={editAddress}
+          setFavAddress={setFavAdd}
+          uspsCheck={uspsUpdate}
+        />
+      );
+    })
+  ) : (
+    <div>
+      <button className='iconButton' onClick={(e) => setShowAddressForm(true)}>
+        <i className='fas fa-plus-circle fa-2x'></i>
+      </button>
+      <p>Click to add new address</p>
+    </div>
+  );
 
-  const savedCards =
-    loggedInUser && loggedInUser.card ? (
-      loggedInUser.card.map((card) => {
-        return (
-          <Card
-            card={card}
-            key={card._id}
-            delCard={delCard}
-            editCard={editCard}
-            setFavCard={setFavCrd}
-          />
-        );
-      })
-    ) : (
-      <div>
-        <button className='iconButton' onClick={(e) => setShowCardForm(true)}>
-          <i className='fas fa-plus-circle fa-2x'></i>
-        </button>
-        <p>Click to add new Card</p>
-      </div>
-    );
+  const savedCards = currentUser.card ? (
+    currentUser.card.map((card) => {
+      return (
+        <Card
+          card={card}
+          key={card._id}
+          delCard={delCard}
+          editCard={editCard}
+          setFavCard={setFavCrd}
+        />
+      );
+    })
+  ) : (
+    <div>
+      <button className='iconButton' onClick={(e) => setShowCardForm(true)}>
+        <i className='fas fa-plus-circle fa-2x'></i>
+      </button>
+      <p>Click to add new Card</p>
+    </div>
+  );
   return (
     <div className={style.profile}>
       <header>
-        <h5>{loggedInUser && loggedInUser.displayName} </h5>
-        <h5>{loggedInUser && loggedInUser.email}</h5>
+        <h5>John Doe </h5>
+        <h5>John@Doe.com </h5>
       </header>
       <h4>
         Account Profile Setup: <span>Edit your account profile here.</span>{" "}
@@ -143,10 +138,10 @@ export default function Profile({
           </h4>
           <div className={style.addressSection}>
             {savedAddresses}
-            {loggedInUser &&
-            loggedInUser.address &&
-            loggedInUser.address.length < 6 &&
-            loggedInUser.address.length >= 0 ? (
+            {currentUser &&
+            currentUser.address &&
+            currentUser.address.length < 6 &&
+            currentUser.address.length >= 0 ? (
               <div className={style.addAddress}>
                 <button
                   className='iconButton'
@@ -172,10 +167,10 @@ export default function Profile({
           </h4>
           <div className={style.addressSection}>
             {savedCards}
-            {loggedInUser &&
-            loggedInUser.card &&
-            loggedInUser.card.length < 6 &&
-            loggedInUser.card.length >= 0 ? (
+            {currentUser &&
+            currentUser.card &&
+            currentUser.card.length < 6 &&
+            currentUser.card.length >= 0 ? (
               <div className={style.addAddress}>
                 <button
                   className='iconButton'

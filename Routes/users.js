@@ -3,14 +3,23 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const JWT = require("jsonwebtoken");
+const authToken = require("./middleware/authToken");
 
 require("dotenv/config");
 // create user
 router.post("/", async (req, res) => {
   try {
     const user = await new model.User(req.body);
+    const userExisist = await model.User.findOne({
+      email: req.body.email,
+      type: req.body.type,
+    });
+    if (userExisist) {
+      return res.status(401).json({ msg: "User Existis. Try loggin in" });
+    }
     const userSaved = await user.save();
-    return res.send(userSaved);
+    const token = JWT.sign(userSaved._id, process.env.JWT_SECRET);
+    return res.status(200).send({ token, user: userSaved });
   } catch (err) {
     return res.status(500).json({ err: err.message });
   }
@@ -18,10 +27,13 @@ router.post("/", async (req, res) => {
 
 // Retrieve user by email id
 router.get("/:email", async (req, res) => {
-  // console.log(req.params.email);
   try {
-    const user = await model.User.find({ email: req.params.email });
-    return res.send(user);
+    const user = await model.User.findOne({ email: req.params.email });
+    if (user) {
+      const token = JWT.sign(user._id, process.env.JWT_SECRET);
+      return res.json({ user, token });
+    }
+    return res.status(401).json({ msg: "User does not exist" });
   } catch (err) {
     return res.status(500).json({ err: err.message });
   }
@@ -61,7 +73,7 @@ router.patch("/:id/addresses", async (req, res) => {
       }
     );
     const updatedUser = await model.User.findById(req.params.id);
-    return res.send(updatedUser);
+    return res.send(updatedUser.address);
   } catch (err) {
     return res.status(500).json({ err: err.message });
   }
@@ -81,7 +93,7 @@ router.patch("/:id/cards", async (req, res) => {
       }
     );
     const updatedUser = await model.User.findById(req.params.id);
-    return res.send(updatedUser);
+    return res.send(updatedUser.card);
   } catch (err) {
     return res.status(500).json({ err: err.message });
   }
@@ -106,7 +118,7 @@ router.patch("/:id/addresses/:addid", async (req, res) => {
       }
     );
     const updatedUser = await model.User.findById(req.params.id);
-    return res.send(updatedUser);
+    return res.send(updatedUser.address);
   } catch (err) {
     return res.status(500).json({ err: err.message });
   }
@@ -129,7 +141,7 @@ router.patch("/:id/cards/:cardid", async (req, res) => {
       }
     );
     const updatedUser = await model.User.findById(req.params.id);
-    return res.send(updatedUser);
+    return res.send(updatedUser.card);
   } catch (err) {
     return res.status(500).json({ err: err.message });
   }
@@ -150,7 +162,7 @@ router.delete("/:custid/addresses/:addid", async (req, res) => {
       }
     );
     const updatedUser = await model.User.findById(req.params.custid);
-    return res.send(updatedUser);
+    return res.send(updatedUser.address);
   } catch (err) {
     return res.status(500).json({ err: err.message });
   }
@@ -171,7 +183,7 @@ router.delete("/:custid/cards/:cardid", async (req, res) => {
       }
     );
     const updatedUser = await model.User.findById(req.params.custid);
-    return res.send(updatedUser);
+    return res.send(updatedUser.card);
   } catch (err) {
     return res.status(500).json({ err: err.message });
   }
@@ -195,7 +207,7 @@ router.patch("/:id/addresses/:addid/fav", async (req, res) => {
       }
     );
     const updatedUser = await model.User.findById(req.params.id);
-    return res.send(updatedUser);
+    return res.send(updatedUser.address);
   } catch (err) {
     return res.status(500).json({ err: err.message });
   }
@@ -220,7 +232,7 @@ router.patch("/:id/cards/:cardid/fav", async (req, res) => {
       }
     );
     const updatedUser = await model.User.findById(req.params.id);
-    return res.send(updatedUser);
+    return res.send(updatedUser.card);
   } catch (err) {
     return res.status(500).json({ err: err.message });
   }
@@ -229,8 +241,8 @@ router.patch("/:id/cards/:cardid/fav", async (req, res) => {
 //Register user
 router.post("/register", async (req, res) => {
   try {
-    const { email, password, passwordcheck } = req.body;
-    if (!email || !password || !passwordcheck) {
+    const { email, password, passwordcheck, displayName, type } = req.body;
+    if (!email || !password || !passwordcheck || !displayName) {
       res
         .status(400)
         .json({ msg: "Missing fields needed for succesful registration" });
@@ -254,6 +266,8 @@ router.post("/register", async (req, res) => {
     const newUser = new model.User({
       email,
       passwordHash: passwordHash,
+      displayName: displayName,
+      type,
     });
     await newUser.save();
     res.status(200).json({
@@ -296,6 +310,7 @@ router.post("/signin", async (req, res) => {
       user: {
         id: user._id,
         email: user.email,
+        displayName: user.displayName,
         address: user.address,
         card: user.card,
       },
@@ -316,9 +331,26 @@ router.post("/isTokenValid", async (req, res) => {
     if (!verified) {
       return res.status(401).json({ msg: "not found" });
     }
-    return res.status(200).json({ msg: verified });
+    return res.status(200).json({ id: verified });
   } catch (err) {
     return res.status(500).json({ err: err.message });
+  }
+});
+
+router.post("/userByToken", authToken, async (req, res) => {
+  try {
+    const id = req.id;
+    const user = await model.User.findById(id);
+    return res.status(200).json({
+      id: user._id,
+      email: user.email,
+      displayName: user.displayName,
+      address: user.address,
+      card: user.card,
+      type: user.type,
+    });
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
   }
 });
 

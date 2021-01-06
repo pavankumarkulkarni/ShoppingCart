@@ -36,8 +36,9 @@ const User = mongoose.model(
   "Users",
   new mongoose.Schema({
     _id: { type: String, default: shortid.generate },
-    name: String,
+    displayName: String,
     email: String,
+    type: String,
     passwordHash: String,
     address: [
       {

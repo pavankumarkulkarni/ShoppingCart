@@ -1,5 +1,6 @@
 // Feature 1
 import React, { Component } from "react";
+import UserContext from "../Context/UserContext";
 import Products from "../Products/Products";
 import Filterbar from "../Filterbar/Filterbar";
 import OrderDetails from "../OrderDetails/OrderDetails";
@@ -27,10 +28,7 @@ class App extends Component {
     adminModal: false,
     orderList: [],
     authModal: false,
-    login: false,
-    userEmail: "",
-    userAccountId: "",
-    currentUser: "",
+    loggedInUser: {},
   };
   setFavAddress = (id, addid) => {
     fetch(`/api/users/${id}/addresses/${addid}/fav`, {
@@ -40,8 +38,13 @@ class App extends Component {
       },
     })
       .then((res) => res.json())
-      .then((user) => {
-        this.setState({ currentUser: user });
+      .then((address) => {
+        this.setState((prevstate) => ({
+          loggedInUser: {
+            ...prevstate.loggedInUser,
+            address: address,
+          },
+        }));
       });
   };
   setFavCard = (id, cardid) => {
@@ -52,8 +55,13 @@ class App extends Component {
       },
     })
       .then((res) => res.json())
-      .then((user) => {
-        this.setState({ currentUser: user });
+      .then((card) => {
+        this.setState((prevstate) => ({
+          loggedInUser: {
+            ...prevstate.loggedInUser,
+            card: card,
+          },
+        }));
       });
   };
   editAddressMain = (id, address) => {
@@ -65,8 +73,13 @@ class App extends Component {
       body: JSON.stringify(address),
     })
       .then((res) => res.json())
-      .then((user) => {
-        this.setState({ currentUser: user });
+      .then((address) => {
+        this.setState((prevstate) => ({
+          loggedInUser: {
+            ...prevstate.loggedInUser,
+            address: address,
+          },
+        }));
       });
   };
   editCardMain = (id, card) => {
@@ -78,8 +91,13 @@ class App extends Component {
       body: JSON.stringify(card),
     })
       .then((res) => res.json())
-      .then((user) => {
-        this.setState({ currentUser: user });
+      .then((card) => {
+        this.setState((prevstate) => ({
+          loggedInUser: {
+            ...prevstate.loggedInUser,
+            card: card,
+          },
+        }));
       });
   };
   addAddress = (address, id) => {
@@ -90,11 +108,14 @@ class App extends Component {
       },
       body: JSON.stringify(address),
     })
-      .then((res) => {
-        res.json();
-      })
-      .then((user) => {
-        this.setState({ currentUser: user });
+      .then((res) => res.json())
+      .then((address) => {
+        this.setState((prevstate) => ({
+          loggedInUser: {
+            ...prevstate.loggedInUser,
+            address: address,
+          },
+        }));
       });
   };
   addCard = (card, id) => {
@@ -106,8 +127,13 @@ class App extends Component {
       body: JSON.stringify(card),
     })
       .then((res) => res.json())
-      .then((user) => {
-        this.setState({ currentUser: user });
+      .then((card) => {
+        this.setState((prevstate) => ({
+          loggedInUser: {
+            ...prevstate.loggedInUser,
+            card: card,
+          },
+        }));
       });
   };
   deleteAddress = (clientId, addID) => {
@@ -115,8 +141,13 @@ class App extends Component {
       method: "DELETE",
     })
       .then((res) => res.json())
-      .then((user) => {
-        this.setState({ currentUser: user });
+      .then((address) => {
+        this.setState((prevstate) => ({
+          loggedInUser: {
+            ...prevstate.loggedInUser,
+            address: address,
+          },
+        }));
       });
   };
   deleteCard = (clientId, addID) => {
@@ -124,8 +155,13 @@ class App extends Component {
       method: "DELETE",
     })
       .then((res) => res.json())
-      .then((user) => {
-        this.setState({ currentUser: user });
+      .then((card) => {
+        this.setState((prevstate) => ({
+          loggedInUser: {
+            ...prevstate.loggedInUser,
+            card: card,
+          },
+        }));
       });
   };
   setCurrentUser = (user) => {
@@ -150,9 +186,24 @@ class App extends Component {
       return;
     }
   };
+  static contextType = UserContext;
   componentDidMount = async () => {
+    const { setLoggedInUser } = this.context;
     let data = await this.getData();
     this.setState({ products: data });
+    let authxtoken = sessionStorage.getItem("authxtoken");
+    if (!authxtoken) {
+      authxtoken = "";
+    }
+    const user = await fetch("/api/users/userByToken", {
+      method: "POST",
+      headers: {
+        authxtoken: authxtoken,
+      },
+    });
+    const userData = await user.json();
+    setLoggedInUser({ userData });
+    this.setState({ loggedInUser: userData });
   };
 
   filterBy = (event) => {
@@ -322,88 +373,98 @@ class App extends Component {
     this.setState({ login: state });
   };
 
+  setLoggedInUser = (user) => {
+    this.setState({ loggedInUser: user });
+  };
+
   render() {
     return (
       <Router>
-        <div className={style.gridlayout}>
-          <Header
-            openAdminModal={this.openAdminModal}
-            openAuthModal={this.openAuthModal}
-            setLogin={this.setLogin}
-            login={this.state.login}
-            setUser={this.setUser}
-            cartItems={this.state.cartItems}
-            removeFromCart={this.removeFromCart}
-            sendCustDetails={this.sendCustDetails}
-            setCurrentUser={this.setCurrentUser}
-          />
-          {this.state.orderForm && (
-            <OrderDetails
-              order={this.state.order}
-              closeModal={this.closeModal}
-            />
-          )}
-          {this.state.adminModal && (
-            <AdminModal
-              closeModal={this.closeAdminModal}
-              orderList={this.state.orderList}
-              deleteOrder={this.deleteOrder}
-            />
-          )}
-          {this.state.authModal && (
-            <AuthModal
-              closeModal={this.closeAuthModal}
+        <UserContext.Provider
+          value={{
+            loggedInUser: this.state.loggedInUser,
+            setLoggedInUser: this.setLoggedInUser,
+          }}>
+          <div className={style.gridlayout}>
+            <Header
+              openAdminModal={this.openAdminModal}
+              openAuthModal={this.openAuthModal}
               setLogin={this.setLogin}
+              login={this.state.login}
               setUser={this.setUser}
+              cartItems={this.state.cartItems}
+              removeFromCart={this.removeFromCart}
+              sendCustDetails={this.sendCustDetails}
+              setCurrentUser={this.setCurrentUser}
             />
-          )}
-          <div className={style.main}>
-            <div className={style.maincontent}>
-              <Switch>
-                <Route path='/' exact>
-                  <div className={style.filterbar}>
-                    <Filterbar
-                      count={this.state.products.length}
-                      sort={this.state.sort}
-                      size={this.state.size}
-                      filterBy={this.filterBy}
-                      sortBy={this.sortBy}
+            {this.state.orderForm && (
+              <OrderDetails
+                order={this.state.order}
+                closeModal={this.closeModal}
+              />
+            )}
+            {this.state.adminModal && (
+              <AdminModal
+                closeModal={this.closeAdminModal}
+                orderList={this.state.orderList}
+                deleteOrder={this.deleteOrder}
+              />
+            )}
+            {this.state.authModal && (
+              <AuthModal
+                closeModal={this.closeAuthModal}
+                setLogin={this.setLogin}
+                setUser={this.setUser}
+              />
+            )}
+            <div className={style.main}>
+              <div className={style.maincontent}>
+                <Switch>
+                  <Route path='/' exact>
+                    <div className={style.filterbar}>
+                      <Filterbar
+                        count={this.state.products.length}
+                        sort={this.state.sort}
+                        size={this.state.size}
+                        filterBy={this.filterBy}
+                        sortBy={this.sortBy}
+                      />
+                    </div>
+                    <div className={style.products}>
+                      <Products
+                        products={this.state.products}
+                        addToCart={this.addToCart}
+                      />
+                    </div>
+                  </Route>
+                  <Route path='/profile'>
+                    <Profile
+                      currentUser={this.state.currentUser}
+                      deleteAddress={this.deleteAddress}
+                      addAddress={this.addAddress}
+                      editAddressMain={this.editAddressMain}
+                      setFavAddress={this.setFavAddress}
+                      deleteCard={this.deleteCard}
+                      addCard={this.addCard}
+                      editCardMain={this.editCardMain}
+                      setFavCard={this.setFavCard}
                     />
-                  </div>
-                  <div className={style.products}>
-                    <Products
-                      products={this.state.products}
-                      addToCart={this.addToCart}
+                  </Route>
+                  <Route path='/aboutus'>
+                    <AboutUs />
+                  </Route>
+                  <Route path='/checkout'>
+                    <CheckOut
+                      sendCustDetails={this.sendCustDetails}
+                      currentUser={this.state.currentUser}
                     />
-                  </div>
-                </Route>
-                <Route path='/profile'>
-                  <Profile
-                    currentUser={this.state.currentUser}
-                    deleteAddress={this.deleteAddress}
-                    addAddress={this.addAddress}
-                    editAddressMain={this.editAddressMain}
-                    setFavAddress={this.setFavAddress}
-                    deleteCard={this.deleteCard}
-                    addCard={this.addCard}
-                    editCardMain={this.editCardMain}
-                    setFavCard={this.setFavCard}
-                  />
-                </Route>
-                <Route path='/aboutus'>
-                  <AboutUs />
-                </Route>
-                <Route path='/checkout'>
-                  <CheckOut
-                    sendCustDetails={this.sendCustDetails}
-                    currentUser={this.state.currentUser}
-                  />
-                </Route>
-              </Switch>
+                  </Route>
+                </Switch>
+              </div>
             </div>
+            <div className={style.footer}>All rights reserved &copy;</div>
           </div>
-          <div className={style.footer}>All rights reserved &copy;</div>
-        </div>
+        </UserContext.Provider>
       </Router>
     );
   }
