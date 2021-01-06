@@ -1,36 +1,42 @@
 import React, { Component } from "react";
 import style from "./CustomerDetails.module.css";
 import { withRouter } from "react-router-dom";
+import UserContext from "../Context/UserContext";
 
 class CustomerDetails extends Component {
+  static contextType = UserContext;
   card =
-    this.props.currentUser !== ""
-      ? this.props.currentUser.card.filter((card) => card.fav === "true")[0]
+    this.context.loggedInUser !== "Not authorised"
+      ? this.context.loggedInUser.card.filter((card) => card.fav === "true")[0]
       : null;
   address =
-    this.props.currentUser &&
-    this.props.currentUser.address.filter(
-      (address) => address.fav === "true"
-    )[0];
+    this.context.loggedInUser !== "Not authorised"
+      ? this.context.loggedInUser.address.filter(
+          (address) => address.fav === "true"
+        )[0]
+      : null;
 
-  state = this.props.currentUser
-    ? {
-        name: this.props.currentUser.name,
-        email: this.props.currentUser.email,
-        address: `${this.address.street} ${this.address.city} ${this.address.state} ${this.address.zip} `,
-        card: this.card && this.card.number,
-        expiry: this.card && this.card.expiry,
-        cvv: this.card && this.card.CVV,
-      }
-    : {
-        name: "",
-        email: "",
-        address: "",
-        phone: "",
-        card: "",
-        expiry: "",
-        cvv: "",
-      };
+  state =
+    this.context.loggedInUser !== "Not authorised"
+      ? {
+          name: this.context.loggedInUser.displayName,
+          email: this.context.loggedInUser.email,
+          address:
+            this.address &&
+            `${this.address.street} ${this.address.city} ${this.address.state} ${this.address.zip} `,
+          card: this.card && this.card.number,
+          expiry: this.card && this.card.expiry,
+          cvv: this.card && this.card.CVV,
+        }
+      : {
+          name: "",
+          email: "",
+          address: "",
+          phone: "",
+          card: "",
+          expiry: "",
+          cvv: "",
+        };
   orderSubmit = (e) => {
     e.preventDefault();
     let customer = this.state;
@@ -43,6 +49,7 @@ class CustomerDetails extends Component {
       expiry: "",
       cvv: "",
     });
+    sessionStorage.setItem("cartItems", "");
     this.props.sendCustDetails(customer);
     this.props.history.push("/");
   };
@@ -53,7 +60,7 @@ class CustomerDetails extends Component {
   };
 
   updateAddress = (e) => {
-    const addresses = this.props.currentUser.address;
+    const addresses = this.context.loggedInUser.address;
     const chosenAddress = addresses.filter(
       (address) => address._id === e.target.value
     );
@@ -62,34 +69,35 @@ class CustomerDetails extends Component {
       address: `${street} ${city} ${state} ${zip}`,
     });
   };
-  retrieveSavedAddresses = this.props.currentUser ? (
-    <>
-      <lable htmlFor='addressDropdown'>Ship to saved address ... </lable>
-      <select
-        onChange={this.updateAddress}
-        name='addressDropdown'
-        className={style.select}>
-        {this.props.currentUser.address ? (
-          this.props.currentUser.address.map((address) => (
-            <option
-              selected={address.fav === "true" ? true : false}
-              value={address._id}
-              key={address._id}>
-              {" "}
-              {address.addressName}
-              {address.fav === "true" ? " (favorite)" : null}
-              {address.usps === "pass" ? " (Verified)" : null}
-            </option>
-          ))
-        ) : (
-          <option>Save address on profile page for easy retrieval </option>
-        )}
-      </select>
-    </>
-  ) : null;
+  retrieveSavedAddresses =
+    this.context.loggedInUser !== "Not authorised" ? (
+      <>
+        <label htmlFor='addressDropdown'>Ship to saved address ... </label>
+        <select
+          onChange={this.updateAddress}
+          name='addressDropdown'
+          className={style.select}>
+          {this.context.loggedInUser.address.length > 0 ? (
+            this.context.loggedInUser.address.map((address) => (
+              <option
+                selected={address.fav === "true" ? true : false}
+                value={address._id}
+                key={address._id}>
+                {" "}
+                {address.addressName}
+                {address.fav === "true" ? " (favorite)" : null}
+                {address.usps === "pass" ? " (Verified)" : null}
+              </option>
+            ))
+          ) : (
+            <option>Save address on profile page for easy retrieval... </option>
+          )}
+        </select>
+      </>
+    ) : null;
 
   updateCard = (e) => {
-    const cards = this.props.currentUser.card;
+    const cards = this.context.loggedInUser.card;
     const chosenCard = cards.filter((card) => card._id === e.target.value);
     const { number, expiry, CVV } = chosenCard[0];
     this.setState({
@@ -98,39 +106,40 @@ class CustomerDetails extends Component {
       cvv: CVV,
     });
   };
-  retrieveSavedCards = this.props.currentUser ? (
-    <>
-      <label htmlFor='cardDropdown'>Charge saved card ... </label>
-      <select
-        name='cardDropdown'
-        onChange={this.updateCard}
-        className={style.select}>
-        {this.props.currentUser.card ? (
-          this.props.currentUser.card.map((card) => (
-            <option
-              selected={card.fav === "true" ? true : false}
-              value={card._id}
-              key={card._id}>
-              {" "}
-              {card.cardName}
-              {card.fav === "true" ? " (favorite)" : null}
-            </option>
-          ))
-        ) : (
-          <option>"Save card details on Profile ..."</option>
-        )}
-      </select>
-    </>
-  ) : null;
+  retrieveSavedCards =
+    this.context.loggedInUser !== "Not authorised" ? (
+      <>
+        <label htmlFor='cardDropdown'>Charge saved card ... </label>
+        <select
+          name='cardDropdown'
+          onChange={this.updateCard}
+          className={style.select}>
+          {this.context.loggedInUser.card.length > 0 ? (
+            this.context.loggedInUser.card.map((card) => (
+              <option
+                selected={card.fav === "true" ? true : false}
+                value={card._id}
+                key={card._id}>
+                {" "}
+                {card.cardName}
+                {card.fav === "true" ? " (favorite)" : null}
+              </option>
+            ))
+          ) : (
+            <option>Save card details on Profile for easy retrieval...</option>
+          )}
+        </select>
+      </>
+    ) : null;
 
   render() {
     return (
       <form className={style.customerdetails} onSubmit={this.orderSubmit}>
         <h3>Checkout Form </h3>
-        {this.props.currentUser ? (
+        {this.context.loggedInUser !== "Not authorised" ? (
           <div className={style.flexDisplay}>
-            <p>Name : {this.props.currentUser.name}</p>
-            <p>eMail : {this.props.currentUser.email}</p>
+            <p>Name : {this.context.loggedInUser.displayName}</p>
+            <p>eMail : {this.context.loggedInUser.email}</p>
           </div>
         ) : (
           <>

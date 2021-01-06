@@ -60,5 +60,9 @@
 }
 
 .cart .carttotal button:hover {
-    filter: brightness(110%)
+    filter: brightness(110%);
+}
+
+.cart .carttotal a {
+    color: #222;
 }

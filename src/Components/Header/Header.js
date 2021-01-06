@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import style from "./Header.module.css";
-// import DropdownMenu from "../HOC/DropdownMenu";
 import LoggedInUserDropdown from "../LoggedInUser/LoggedInUser";
 import GuestUserDropdown from "../GuestUserDropdown/GuestUserDropdown";
 import CartPopup from "../CartPopup/CartPopup";
 import { withRouter } from "react-router";
+import UserContext from "../Context/UserContext";
 
 function Header({
   openAdminModal,
@@ -18,18 +18,28 @@ function Header({
   history,
   setCurrentUser,
 }) {
+  const { loggedInUser, setLoggedInUser } = useContext(UserContext);
   const signOut = () => {
     const auth2 = window.gapi.auth2.getAuthInstance();
     auth2.signOut().then(() => {
       // console.log("Google User logged out!");
       alert("Google User logged out!");
-      setLogin(false);
+      // setLogin(false);
+      setLoggedInUser({});
+      sessionStorage.setItem("authxtoken", "");
       history.push("/");
     });
   };
   const LoggedInIcon = <i className='fas fa-user-circle fa-2x'></i>;
   const guestIcon = <i className='fas fa-user-secret fa-2x'></i>;
   const cartIcon = <i className='fas fa-shopping-cart fa-2x'></i>;
+
+  const regUserLogout = () => {
+    alert("User logged out!");
+    setLoggedInUser({});
+    sessionStorage.setItem("authxtoken", "");
+    history.push("/");
+  };
 
   const cartSize =
     cartItems.length === 0 ? 0 : cartItems.reduce((a, b) => a + b.count, 0);
@@ -38,19 +48,24 @@ function Header({
     <div className={style.header}>
       <a href='/'>Shopping Cart</a>
       <div className={style.icons}>
-        {login ? (
+        {loggedInUser && loggedInUser.displayName ? (
           <div className={style.loginBtn}>
-            <LoggedInUserDropdown signOut={signOut} title={LoggedInIcon} />
+            <LoggedInUserDropdown
+              signOut={signOut}
+              title={LoggedInIcon}
+              userType={loggedInUser.type}
+              regUserLogout={regUserLogout}
+            />
           </div>
         ) : (
           <div className={style.loginBtn}>
-            {/* <i className="fas fa-user-secret fa-2x"></i> */}
+            {/* <i className='fas fa-user-secret fa-2x'></i> */}
             <GuestUserDropdown
               title={guestIcon}
-              setLogin={setLogin}
-              setUser={setUser}
+              // setLogin={setLogin}
+              // setUser={setUser}
               openAuthModal={openAuthModal}
-              setCurrentUser={setCurrentUser}
+              // setCurrentUser={setCurrentUser}
             />
           </div>
         )}

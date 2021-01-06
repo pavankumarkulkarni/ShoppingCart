@@ -1,12 +1,15 @@
 import React, { Component } from "react";
 import { WithModal } from "../HOC/Modal";
 import style from "./AuthModal.module.css";
-// import GoogleSignin from "../GoogleSignin/GoogleSignin";
+import UserContext from "../Context/UserContext";
 
 class Auth extends Component {
+  static contextType = UserContext;
+
   constructor(props) {
     super(props);
     this.state = {
+      displayName: "",
       email: "",
       password: "",
       repassword: "",
@@ -16,6 +19,7 @@ class Auth extends Component {
 
   handleSubmit = async (e) => {
     e.preventDefault();
+    const { setLoggedInUser } = this.context;
     // this.props.closeModal();
     // this.props.setLogin(true);
     if (this.state.signUp) {
@@ -28,6 +32,8 @@ class Auth extends Component {
           email: this.state.email,
           password: this.state.password,
           passwordcheck: this.state.repassword,
+          displayName: this.state.displayName,
+          type: "register",
         }),
       });
       const data = await res.json();
@@ -47,10 +53,22 @@ class Auth extends Component {
         }),
       });
       const data = await res.json();
+
       alert(data.msg);
       if (res.status === 200) {
+        this.user = data.user;
         this.props.closeModal();
         this.props.setLogin(true);
+        setLoggedInUser({
+          email: data.user.email,
+          displayName: data.user.displayName,
+          id: data.user.id,
+          token: data.token,
+          type: "register",
+          card: data.user.card,
+          address: data.user.address,
+        });
+        sessionStorage.setItem("authxtoken", data.token);
       }
     }
   };
@@ -62,18 +80,29 @@ class Auth extends Component {
   };
 
   signIn = (e) => {
-    this.setState({ signUp: false, email: "", password: "", repassword: "" });
+    this.setState({
+      signUp: false,
+      email: "",
+      password: "",
+      repassword: "",
+      displayName: "",
+    });
     // console.log("Sign In");
   };
   signUp = (e) => {
-    this.setState({ signUp: true, email: "", password: "", repassword: "" });
+    this.setState({
+      signUp: true,
+      email: "",
+      password: "",
+      repassword: "",
+      displayName: "",
+    });
     // console.log("Sign Up");
   };
   handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    console.log(name);
-    console.log(value);
+
     this.setState({ [name]: value });
   };
 
@@ -102,6 +131,17 @@ class Auth extends Component {
           Sign Up
         </button>
         <form onSubmit={this.handleSubmit} className={style.authform}>
+          {this.state.signUp ? (
+            <>
+              <label htmlFor='displayName'>Display Name: </label>
+              <input
+                name='displayName'
+                value={this.state.displayName}
+                onChange={this.handleChange}
+                required
+              />
+            </>
+          ) : null}
           <label htmlFor='email'>Email : </label>
           <input
             type='email'
