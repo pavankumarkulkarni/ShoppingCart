@@ -4,11 +4,11 @@ const authToken = (req, res, next) => {
   try {
     const { authxtoken } = req.headers;
     if (!authxtoken) {
-      return res.status(401).json("Not authorised");
+      return res.status(200).json(false);
     }
     const verified = JWT.verify(authxtoken, process.env.JWT_SECRET);
     if (!verified) {
-      return res.status(401).json({ msg: "not found" });
+      return res.status(200).json(false);
     }
     req.id = verified;
     next();

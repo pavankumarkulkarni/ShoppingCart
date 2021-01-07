@@ -195,15 +195,25 @@ class App extends Component {
     if (!authxtoken) {
       authxtoken = "";
     }
-    const user = await fetch("/api/users/userByToken", {
-      method: "POST",
-      headers: {
-        authxtoken: authxtoken,
-      },
-    });
-    const userData = await user.json();
-    setLoggedInUser({ userData });
-    this.setState({ loggedInUser: userData });
+    try {
+      const user = await fetch("/api/users/userByToken", {
+        method: "POST",
+        headers: {
+          authxtoken: authxtoken,
+        },
+      });
+      if (user.ok) {
+        const userData = await user.json();
+        setLoggedInUser({ userData });
+        this.setState({ loggedInUser: userData });
+      } else {
+        setLoggedInUser("");
+        this.setState({ loggedInUser: "" });
+      }
+    } catch (err) {
+      setLoggedInUser({});
+      this.setState({ loggedInUser: "" });
+    }
   };
 
   filterBy = (event) => {
