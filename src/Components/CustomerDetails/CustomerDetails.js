@@ -6,18 +6,21 @@ import UserContext from "../Context/UserContext";
 class CustomerDetails extends Component {
   static contextType = UserContext;
   card =
-    this.context.loggedInUser !== "Not authorised"
+    // this.context.loggedInUser !== "Not authorised"
+    this.context.loggedInUser
       ? this.context.loggedInUser.card.filter((card) => card.fav === "true")[0]
       : null;
   address =
-    this.context.loggedInUser !== "Not authorised"
+    // this.context.loggedInUser !== "Not authorised"
+    this.context.loggedInUser
       ? this.context.loggedInUser.address.filter(
           (address) => address.fav === "true"
         )[0]
       : null;
 
   state =
-    this.context.loggedInUser !== "Not authorised"
+    // this.context.loggedInUser !== "Not authorised"
+    this.context.loggedInUser
       ? {
           name: this.context.loggedInUser.displayName,
           email: this.context.loggedInUser.email,
@@ -70,7 +73,8 @@ class CustomerDetails extends Component {
     });
   };
   retrieveSavedAddresses =
-    this.context.loggedInUser !== "Not authorised" ? (
+    // this.context.loggedInUser !== "Not authorised"
+    this.context.loggedInUser ? (
       <>
         <label htmlFor='addressDropdown'>Ship to saved address ... </label>
         <select
@@ -107,7 +111,8 @@ class CustomerDetails extends Component {
     });
   };
   retrieveSavedCards =
-    this.context.loggedInUser !== "Not authorised" ? (
+    // this.context.loggedInUser !== "Not authorised" ?
+    this.context.loggedInUser ? (
       <>
         <label htmlFor='cardDropdown'>Charge saved card ... </label>
         <select
@@ -136,7 +141,8 @@ class CustomerDetails extends Component {
     return (
       <form className={style.customerdetails} onSubmit={this.orderSubmit}>
         <h3>Checkout Form </h3>
-        {this.context.loggedInUser !== "Not authorised" ? (
+        {/* {this.context.loggedInUser !== "Not authorised"  */}
+        {this.context.loggedInUser ? (
           <div className={style.flexDisplay}>
             <p>Name : {this.context.loggedInUser.displayName}</p>
             <p>eMail : {this.context.loggedInUser.email}</p>
@@ -179,25 +185,28 @@ class CustomerDetails extends Component {
         <label htmlFor='name'> Card : </label>
         <p className={style.labelhint}>1234 1234 1234 1234</p>
         <input
-          type='number'
           name='card'
           required
+          pattern='[0-9]{16}'
+          title='card number should be 16 digits'
           value={this.state.card}
           onChange={this.handleChange}
         />
         <label htmlFor='name'> Expiry (mmyy): </label>
         <p className={style.labelhint}>0922</p>
         <input
-          type='number'
           name='expiry'
           required
+          pattern='[0-9]{4}'
+          title='Expiry should be 4 digits'
           value={this.state.expiry}
           onChange={this.handleChange}
         />
         <label htmlFor='name'> CVV: </label>
         <p className={style.labelhint}>123</p>
         <input
-          type='number'
+          pattern='[0-9]{3}'
+          title='CVV should be 3 digits'
           name='cvv'
           required
           value={this.state.cvv}
