@@ -16,7 +16,7 @@ function Header({
   removeFromCart,
   sendCustDetails,
   history,
-  setCurrentUser,
+  // setCurrentUser,
 }) {
   const { loggedInUser, setLoggedInUser } = useContext(UserContext);
   const signOut = () => {

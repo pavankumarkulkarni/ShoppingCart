@@ -30,151 +30,16 @@ class App extends Component {
     authModal: false,
     loggedInUser: {},
   };
-  setFavAddress = (id, addid) => {
-    fetch(`/api/users/${id}/addresses/${addid}/fav`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((address) => {
-        this.setState((prevstate) => ({
-          loggedInUser: {
-            ...prevstate.loggedInUser,
-            address: address,
-          },
-        }));
-      });
-  };
-  setFavCard = (id, cardid) => {
-    fetch(`/api/users/${id}/cards/${cardid}/fav`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((card) => {
-        this.setState((prevstate) => ({
-          loggedInUser: {
-            ...prevstate.loggedInUser,
-            card: card,
-          },
-        }));
-      });
-  };
-  editAddressMain = (id, address) => {
-    fetch(`/api/users/${id}/addresses/${address._id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(address),
-    })
-      .then((res) => res.json())
-      .then((address) => {
-        this.setState((prevstate) => ({
-          loggedInUser: {
-            ...prevstate.loggedInUser,
-            address: address,
-          },
-        }));
-      });
-  };
-  editCardMain = (id, card) => {
-    fetch(`/api/users/${id}/cards/${card._id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(card),
-    })
-      .then((res) => res.json())
-      .then((card) => {
-        this.setState((prevstate) => ({
-          loggedInUser: {
-            ...prevstate.loggedInUser,
-            card: card,
-          },
-        }));
-      });
-  };
-  addAddress = (address, id) => {
-    fetch(`/api/users/${id}/addresses`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(address),
-    })
-      .then((res) => res.json())
-      .then((address) => {
-        this.setState((prevstate) => ({
-          loggedInUser: {
-            ...prevstate.loggedInUser,
-            address: address,
-          },
-        }));
-      });
-  };
-  addCard = (card, id) => {
-    fetch(`/api/users/${id}/cards`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(card),
-    })
-      .then((res) => res.json())
-      .then((card) => {
-        this.setState((prevstate) => ({
-          loggedInUser: {
-            ...prevstate.loggedInUser,
-            card: card,
-          },
-        }));
-      });
-  };
-  deleteAddress = (clientId, addID) => {
-    fetch(`/api/users/${clientId}/addresses/${addID}`, {
-      method: "DELETE",
-    })
-      .then((res) => res.json())
-      .then((address) => {
-        this.setState((prevstate) => ({
-          loggedInUser: {
-            ...prevstate.loggedInUser,
-            address: address,
-          },
-        }));
-      });
-  };
-  deleteCard = (clientId, addID) => {
-    fetch(`/api/users/${clientId}/cards/${addID}`, {
-      method: "DELETE",
-    })
-      .then((res) => res.json())
-      .then((card) => {
-        this.setState((prevstate) => ({
-          loggedInUser: {
-            ...prevstate.loggedInUser,
-            card: card,
-          },
-        }));
-      });
-  };
-  setCurrentUser = (user) => {
-    this.setState({ currentUser: user[0] });
-  };
 
-  setUser = (email, id) => {
-    this.setState({ userEmail: email, userAccountId: id });
-  };
   getOrders = async () => {
-    let o = await fetch("/api/orders");
-    let d = await o.json();
-    return d;
+    try {
+      let o = await fetch("/api/orders");
+      let d = await o.json();
+      return d;
+    } catch (err) {
+      console.log(`Error in getting orders. ${err}`);
+      return;
+    }
   };
   getData = async () => {
     try {
@@ -213,6 +78,7 @@ class App extends Component {
     } catch (err) {
       setLoggedInUser({});
       this.setState({ loggedInUser: "" });
+      console.log(`Error in getting user details. ${err}`);
     }
   };
 
@@ -387,6 +253,23 @@ class App extends Component {
     this.setState({ loggedInUser: user });
   };
 
+  updateAddress = (newAddress) => {
+    this.setState((prevstate) => ({
+      loggedInUser: {
+        ...prevstate.loggedInUser,
+        address: newAddress,
+      },
+    }));
+  };
+  updateCard = (newCard) => {
+    this.setState((prevstate) => ({
+      loggedInUser: {
+        ...prevstate.loggedInUser,
+        card: newCard,
+      },
+    }));
+  };
+
   render() {
     return (
       <Router>
@@ -405,7 +288,6 @@ class App extends Component {
               cartItems={this.state.cartItems}
               removeFromCart={this.removeFromCart}
               sendCustDetails={this.sendCustDetails}
-              setCurrentUser={this.setCurrentUser}
             />
             {this.state.orderForm && (
               <OrderDetails
@@ -449,25 +331,15 @@ class App extends Component {
                   </Route>
                   <Route path='/profile'>
                     <Profile
-                      currentUser={this.state.currentUser}
-                      deleteAddress={this.deleteAddress}
-                      addAddress={this.addAddress}
-                      editAddressMain={this.editAddressMain}
-                      setFavAddress={this.setFavAddress}
-                      deleteCard={this.deleteCard}
-                      addCard={this.addCard}
-                      editCardMain={this.editCardMain}
-                      setFavCard={this.setFavCard}
+                      updateAddress={this.updateAddress}
+                      updateCard={this.updateCard}
                     />
                   </Route>
                   <Route path='/aboutus'>
                     <AboutUs />
                   </Route>
                   <Route path='/checkout'>
-                    <CheckOut
-                      sendCustDetails={this.sendCustDetails}
-                      currentUser={this.state.currentUser}
-                    />
+                    <CheckOut sendCustDetails={this.sendCustDetails} />
                   </Route>
                 </Switch>
               </div>
