@@ -5,18 +5,18 @@ import CustomerCard from "../CustomerCard/CustomerCard";
 import style from "./Profile.module.css";
 import CustomerAddress from "../CustomerAddress/CustomerAddress";
 import UserContext from "../Context/UserContext";
-
-export default function Profile({
-  // currentUser,
-  deleteAddress,
-  addAddress,
-  editAddressMain,
-  setFavAddress,
-  deleteCard,
+import {
   addCard,
   editCardMain,
   setFavCard,
-}) {
+  deleteCard,
+  addAddress,
+  editAddressMain,
+  setFavAddress,
+  deleteAddress,
+} from "../DBUtility/DBUtility";
+
+export default function Profile({ updateAddress, updateCard }) {
   const { loggedInUser } = useContext(UserContext);
   const [showAddressForm, setShowAddressForm] = useState(false);
   const [edtAddress, setedtAddress] = useState(null);
@@ -26,7 +26,7 @@ export default function Profile({
     addAddress(
       (address = { ...address, fav: "false", usps: null }),
       loggedInUser.id
-    );
+    ).then((address) => updateAddress(address));
     setShowAddressForm(false);
   };
   const cancelAddressChange = () => {
@@ -34,11 +34,16 @@ export default function Profile({
   };
   const editAddressinDB = (address) => {
     setShowAddressForm(false);
-    editAddressMain(loggedInUser.id, (address = { ...address }));
+    editAddressMain(
+      loggedInUser.id,
+      (address = { ...address })
+    ).then((address) => updateAddress(address));
     setedtAddress(null);
   };
   const delAddress = (addId) => {
-    deleteAddress(loggedInUser.id, addId);
+    deleteAddress(loggedInUser.id, addId).then((address) =>
+      updateAddress(address)
+    );
   };
 
   const editAddress = (address) => {
@@ -47,15 +52,21 @@ export default function Profile({
   };
 
   const setFavAdd = (id) => {
-    setFavAddress(loggedInUser.id, id);
+    setFavAddress(loggedInUser.id, id).then((address) =>
+      updateAddress(address)
+    );
   };
 
   const uspsUpdate = (address) => {
-    editAddressMain(loggedInUser.id, address);
+    editAddressMain(loggedInUser.id, address).then((address) =>
+      updateAddress(address)
+    );
   };
 
   const sendCard = (card) => {
-    addCard((card = { ...card, fav: "false" }), loggedInUser.id);
+    addCard((card = { ...card, fav: "false" }), loggedInUser.id).then((card) =>
+      updateCard(card)
+    );
     setShowCardForm(false);
   };
   const cancelCardChange = () => {
@@ -64,21 +75,22 @@ export default function Profile({
   const editCardinDB = (card) => {
     // console.log(address);
     setShowCardForm(false);
-    editCardMain(loggedInUser.id, (card = { ...card }));
+    editCardMain(loggedInUser.id, (card = { ...card })).then((card) =>
+      updateCard(card)
+    );
     setedtCard(null);
   };
   const delCard = (addId) => {
-    deleteCard(loggedInUser.id, addId);
+    deleteCard(loggedInUser.id, addId).then((card) => updateCard(card));
   };
 
   const editCard = (card) => {
     setedtCard(card);
-
     setShowCardForm(true);
   };
 
   const setFavCrd = (id) => {
-    setFavCard(loggedInUser.id, id);
+    setFavCard(loggedInUser.id, id).then((card) => updateCard(card));
   };
 
   const savedAddresses =
